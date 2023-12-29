@@ -35,7 +35,7 @@ e2e/*.map
 # .NET Core build folders
 bin/
 obj/
-SubjectMatterExpertBackend/SubjectMatterExpertAPI/.vs/SubjectMatterExpertAPI/FileContentIndex/*.vsidx
+/SubjectMatterExpertBackend/.vs/
 
 # Common node modules locations
 /node_modules
