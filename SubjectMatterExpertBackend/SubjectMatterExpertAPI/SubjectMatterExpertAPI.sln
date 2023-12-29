@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubjectMatterExpertBackend", "SubjectMatterExpertBackend\SubjectMatterExpertBackend.csproj", "{4A86FDAC-ADF8-432B-BA16-CBF0364B372D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubjectMatterExpertAPI", "SubjectMatterExpertAPI\SubjectMatterExpertAPI.csproj", "{94060A88-267E-4B91-99F8-15D43BA4CAEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4A86FDAC-ADF8-432B-BA16-CBF0364B372D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A86FDAC-ADF8-432B-BA16-CBF0364B372D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A86FDAC-ADF8-432B-BA16-CBF0364B372D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A86FDAC-ADF8-432B-BA16-CBF0364B372D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94060A88-267E-4B91-99F8-15D43BA4CAEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94060A88-267E-4B91-99F8-15D43BA4CAEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94060A88-267E-4B91-99F8-15D43BA4CAEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94060A88-267E-4B91-99F8-15D43BA4CAEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {8B3A260A-5675-449B-8319-D5AD082C8D3D}
+		SolutionGuid = {FBCB2D67-83CE-40DC-A1FA-EC5EC3A08C3D}
 	EndGlobalSection
 EndGlobal

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace SubjectMatterExpertBackend.Controllers
+namespace SubjectMatterExpertAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]

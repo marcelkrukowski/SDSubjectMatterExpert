@@ -1,4 +1,4 @@
-namespace SubjectMatterExpertBackend
+namespace SubjectMatterExpertAPI
 {
     public class WeatherForecast
     {
