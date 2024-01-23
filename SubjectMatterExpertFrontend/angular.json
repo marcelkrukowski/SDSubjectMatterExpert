@@ -30,7 +30,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/@sdworx/sdwds-styling/css/themes/default/main.min.css",
+              "node_modules/@sdworx/sdwds-icons/css/main.min.css"
             ],
             "scripts": []
           },
