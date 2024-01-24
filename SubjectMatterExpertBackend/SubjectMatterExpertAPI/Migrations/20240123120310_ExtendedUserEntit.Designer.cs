@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SubjectMatterExpertAPI.Data;
 
@@ -11,9 +12,11 @@ using SubjectMatterExpertAPI.Data;
 namespace SubjectMatterExpertAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240123120310_ExtendedUserEntit")]
+    partial class ExtendedUserEntit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,47 +24,6 @@ namespace SubjectMatterExpertAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("SubjectMatterExpertAPI.Models.Colleague", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("SessionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SessionId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Colleagues");
-                });
-
-            modelBuilder.Entity("SubjectMatterExpertAPI.Models.Session", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SubTopic")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Topic")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sessions");
-                });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.TimeSlot", b =>
                 {
@@ -77,7 +39,7 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -136,56 +98,15 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("SubjectMatterExpertAPI.Models.Colleague", b =>
-                {
-                    b.HasOne("SubjectMatterExpertAPI.Models.Session", "Session")
-                        .WithMany("Colleagues")
-                        .HasForeignKey("SessionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Session");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("SubjectMatterExpertAPI.Models.Session", b =>
-                {
-                    b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
-                        .WithMany("Sessions")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.TimeSlot", b =>
                 {
-                    b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
+                    b.HasOne("SubjectMatterExpertAPI.Models.User", null)
                         .WithMany("TimeSlots")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("SubjectMatterExpertAPI.Models.Session", b =>
-                {
-                    b.Navigation("Colleagues");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.User", b =>
                 {
-                    b.Navigation("Sessions");
-
                     b.Navigation("TimeSlots");
                 });
 #pragma warning restore 612, 618
