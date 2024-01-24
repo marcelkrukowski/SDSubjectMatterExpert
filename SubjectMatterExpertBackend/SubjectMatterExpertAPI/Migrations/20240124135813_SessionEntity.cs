@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -10,23 +11,32 @@ namespace SubjectMatterExpertAPI.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<DateTime>(
+                name: "AvailableDate",
+                table: "TimeSlots",
+                type: "date",
+                nullable: false,
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
             migrationBuilder.CreateTable(
                 name: "Sessions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Topic = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SubTopic = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    SubTopic = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sessions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Sessions_Users_Id",
-                        column: x => x.Id,
+                        name: "FK_Sessions_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -35,8 +45,9 @@ namespace SubjectMatterExpertAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SessionId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    first_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    last_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SessionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,12 +58,6 @@ namespace SubjectMatterExpertAPI.Migrations
                         principalTable: "Sessions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Colleagues_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -61,8 +66,8 @@ namespace SubjectMatterExpertAPI.Migrations
                 column: "SessionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Colleagues_UserId",
-                table: "Colleagues",
+                name: "IX_Sessions_UserId",
+                table: "Sessions",
                 column: "UserId");
         }
 
@@ -74,6 +79,10 @@ namespace SubjectMatterExpertAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "Sessions");
+
+            migrationBuilder.DropColumn(
+                name: "AvailableDate",
+                table: "TimeSlots");
         }
     }
 }

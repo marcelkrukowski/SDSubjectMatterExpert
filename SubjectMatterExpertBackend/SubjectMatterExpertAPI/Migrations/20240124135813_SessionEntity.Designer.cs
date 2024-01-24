@@ -12,7 +12,7 @@ using SubjectMatterExpertAPI.Data;
 namespace SubjectMatterExpertAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240123145000_SessionEntity")]
+    [Migration("20240124135813_SessionEntity")]
     partial class SessionEntity
     {
         /// <inheritdoc />
@@ -36,14 +36,17 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.Property<int>("SessionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("first_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("last_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SessionId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Colleagues");
                 });
@@ -51,7 +54,10 @@ namespace SubjectMatterExpertAPI.Migrations
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Session", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("SubTopic")
                         .IsRequired()
@@ -61,7 +67,12 @@ namespace SubjectMatterExpertAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Sessions");
                 });
@@ -73,6 +84,9 @@ namespace SubjectMatterExpertAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AvailableDate")
+                        .HasColumnType("date");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
@@ -147,23 +161,15 @@ namespace SubjectMatterExpertAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Session");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Session", b =>
                 {
                     b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
                         .WithMany("Sessions")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");

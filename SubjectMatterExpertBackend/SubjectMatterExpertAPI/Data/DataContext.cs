@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SubjectMatterExpertAPI.Extensions;
 using SubjectMatterExpertAPI.Models;
+using System.ComponentModel;
 using System.Text.RegularExpressions;
 
 namespace SubjectMatterExpertAPI.Data
@@ -15,14 +17,18 @@ namespace SubjectMatterExpertAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Session>()
-                .HasOne(s => s.User)
-                .WithMany(u => u.Sessions)
-                .HasForeignKey(s => s.Id)
-                .OnDelete(DeleteBehavior.Restrict);
           
 
 
+        }
+
+        protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+        {
+
+            base.ConfigureConventions(builder);
+            builder.Properties<DateOnly>()
+                   .HaveConversion<Extensions.DateOnlyConverter, DateOnlyComparer>()
+                   .HaveColumnType("date");
         }
     }
 }
