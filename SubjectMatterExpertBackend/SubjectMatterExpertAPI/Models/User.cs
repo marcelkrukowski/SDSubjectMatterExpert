@@ -10,10 +10,14 @@
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string Email { get; set; }
-        public int SMEId { get; set; }
-        public SME SME { get; set; }
-        public int AgileCoachId { get; set; }
-        public AgileCoach AgileCoach { get; set; }
+        public bool IsSME { get; set; }
+        public string? Languages { get; set; }
+        public string? Location { get; set; }
+        public string? AreaOfExpertise { get; set; }
+        public List<TimeSlot>? TimeSlots { get; set; } = new List<TimeSlot>();
+        public List<Session>? Sessions { get; set; } = new List<Session>();
+        public int? AgileCoachId { get; set; }
+        public AgileCoach? AgileCoach { get; set; }
         
 
         

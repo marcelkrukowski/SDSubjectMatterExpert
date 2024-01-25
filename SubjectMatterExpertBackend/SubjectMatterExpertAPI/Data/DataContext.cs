@@ -2,6 +2,7 @@
 using SubjectMatterExpertAPI.Extensions;
 using SubjectMatterExpertAPI.Models;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
 namespace SubjectMatterExpertAPI.Data
@@ -13,17 +14,12 @@ namespace SubjectMatterExpertAPI.Data
         }
         
         public DbSet<User> Users { get; set; }
-        public DbSet<SME> SMEs { get; set; }
-    
-
+        public DbSet<AgileCoach> AgileCoaches { get; set; }
+        public DbSet<Session> Sessions { get; set; }
+        public DbSet<Colleague> Colleagues { get; set; }
+        public DbSet<TimeSlot> TimeSlots { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
-                .HasOne(u => u.SME)
-                .WithOne(s => s.User)
-                .HasForeignKey<SME>(s => s.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
-
             modelBuilder.Entity<AgileCoach>()
                 .HasOne(a => a.User)
                 .WithOne()
@@ -37,30 +33,6 @@ namespace SubjectMatterExpertAPI.Data
                 .HasForeignKey(u => u.AgileCoachId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-
-            modelBuilder.Entity<TimeSlot>()
-                .HasOne(ts => ts.AgileCoach)
-                .WithMany(ac => ac.TimeSlots)
-                .HasForeignKey(ts => ts.AgileCoachId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<TimeSlot>()
-                 .HasOne(ts => ts.SME)
-                 .WithMany(sme => sme.TimeSlots)
-                 .HasForeignKey(ts => ts.SMEId)
-                 .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Session>()
-                .HasOne(ts => ts.AgileCoach)
-                .WithMany(ac => ac.Sessions)
-                .HasForeignKey(ts => ts.AgileCoachId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Session>()
-                 .HasOne(ts => ts.SME)
-                 .WithMany(sme => sme.Sessions)
-                 .HasForeignKey(ts => ts.SMEId)
-                 .OnDelete(DeleteBehavior.Restrict);
 
         }
 

@@ -1,0 +1,90 @@
+﻿{
+
+  "users": [
+    {
+      "Username": "exampleUser",
+      "Firstname": "John",
+      "Lastname": "Doe",
+      "Email": "john.doe@example.com",
+      "IsSME": true,
+      "Languages": "English, Spanish",
+      "Location": "City, Country",
+      "AreaOfExpertise": "Programming",
+      "TimeSlots": [
+        {
+
+          "AvailableDate": "2024-01-25",
+          "StartTime": "2024-01-25T08:00:00",
+          "EndTime": "2024-01-25T12:00:00"
+        },
+        {
+
+          "AvailableDate": "2024-01-26",
+          "StartTime": "2024-01-25T08:00:00",
+          "EndTime": "2024-01-25T12:00:00"
+        }
+      ],
+      "Sessions": [
+        {
+
+          "Topic": "Agile Principles",
+          "SubTopic": "Scrum",
+          "Colleagues": [
+            {
+
+              "FirstName": "ColleagueFirstName",
+              "LastName": "ColleagueLastName"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Username": "exampleUser2",
+      "Firstname": "Jane",
+      "Lastname": "Brick",
+      "Email": "jjane.brick@example.com",
+      "IsSME": false,
+      "Languages": "English, Polish",
+      "Location": "Poland, Katowice",
+      "AreaOfExpertise": "Programming, Designing",
+      "TimeSlots": [
+        {
+
+          "AvailableDate": "2024-01-25",
+          "StartTime": "2024-01-25T08:00:00",
+          "EndTime": "2024-01-25T12:00:00"
+        },
+        {
+
+          "AvailableDate": "2024-01-26",
+          "StartTime": "2024-01-25T08:00:00",
+          "EndTime": "2024-01-25T12:00:00"
+        }
+      ],
+      "Sessions": [
+        {
+
+          "Topic": "Agile Principles",
+          "SubTopic": "Scrum",
+          "Colleagues": [
+            {
+
+              "FirstName": "ColleagueFirstName",
+              "LastName": "ColleagueLastName"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "agileCoaches": [
+    {
+      "UserId":  1
+    }
+  ]
+}
+ 
+  
+  

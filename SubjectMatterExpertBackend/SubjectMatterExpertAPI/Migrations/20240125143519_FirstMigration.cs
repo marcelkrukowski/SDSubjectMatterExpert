@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SubjectMatterExpertAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class firstMigration : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,10 +17,7 @@ namespace SubjectMatterExpertAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Languages = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AreaOfExpertise = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -39,8 +36,11 @@ namespace SubjectMatterExpertAPI.Migrations
                     Firstname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Lastname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SMEId = table.Column<int>(type: "int", nullable: false),
-                    AgileCoachId = table.Column<int>(type: "int", nullable: false)
+                    IsSME = table.Column<bool>(type: "bit", nullable: false),
+                    Languages = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AreaOfExpertise = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AgileCoachId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -54,35 +54,6 @@ namespace SubjectMatterExpertAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SMEs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Languages = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AreaOfExpertise = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    AgileCoachId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SMEs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SMEs_AgileCoaches_AgileCoachId",
-                        column: x => x.AgileCoachId,
-                        principalTable: "AgileCoaches",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SMEs_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Sessions",
                 columns: table => new
                 {
@@ -90,24 +61,17 @@ namespace SubjectMatterExpertAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Topic = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SubTopic = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SMEId = table.Column<int>(type: "int", nullable: false),
-                    AgileCoachId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sessions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Sessions_AgileCoaches_AgileCoachId",
-                        column: x => x.AgileCoachId,
-                        principalTable: "AgileCoaches",
+                        name: "FK_Sessions_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Sessions_SMEs_SMEId",
-                        column: x => x.SMEId,
-                        principalTable: "SMEs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -119,24 +83,17 @@ namespace SubjectMatterExpertAPI.Migrations
                     AvailableDate = table.Column<DateTime>(type: "date", nullable: false),
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SMEId = table.Column<int>(type: "int", nullable: false),
-                    AgileCoachId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TimeSlots", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TimeSlots_AgileCoaches_AgileCoachId",
-                        column: x => x.AgileCoachId,
-                        principalTable: "AgileCoaches",
+                        name: "FK_TimeSlots_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_TimeSlots_SMEs_SMEId",
-                        column: x => x.SMEId,
-                        principalTable: "SMEs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -145,8 +102,8 @@ namespace SubjectMatterExpertAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    first_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    last_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SessionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -164,7 +121,8 @@ namespace SubjectMatterExpertAPI.Migrations
                 name: "IX_AgileCoaches_UserId",
                 table: "AgileCoaches",
                 column: "UserId",
-                unique: true);
+                unique: true,
+                filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Colleagues_SessionId",
@@ -172,35 +130,14 @@ namespace SubjectMatterExpertAPI.Migrations
                 column: "SessionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sessions_AgileCoachId",
+                name: "IX_Sessions_UserId",
                 table: "Sessions",
-                column: "AgileCoachId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sessions_SMEId",
-                table: "Sessions",
-                column: "SMEId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SMEs_AgileCoachId",
-                table: "SMEs",
-                column: "AgileCoachId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SMEs_UserId",
-                table: "SMEs",
-                column: "UserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TimeSlots_AgileCoachId",
+                name: "IX_TimeSlots_UserId",
                 table: "TimeSlots",
-                column: "AgileCoachId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TimeSlots_SMEId",
-                table: "TimeSlots",
-                column: "SMEId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_AgileCoachId",
@@ -231,9 +168,6 @@ namespace SubjectMatterExpertAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "Sessions");
-
-            migrationBuilder.DropTable(
-                name: "SMEs");
 
             migrationBuilder.DropTable(
                 name: "Users");
