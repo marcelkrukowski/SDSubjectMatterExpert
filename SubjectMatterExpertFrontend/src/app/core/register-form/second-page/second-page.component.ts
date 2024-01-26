@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {RegisterFormService} from "../register-form.service";
 import {Router} from "@angular/router";
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-second-page',
@@ -8,7 +9,10 @@ import {Router} from "@angular/router";
   styleUrls: ['./second-page.component.scss'],
 })
 export class SecondPageComponent {
-  constructor(public formService: RegisterFormService, private router: Router) {}
+  public form: FormGroup<any>;
+  constructor(public formService: RegisterFormService, private router: Router) {
+    this.form = this.formService.getForm();
+  }
 
   submitForm(): void {
     this.router.navigate(['/register-final']);
