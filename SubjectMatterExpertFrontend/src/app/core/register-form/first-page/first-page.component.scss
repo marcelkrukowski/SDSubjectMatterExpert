@@ -1,0 +1,93 @@
+.card-container {
+  background: #E94E0F;
+  background-image: url(~src/app/assets/hero_photos/Hero_Domain_8.jpg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+
+  .card {
+    background-color: #ffffff;
+    border-radius: 2rem;
+    padding: 2rem;
+    box-shadow: 8px 8px 30px -1px rgba(66, 68, 90, 1);
+    text-align: center;
+    min-width: 30vw;
+
+    h2 {
+      margin-bottom: 3rem;
+      margin-top: 2rem;
+      color: #555D71;
+    }
+
+    form {
+      .form-group {
+        margin-bottom: 1.6rem;
+      }
+
+      label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        text-align: left;
+        font-size: 1.2rem;
+      }
+
+      input {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid black;
+        border-radius: 0.5rem;
+        box-sizing: border-box;
+        box-shadow: 8px 6px 17px -11px rgba(66, 68, 90, 1);
+      }
+
+      button {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        padding: 0.5rem 4rem;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:disabled {
+          background-color: #ccc;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    @media (max-width: 1920px) {
+      min-width: 50vw;
+    }
+  }
+}
+
+.card-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(233, 78, 15, 0.3);
+}
+
+.error {
+  visibility: hidden;
+  margin-top: 1rem;
+}
+
+.error-displayed {
+  color: darkred;
+  visibility: visible;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+
