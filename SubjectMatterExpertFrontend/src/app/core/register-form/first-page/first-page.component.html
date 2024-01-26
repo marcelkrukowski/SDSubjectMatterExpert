@@ -1,0 +1,12 @@
+<div>
+  <h2>Page 1</h2>
+  <form [formGroup]="form">
+    <label>Email:</label>
+    <input type="text" formControlName="email" />
+    <label>Password:</label>
+    <input type="text" formControlName="password" />
+    <label>Repeat password:</label>
+    <input type="text" formControlName="repeatPassword" />
+    <button type="button" (click)="nextPage()" [disabled]="!(isEmailValid && isPassValid && isRepeatPassValid)">Next</button>
+  </form>
+</div>

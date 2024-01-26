@@ -1,0 +1,10 @@
+<div>
+  <h2>Page 2</h2>
+  <form [formGroup]="this.formService.getForm()">
+    <label>Name:</label>
+    <input type="text" formControlName="name" />
+    <!-- Add similar input field for surname -->
+
+    <button type="button" (click)="submitForm()">Submit Application</button>
+  </form>
+</div>
