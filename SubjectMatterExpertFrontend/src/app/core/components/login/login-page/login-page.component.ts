@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ServiceLoginService } from 'src/app/core/services/service-login.service';
 
 @Component({
   selector: 'app-login',
@@ -9,23 +9,35 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class LoginPageComponent implements OnInit {
 
-  loginForm? : FormGroup;
+  loginForm?: FormGroup;
 
   constructor(
-    private formBuilder : FormBuilder
-  ){
+    private formBuilder: FormBuilder,
+    private serviceLoginService: ServiceLoginService,
+  ) {
 
   }
 
-  ngOnInit():void{
+  ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email:['', Validators.required],
-      password:['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
     })
   }
 
-  login(){
-    console.log("Login Form: ", this.loginForm?.value);
-  }
+login() {
+  
+    if (this.loginForm?.valid) {
+        console.log("Login Form: ", this.loginForm.value);
+        this.serviceLoginService.request('login', 'post', this.loginForm.value).subscribe((result: { [key: string]: any }) => {
+            console.log("Login results: ", result);
+        });
+    } else {
+        console.error("Invalid form. Please fill in all required fields.");
+    }
+}
+
+  
+
 
 }

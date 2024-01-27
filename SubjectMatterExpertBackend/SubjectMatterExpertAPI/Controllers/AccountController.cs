@@ -27,7 +27,13 @@ namespace SubjectMatterExpertAPI.Controllers
             {
                 Username = registerDto.Username.ToLower(),
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key
+                PasswordSalt = hmac.Key,
+                AreaOfExpertise = registerDto.AreaOfExpertise.ToLower(),
+                Email = registerDto.Email.ToLower(),
+                Firstname = registerDto.Firstname.ToLower(),
+                Languages = registerDto.Languages.ToLower(),
+                Lastname = registerDto.Lastname.ToLower(),
+                Location = registerDto.Location.ToLower(),
             };
 
             _context.Users.Add(user);
