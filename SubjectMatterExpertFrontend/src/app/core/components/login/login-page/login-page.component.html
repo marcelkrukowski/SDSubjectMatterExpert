@@ -1,0 +1,31 @@
+<div class="card-container">
+    <div class="card">
+      <h2>Login</h2>
+      <form [formGroup]="loginForm" *ngIf="loginForm">
+        <div class="form-group">
+          <label>Email:</label>
+          <input type="text" formControlName="email" placeholder="Enter your email..."/>
+        </div>
+        <div class="form-group">
+          <label>Password:</label>
+          <input type="password" formControlName="password" placeholder="Enter your password..."/>
+        </div>
+
+        <div class="form-group">
+            <p class="forgot-password-link">
+                <a href="#">Forgot Password?</a>
+              </p>
+        </div>
+
+        <button class="btn btn-primary btn-lg" aria-label="Login button" (click)="login()">Login</button>
+
+        <div class="form-group">
+            <p class="sign-up">
+                <span class="not-registered-text">Not registered yet?</span>
+                <a href="#">Sign up</a>
+            </p>
+        </div>
+        
+      </form>
+    </div>
+  </div>
