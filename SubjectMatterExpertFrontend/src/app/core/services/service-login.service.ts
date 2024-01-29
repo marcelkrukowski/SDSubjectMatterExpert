@@ -11,7 +11,7 @@ export class ServiceLoginService {
   constructor(private http: HttpClient) { }
 
   endpoints: { [endpoint: string]: string | any } = {
-    login : `${this.baseURL}api/Account/login`
+    login : `${this.baseURL}api/Account/login`,
   }
 
 

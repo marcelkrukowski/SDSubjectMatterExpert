@@ -49,9 +49,9 @@ namespace SubjectMatterExpertAPI.Controllers
         [HttpPost("login")] // POST: api/account/login
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == loginDto.Username);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == loginDto.Email);
 
-            if (user == null) return Unauthorized("Invalid username!");
+            if (user == null) return Unauthorized("Invalid email!");
 
             using var hmac = new HMACSHA512(user.PasswordSalt);
 
@@ -65,7 +65,14 @@ namespace SubjectMatterExpertAPI.Controllers
             return new UserDto
             {
                 Username = user.Username,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                AreaOfExpertise = user.AreaOfExpertise,
+                Email = user.Email,
+                Firstname = user.Firstname,
+                Languages = user.Languages,
+                Lastname = user.Lastname,
+                Location = user.Location
+
             };
         }
         private async Task<bool> UserExists(string username)
