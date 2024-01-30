@@ -7,12 +7,14 @@ import { LoginPageComponent } from './core/components/login/login-page/login-pag
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HomePageComponent } from './core/components/homepage/home-page/home-page.component';
+import { ForgotPasswordComponent } from './core/components/forgotPassword-page/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
