@@ -12,6 +12,7 @@ namespace SubjectMatterExpertAPI.Extensions
             services.AddDbContext<DataContext>(
                 options => options.UseSqlServer(config.GetConnectionString("DevConnection")));
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }

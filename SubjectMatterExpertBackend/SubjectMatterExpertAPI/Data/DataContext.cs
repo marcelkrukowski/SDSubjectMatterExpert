@@ -18,6 +18,8 @@ namespace SubjectMatterExpertAPI.Data
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Colleague> Colleagues { get; set; }
         public DbSet<TimeSlot> TimeSlots { get; set; }
+        public DbSet<Report> Reports { get; set; }
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AgileCoach>()
@@ -32,6 +34,12 @@ namespace SubjectMatterExpertAPI.Data
                 .WithMany(ac => ac.ManagedUsers)
                 .HasForeignKey(u => u.AgileCoachId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Request>()
+                .HasOne(r => r.User)
+                .WithOne(u => u.Request)
+                .HasForeignKey<Request>(r => r.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
 
         }

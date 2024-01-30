@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SubjectMatterExpertAPI.Data;
 
@@ -11,9 +12,11 @@ using SubjectMatterExpertAPI.Data;
 namespace SubjectMatterExpertAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240129133706_RequestEntity")]
+    partial class RequestEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,8 +111,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("AgileCoachId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Request");
                 });
@@ -152,6 +154,7 @@ namespace SubjectMatterExpertAPI.Migrations
                         .HasColumnType("date");
 
                     b.Property<string>("BookedBy")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndTime")
@@ -271,8 +274,8 @@ namespace SubjectMatterExpertAPI.Migrations
                         .IsRequired();
 
                     b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
-                        .WithOne("Request")
-                        .HasForeignKey("SubjectMatterExpertAPI.Models.Request", "UserId")
+                        .WithMany("Requests")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -329,7 +332,7 @@ namespace SubjectMatterExpertAPI.Migrations
                 {
                     b.Navigation("Reports");
 
-                    b.Navigation("Request");
+                    b.Navigation("Requests");
 
                     b.Navigation("Sessions");
 

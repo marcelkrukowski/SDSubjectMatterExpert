@@ -11,5 +11,6 @@ namespace SubjectMatterExpertAPI.Models
         public string LastName { get; set; }
         public int SessionId { get; set; }
         public Session Session { get; set; }
+       
     }
 }

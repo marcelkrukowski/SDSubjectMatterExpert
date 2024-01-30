@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SubjectMatterExpertAPI.Data;
+using SubjectMatterExpertAPI.Interfaces;
 using SubjectMatterExpertAPI.Models;
 
 namespace SubjectMatterExpertAPI.Controllers
@@ -9,24 +10,21 @@ namespace SubjectMatterExpertAPI.Controllers
     [Authorize]
     public class UsersController : BaseApiController
     {
-        private readonly DataContext _context;
-        public UsersController(DataContext context)
+        private readonly IUserRepository _userRepository;
+
+        public UsersController(IUserRepository userRepository)
         {
-            _context = context;
+            _userRepository = userRepository;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers() 
+        [HttpGet("smes")]
+        public async Task<ActionResult<IEnumerable<User>>> GetSMEs() 
         {
-            var users = await _context.Users.ToListAsync();
-            return users;
+            return Ok(await _userRepository.GetSMEsAsync());
+         
         }
 
-        [HttpGet("{id}")] // api/users/2
-        public async Task<ActionResult<User>> GetUser(int id)
-        {
-            return await _context.Users.FindAsync(id);
-        }
+     
 
     }
 
