@@ -13,6 +13,7 @@ namespace SubjectMatterExpertAPI.Extensions
                 options => options.UseSqlServer(config.GetConnectionString("DevConnection")));
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;
         }

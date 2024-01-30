@@ -18,6 +18,6 @@ namespace SubjectMatterExpertAPI.DTOs
         public List<SessionDto> Sessions { get; set; }
         public List<ReportDto>? Reports { get; set; }
         public RequestDto Request { get; set; }
-        public AgileCoachDto AgileCoach { get; set; }
+        public int? AgileCoachId { get; set; }
     }
 }

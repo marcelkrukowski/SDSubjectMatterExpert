@@ -15,7 +15,11 @@ namespace SubjectMatterExpertAPI.Data
         public async Task<IEnumerable<User>> GetSMEsAsync()
         {
 
-            return await _context.Users.Where(u => u.IsSME == true).ToListAsync();
+            return await _context.Users
+                .Where(u => u.IsSME == true)
+                .Include(ts => ts.TimeSlots)
+                .Include(s => s.Sessions)
+                .ToListAsync();
         }
     }
 }

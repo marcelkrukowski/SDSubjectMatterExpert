@@ -76,12 +76,108 @@
           ]
         }
       ]
+    },
+    {
+      "Username": "exampleUser3",
+      "Firstname": "Marcel",
+      "Lastname": "Krukowski",
+      "Email": "marcel.krukowski@sdworx.com",
+      "IsSME": true,
+      "Languages": "English, Polish",
+      "Location": "Poland, Katowice",
+      "AreaOfExpertise": "Programming",
+      "TimeSlots": [
+        {
+
+          "AvailableDate": "2024-01-26",
+          "StartTime": "2024-01-26T08:00:00",
+          "EndTime": "2024-01-26T12:00:00"
+        },
+        {
+
+          "AvailableDate": "2024-01-27",
+          "StartTime": "2024-01-27T08:00:00",
+          "EndTime": "2024-01-27T12:00:00"
+        }
+      ],
+      "Sessions": [
+        {
+
+          "Topic": "Agile",
+          "SubTopic": "Kanban",
+          "Colleagues": [
+            {
+
+              "FirstName": "Filip",
+              "LastName": "Cichowski"
+            },
+            {
+
+              "FirstName": "Koushal",
+              "LastName": "Oodith"
+            },
+            {
+
+              "FirstName": "Henish",
+              "LastName": "Nobeen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Username": "exampleUser3",
+      "Firstname": "Koushal",
+      "Lastname": "Oodith",
+      "Email": "koushal@gmail.com",
+      "IsSME": true,
+      "Languages": "English",
+      "Location": "Mauritius",
+      "AreaOfExpertise": "Programming",
+      "TimeSlots": [
+        {
+
+          "AvailableDate": "2024-01-26",
+          "StartTime": "2024-01-26T08:00:00",
+          "EndTime": "2024-01-26T12:00:00"
+        },
+        {
+
+          "AvailableDate": "2024-01-27",
+          "StartTime": "2024-01-27T08:00:00",
+          "EndTime": "2024-01-27T12:00:00"
+        }
+      ],
+      "Sessions": [
+        {
+
+          "Topic": "Agile",
+          "SubTopic": "Kanban",
+          "Colleagues": [
+            {
+
+              "FirstName": "Filip",
+              "LastName": "Cichowski"
+            },
+            {
+
+              "FirstName": "Koushal",
+              "LastName": "Oodith"
+            },
+            {
+
+              "FirstName": "Henish",
+              "LastName": "Nobeen"
+            }
+          ]
+        }
+      ]
     }
   ],
 
   "agileCoaches": [
     {
-      "UserId":  1
+      "UserId": 1
     }
   ]
 }
