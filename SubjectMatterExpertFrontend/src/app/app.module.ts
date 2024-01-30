@@ -3,20 +3,22 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginPageComponent } from './core/components/login/login-page/login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NavbarComponent } from './components/nav/navbar/navbar.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HomePageComponent } from './core/components/homepage/home-page/home-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    NavbarComponent,
+    LoginPageComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule  //To use external API
   ],
   providers: [],
   bootstrap: [AppComponent]
