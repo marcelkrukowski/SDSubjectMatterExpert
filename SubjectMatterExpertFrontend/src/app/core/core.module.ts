@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { CoreRoutingModule } from './core-routing.module';
 import { CoreComponent } from './core.component';
-import { RegisterFormComponent } from './register-form/register-form.component';
-import { FirstPageComponent } from './register-form/first-page/first-page.component';
-import { SecondPageComponent } from './register-form/second-page/second-page.component';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { FirstPageComponent } from './components/register-form/first-page/first-page.component';
+import { SecondPageComponent } from './components/second-page/second-page.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import { FinalPageComponent } from './register-form/final-page/final-page.component';
+import { FinalPageComponent } from './components/register-form/final-page/final-page.component';
 
 
 @NgModule({

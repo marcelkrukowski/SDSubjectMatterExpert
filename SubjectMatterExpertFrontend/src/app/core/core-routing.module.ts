@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CoreComponent } from './core.component';
-import {RegisterFormComponent} from "./register-form/register-form.component";
-import {FirstPageComponent} from "./register-form/first-page/first-page.component";
-import {SecondPageComponent} from "./register-form/second-page/second-page.component";
-import {FinalPageComponent} from "./register-form/final-page/final-page.component";
+import {RegisterFormComponent} from "./components/register-form/register-form.component";
+import {FirstPageComponent} from "./components/register-form/first-page/first-page.component";
+import {SecondPageComponent} from "./components/second-page/second-page.component";
+import {FinalPageComponent} from "./components/register-form/final-page/final-page.component";
 
 const routes: Routes = [
   // { path: 'register', redirectTo: '/register-first-page', pathMatch: "full"},
