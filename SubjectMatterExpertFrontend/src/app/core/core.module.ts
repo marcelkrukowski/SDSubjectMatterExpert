@@ -8,6 +8,7 @@ import { FirstPageComponent } from './components/register-form/first-page/first-
 import { SecondPageComponent } from './components/second-page/second-page.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { FinalPageComponent } from './components/register-form/final-page/final-page.component';
+import { SmeListComponent } from './components/sme-list/sme-list.component';
 
 
 @NgModule({
@@ -16,7 +17,11 @@ import { FinalPageComponent } from './components/register-form/final-page/final-
     RegisterFormComponent,
     FirstPageComponent,
     SecondPageComponent,
-    FinalPageComponent
+    FinalPageComponent,
+    SmeListComponent
+  ],
+  exports: [
+    SmeListComponent
   ],
   imports: [
     CommonModule,

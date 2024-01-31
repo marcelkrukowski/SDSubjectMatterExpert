@@ -1,0 +1,162 @@
+body {
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.search-container,
+.filter-container {
+  margin-bottom: 20px;
+
+  input,
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-bottom: 10px;
+  }
+}
+
+.sme-listing {
+  margin-bottom: 20px;
+}
+
+.sme-item {
+  &:last-child {
+    border-bottom: none;
+  }
+
+  img {
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+}
+
+.sme-details {
+  margin-left: 1rem;
+}
+
+.sme-action-book {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2rem;
+  align-items: end;
+  flex-grow: 1;
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 0.6rem;
+  }
+}
+
+.pagination {
+  text-align: right;
+  font-size: 14px;
+}
+
+.sme-card {
+  border-radius: 15px;
+  //border: 1px solid gray;
+  box-shadow: 8px 8px 24px -11px rgba(66, 68, 90, 1);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+
+.sme-avatar {
+  width: 8rem;
+  margin: 0 1rem;
+  border-radius: 50%;
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.book-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .sme-card {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sme-details,
+  .sme-action-book {
+    width: 100%;
+    align-items: center;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+  }
+
+  .sme-avatar {
+    margin: 0 auto 15px;
+  }
+
+  .book-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    span {
+      margin-top: 1rem; // Spacing below availability span
+    }
+  }
+
+  .sme-action-book button {
+    margin-top: 0.6rem;
+  }
+
+  .btn {
+    width: auto;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sme-avatar {
+    width: 6rem; // Adjust avatar size for smaller screens
+  }
+
+  h1 {
+    font-size: 1.5rem; // Adjust heading size for smaller screens
+  }
+
+  h2 {
+    font-size: 0.9rem; // Adjust subheading size for smaller screens
+  }
+}
