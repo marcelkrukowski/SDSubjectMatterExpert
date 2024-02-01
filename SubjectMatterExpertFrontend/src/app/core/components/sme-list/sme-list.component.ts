@@ -110,8 +110,18 @@ export class SmeListComponent implements OnInit {
   itemHeight = 280; // Height of each item in pixels
   isPaginationEnabled = true;
 
+  isMobile: boolean = window.innerWidth <= 768;
+  sidebarVisible: boolean = !this.isMobile;
+
+  toggleSidebar() {
+    console.log('clicked')
+    this.sidebarVisible = !this.sidebarVisible;
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
+    this.isMobile = window.innerWidth <= 768;
+    this.sidebarVisible = !this.isMobile;
     this.adjustPageSize();
     this.adjustPagination();
   }

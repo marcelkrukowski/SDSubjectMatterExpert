@@ -3,6 +3,22 @@ body {
   margin: 0;
 }
 
+.mobile-header {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.hamburger-menu {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
 .list-container {
   display: flex;
   flex-direction: column;
@@ -109,56 +125,17 @@ h2 {
   align-items: center;
 }
 
-@media (max-width: 768px) {
-  .sme-card {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .sme-details,
-  .sme-action-book {
-    width: 100%;
-    align-items: center;
-    margin-left: 0;
-    margin-right: 0;
-    text-align: center;
-  }
-
-  .sme-avatar {
-    margin: 0 auto 15px;
-  }
-
-  .book-container {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    span {
-      margin-top: 1rem; // Spacing below availability span
-    }
-  }
-
-  .sme-action-book button {
-    margin-top: 0.6rem;
-  }
-
-  .btn {
-    width: auto;
-    padding: 10px;
-  }
-}
-
 @media (max-width: 480px) {
   .sme-avatar {
-    width: 6rem; // Adjust avatar size for smaller screens
+    width: 6rem;
   }
 
   h1 {
-    font-size: 1.5rem; // Adjust heading size for smaller screens
+    font-size: 1.5rem;
   }
 
   h2 {
-    font-size: 0.9rem; // Adjust subheading size for smaller screens
+    font-size: 0.9rem;
   }
 }
 
@@ -185,5 +162,71 @@ h2 {
   }
   & ng-select {
     margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .sme-card {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sme-details,
+  .sme-action-book {
+    width: 100%;
+    align-items: center;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+  }
+
+  .sme-avatar {
+    margin: 0 auto 15px;
+  }
+
+  .book-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    span {
+      margin-top: 1rem;
+    }
+  }
+
+  .sme-action-book button {
+    margin-top: 0.6rem;
+  }
+
+  .btn {
+    width: auto;
+    padding: 10px;
+  }
+
+  .mobile-header {
+    display: flex;
+  }
+
+  .options-container {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: visibility 0s linear 0.5s, opacity 0.5s ease, transform 0.5s ease;
+    position: absolute;
+    background: white;
+    width: 100vw;
+    box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+
+    &.visible {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0s;
+    }
+  }
+
+  .page-container {
+    flex-direction: column;
   }
 }

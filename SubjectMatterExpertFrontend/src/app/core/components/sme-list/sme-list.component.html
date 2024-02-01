@@ -1,3 +1,8 @@
+<div class="mobile-header" *ngIf="isMobile">
+  <button class="hamburger-menu" (click)="toggleSidebar()">
+    ☰
+  </button>
+</div>
 <div class="page-container">
   <div class="list-container">
     <div class="header">SME List</div>
@@ -28,7 +33,7 @@
       <button (click)="nextPage()" class="btn btn-link">Next</button>
     </div>
   </div>
-  <div class="options-container">
+  <div class="options-container" [ngClass]="{'visible': sidebarVisible}">
     <div class="search-container">
       <div class="search-box">
         <label class="form-label" >Search</label>
