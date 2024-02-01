@@ -6,10 +6,10 @@ import { CoreComponent } from './core.component';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { FirstPageComponent } from './components/register-form/first-page/first-page.component';
 import { SecondPageComponent } from './components/second-page/second-page.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { FinalPageComponent } from './components/register-form/final-page/final-page.component';
 import { SmeListComponent } from './components/sme-list/sme-list.component';
-
+import {NgSelectModule} from "@ng-select/ng-select";
 
 @NgModule({
   declarations: [
@@ -26,7 +26,10 @@ import { SmeListComponent } from './components/sme-list/sme-list.component';
   imports: [
     CommonModule,
     CoreRoutingModule,
-    ReactiveFormsModule
+    NgSelectModule,
+    ReactiveFormsModule,
+    FormsModule
+
   ]
 })
 export class CoreModule { }

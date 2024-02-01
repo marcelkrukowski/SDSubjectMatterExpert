@@ -21,7 +21,7 @@ body {
 }
 
 .search-container,
-.filter-container {
+.options-container {
   margin-bottom: 20px;
 
   input,
@@ -175,6 +175,15 @@ h2 {
   display: flex;
 }
 
-.filter-container {
-  width: 500px;
+.options-container {
+  min-width: 15vw;
+  padding: 2rem;
+  & label {
+    font-weight: 500;
+    color: #555D71;
+    margin-bottom: 1rem;
+  }
+  & ng-select {
+    margin-bottom: 1rem;
+  }
 }

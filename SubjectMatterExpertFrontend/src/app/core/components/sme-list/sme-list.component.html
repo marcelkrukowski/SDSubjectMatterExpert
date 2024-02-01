@@ -28,7 +28,17 @@
       <button (click)="nextPage()" class="btn btn-link">Next</button>
     </div>
   </div>
-  <div class="filter-container">
-      rest
+  <div class="options-container">
+    <div class="search-container">
+      <div class="search-box">
+        <label class="form-label" >Search</label>
+        <input type="search" class="form-control" id="txtSearch" placeholder="Search..." />
+      </div>
+    </div>
+    <div class="filter-container">
+      <label>Filter Option</label>
+      <ng-select [items]="movies" bindLabel="name" bindValue="id" [(ngModel)]="selectedMovie"> </ng-select>
+      <ng-select [items]="movies" bindLabel="name" bindValue="id" [(ngModel)]="selectedMovie"> </ng-select>
+    </div>
   </div>
 </div>

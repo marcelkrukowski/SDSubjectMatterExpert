@@ -94,6 +94,15 @@ export class SmeListComponent implements OnInit {
     },
   ];
 
+  selectedMovie = 1;
+
+  movies = [
+    { id: 1, name: 'Pulp Fiction' },
+    { id: 2, name: 'Reservoir Dogs'},
+    { id: 3, name: 'Django Unchained' },
+    { id: 4, name: 'Jackie Brown' },
+  ];
+
   paginatedSmeList: SME[] = [];
   currentPage = 0;
   pageSize = 3; // Initial value, will be recalculated
