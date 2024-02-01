@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { SME } from './sme.model';
 
 @Component({
@@ -8,114 +8,43 @@ import { SME } from './sme.model';
 })
 export class SmeListComponent implements OnInit {
   smeList: SME[] = [
-    {
-      name: 'Henish Nobeen',
-      title: 'Associate Engineer',
-      expertise: '.net, angular JS',
-      availability: 'Available'
-    },
-    {
-      name: 'Jacek Nowak',
-      title: 'Pro Engineer',
-      expertise: 'angular JS',
-      availability: 'Available'
-    },
-    {
-      name: 'Jacek Nowak',
-      title: 'Pro Engineer',
-      expertise: 'angular JS',
-      availability: 'Available'
-    },
-    {
-      name: 'Jacek Nowak',
-      title: 'Pro Engineer',
-      expertise: 'angular JS',
-      availability: 'Available'
-    },
-    {
-      name: 'Jacek Nowak',
-      title: 'Pro Engineer',
-      expertise: 'angular JS',
-      availability: 'Available'
-    },
-    {
-      name: 'Jacek Nowak',
-      title: 'Pro Engineer',
-      expertise: 'angular JS',
-      availability: 'Available'
-    },
-    {
-      name: 'Jacek Nowak',
-      title: 'Pro Engineer',
-      expertise: 'angular JS',
-      availability: 'Available'
-    },
-    {
-      name: 'Jacek Nowak',
-      title: 'Pro Engineer',
-      expertise: 'angular JS',
-      availability: 'Available'
-    },
-    {
-      name: 'Jacek Nowak',
-      title: 'Pro Engineer',
-      expertise: 'angular JS',
-      availability: 'Available'
-    },
-    {
-      name: 'Jacek Nowak',
-      title: 'Pro Engineer',
-      expertise: 'angular JS',
-      availability: 'Available'
-    },
-    {
-      name: 'Jacek Nowak',
-      title: 'Pro Engineer',
-      expertise: 'angular JS',
-      availability: 'Available'
-    },
-    {
-      name: 'Jacek Nowak',
-      title: 'Pro Engineer',
-      expertise: 'angular JS',
-      availability: 'Available'
-    },
-    {
-      name: 'Jacek Nowak',
-      title: 'Pro Engineer',
-      expertise: 'angular JS',
-      availability: 'Available'
-    },
-    {
-      name: 'Jacek Nowak',
-      title: 'Pro Engineer',
-      expertise: 'angular JS',
-      availability: 'Available'
-    },
+    { name: 'Henish Nobeen', title: 'Associate Engineer', expertise: '.net, angular JS', availability: 'Available' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
   ];
 
   selectedMovie = 1;
-
   movies = [
     { id: 1, name: 'Pulp Fiction' },
-    { id: 2, name: 'Reservoir Dogs'},
+    { id: 2, name: 'Reservoir Dogs' },
     { id: 3, name: 'Django Unchained' },
     { id: 4, name: 'Jackie Brown' },
   ];
 
   paginatedSmeList: SME[] = [];
   currentPage = 0;
-  pageSize = 3; // Initial value, will be recalculated
+  pageSize = 3; // Initial value, adjustable based on screen size
   totalPages = 0;
-  itemHeight = 280; // Height of each item in pixels
   isPaginationEnabled = true;
+  isMobile: boolean;
+  sidebarVisible: boolean;
 
-  isMobile: boolean = window.innerWidth <= 768;
-  sidebarVisible: boolean = !this.isMobile;
+  constructor() {
+    this.isMobile = window.innerWidth <= 768;
+    this.sidebarVisible = !this.isMobile;
+  }
 
-  toggleSidebar() {
-    console.log('clicked')
-    this.sidebarVisible = !this.sidebarVisible;
+  ngOnInit() {
+    this.adjustPageSize();
+    this.adjustPagination();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -126,36 +55,16 @@ export class SmeListComponent implements OnInit {
     this.adjustPagination();
   }
 
-  ngOnInit() {
-    this.adjustPageSize();
-    this.adjustPagination();
-  }
-
   adjustPageSize() {
-    const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
-
-    if (viewportWidth < 768) {
-      this.isPaginationEnabled = false;
-      this.pageSize = this.smeList.length; // Set pageSize to full list length
-    } else {
-      this.pageSize = Math.floor(viewportHeight / this.itemHeight);
-      this.isPaginationEnabled = this.pageSize < this.smeList.length;
-    }
+    this.pageSize = this.isMobile ? this.smeList.length : Math.floor(viewportHeight / 280); // 280 is item height
+    this.isPaginationEnabled = this.pageSize < this.smeList.length;
   }
 
   adjustPagination() {
     this.totalPages = Math.ceil(this.smeList.length / this.pageSize);
-
-    if (this.currentPage >= this.totalPages) {
-      this.currentPage = Math.max(this.totalPages - 1, 0);
-    }
-
-    if (this.isPaginationEnabled) {
-      this.paginate();
-    } else {
-      this.paginatedSmeList = this.smeList; // Show all items if pagination is disabled
-    }
+    this.currentPage = Math.max(0, Math.min(this.currentPage, this.totalPages - 1));
+    this.paginate();
   }
 
   paginate() {
@@ -176,5 +85,9 @@ export class SmeListComponent implements OnInit {
       this.currentPage++;
       this.paginate();
     }
+  }
+
+  toggleSidebar() {
+    this.sidebarVisible = !this.sidebarVisible;
   }
 }

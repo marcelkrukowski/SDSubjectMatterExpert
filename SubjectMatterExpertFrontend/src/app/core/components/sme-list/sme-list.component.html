@@ -1,21 +1,25 @@
+<!-- Mobile Header -->
 <div class="mobile-header" *ngIf="isMobile">
-  <button class="hamburger-menu" (click)="toggleSidebar()">
+  <button class="hamburger-menu" (click)="toggleSidebar()" aria-label="Toggle Sidebar">
     ☰
   </button>
 </div>
+
+<!-- Page Container -->
 <div class="page-container">
-  <div class="list-container">
-    <div class="header">SME List</div>
+  <!-- List Container -->
+  <section class="list-container">
+    <header class="list-header">SME List</header>
     <div class="flex-container">
-      <div class="sme-container">
-        <div *ngFor="let sme of paginatedSmeList" class="sme-card">
-          <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Sam" alt="Avatar" class="sme-avatar">
+      <section class="sme-container" *ngFor="let sme of paginatedSmeList">
+        <article class="sme-card">
+          <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Sam" alt="{{ sme.name }} Avatar" class="sme-avatar">
           <div class="sme-details">
             <h1>{{ sme.name }}</h1>
             <h2>{{ sme.title }}</h2>
             <p>Subject Matter Expert in Product</p>
             <p>Expertise: {{ sme.expertise }}</p>
-            <button class="btn btn-secondary ">View Profile</button>
+            <button class="btn btn-secondary">View Profile</button>
           </div>
           <div class="sme-action-book">
             <div class="book-container">
@@ -23,27 +27,31 @@
               <button class="btn btn-primary">Book Meeting</button>
             </div>
           </div>
-        </div>
-      </div>
+        </article>
+      </section>
     </div>
-    <div class="pagination" *ngIf="isPaginationEnabled">
-      <!-- Pagination Buttons -->
+    <!-- Pagination -->
+    <nav class="pagination" *ngIf="isPaginationEnabled">
       <button (click)="previousPage()" class="btn btn-link">Previous</button>
       <span>{{ currentPage + 1 }} / {{ totalPages }}</span>
       <button (click)="nextPage()" class="btn btn-link">Next</button>
-    </div>
-  </div>
-  <div class="options-container" [ngClass]="{'visible': sidebarVisible}">
+    </nav>
+  </section>
+
+  <!-- Options Container -->
+  <aside class="options-container" [ngClass]="{'visible': sidebarVisible}">
+    <!-- Search Box -->
     <div class="search-container">
       <div class="search-box">
-        <label class="form-label" >Search</label>
-        <input type="search" class="form-control" id="txtSearch" placeholder="Search..." />
+        <label for="txtSearch" class="form-label">Search</label>
+        <input type="search" class="form-control" id="txtSearch" placeholder="Search...">
       </div>
     </div>
+    <!-- Filter Container -->
     <div class="filter-container">
-      <label>Filter Option</label>
-      <ng-select [items]="movies" bindLabel="name" bindValue="id" [(ngModel)]="selectedMovie"> </ng-select>
-      <ng-select [items]="movies" bindLabel="name" bindValue="id" [(ngModel)]="selectedMovie"> </ng-select>
+      <label for="filterOption">Filter Option</label>
+      <ng-select id="filterOption" [items]="movies" bindLabel="name" bindValue="id" [(ngModel)]="selectedMovie"></ng-select>
+      <ng-select id="filterOption2" [items]="movies" bindLabel="name" bindValue="id" [(ngModel)]="selectedMovie"></ng-select>
     </div>
-  </div>
+  </aside>
 </div>
