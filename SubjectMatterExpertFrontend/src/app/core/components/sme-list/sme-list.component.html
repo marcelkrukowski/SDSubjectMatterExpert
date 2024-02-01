@@ -1,8 +1,9 @@
-<div class="container">
-  <div class="header">SME List</div>
-  <div class="flex-container">
-    <div class="sme-container">
-      <div *ngFor="let sme of smeList" class="sme-card">
+<div class="page-container">
+  <div class="list-container">
+    <div class="header">SME List</div>
+    <div class="flex-container">
+      <div class="sme-container">
+        <div *ngFor="let sme of paginatedSmeList" class="sme-card">
           <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Sam" alt="Avatar" class="sme-avatar">
           <div class="sme-details">
             <h1>{{ sme.name }}</h1>
@@ -17,23 +18,17 @@
               <button class="btn btn-primary">Book Meeting</button>
             </div>
           </div>
+        </div>
       </div>
     </div>
-<!--    <div class="search-filter-container">-->
-<!--      <div class="search-container">-->
-<!--        <input type="text" placeholder="Search...">-->
-<!--      </div>-->
-<!--      <div class="filter-container">-->
-<!--        <select>-->
-<!--          <option>Area of expertise</option>-->
-<!--        </select>-->
-<!--        <select>-->
-<!--          <option>Country</option>-->
-<!--        </select>-->
-<!--      </div>-->
-<!--    </div>-->
+    <div class="pagination" *ngIf="isPaginationEnabled">
+      <!-- Pagination Buttons -->
+      <button (click)="previousPage()" class="btn btn-link">Previous</button>
+      <span>{{ currentPage + 1 }} / {{ totalPages }}</span>
+      <button (click)="nextPage()" class="btn btn-link">Next</button>
+    </div>
   </div>
-<!--  <div class="pagination">-->
-<!--    1...10 <i class="fas fa-angle-double-right"></i>-->
-<!--  </div>-->
+  <div class="filter-container">
+      rest
+  </div>
 </div>

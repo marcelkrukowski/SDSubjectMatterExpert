@@ -1,15 +1,16 @@
 body {
   background-color: #f4f4f4;
   margin: 0;
-  padding: 20px;
 }
 
-.container {
-  max-width: 1200px;
-  margin: auto;
+.list-container {
+  display: flex;
+  flex-direction: column;
   background: #fff;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 100vh;
+  flex-grow: 1;
 }
 
 .header {
@@ -159,4 +160,21 @@ h2 {
   h2 {
     font-size: 0.9rem; // Adjust subheading size for smaller screens
   }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+}
+
+.flex-container {
+  flex-grow: 1;
+}
+
+.page-container {
+  display: flex;
+}
+
+.filter-container {
+  width: 500px;
 }
