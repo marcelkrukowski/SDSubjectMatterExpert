@@ -16,7 +16,7 @@ import { FinalPageComponent } from './components/register-form/final-page/final-
     RegisterFormComponent,
     FirstPageComponent,
     SecondPageComponent,
-    FinalPageComponent
+    FinalPageComponent,
   ],
   imports: [
     CommonModule,

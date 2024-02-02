@@ -10,13 +10,15 @@ import { HomePageComponent } from './core/components/homepage/home-page/home-pag
 import { ForgotPasswordComponent } from './core/components/forgotPassword-page/forgot-password/forgot-password.component';
 import {SharedModule} from "./shared/shared.module";
 import {CoreModule} from "./core/core.module";
+import { ProfilePageComponent } from './core/components/profile/profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
     HomePageComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ProfilePageComponent
   ],
   imports: [
     BrowserModule,
