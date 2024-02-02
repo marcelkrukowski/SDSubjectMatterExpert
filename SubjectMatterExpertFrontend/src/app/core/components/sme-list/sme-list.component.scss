@@ -215,7 +215,7 @@ h2 {
   }
 
   .options-container {
-    visibility: hidden;
+    //visibility: hidden;
     opacity: 0;
     transform: translateY(-20px);
     transition: visibility 0s linear 0.5s, opacity 0.5s ease, transform 0.5s ease;

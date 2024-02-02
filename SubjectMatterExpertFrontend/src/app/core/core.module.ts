@@ -10,6 +10,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { FinalPageComponent } from './components/register-form/final-page/final-page.component';
 import { SmeListComponent } from './components/sme-list/sme-list.component';
 import {NgSelectModule} from "@ng-select/ng-select";
+import { SmeBookMeetingComponent } from './sme-book-meeting/sme-book-meeting.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -18,18 +20,20 @@ import {NgSelectModule} from "@ng-select/ng-select";
     FirstPageComponent,
     SecondPageComponent,
     FinalPageComponent,
-    SmeListComponent
+    SmeListComponent,
+    SmeBookMeetingComponent
   ],
   exports: [
-    SmeListComponent
+    SmeListComponent,
+    SmeBookMeetingComponent
   ],
   imports: [
     CommonModule,
     CoreRoutingModule,
     NgSelectModule,
     ReactiveFormsModule,
-    FormsModule
-
+    FormsModule,
+    NgbModule
   ]
 })
 export class CoreModule { }
