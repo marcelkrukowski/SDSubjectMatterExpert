@@ -14,14 +14,14 @@
         {
 
           "AvailableDate": "2024-01-25",
-          "StartTime": "2024-01-25T08:00:00",
-          "EndTime": "2024-01-25T12:00:00"
+          "StartTime": "08:00:00",
+          "EndTime": "12:00:00"
         },
         {
 
           "AvailableDate": "2024-01-26",
-          "StartTime": "2024-01-25T08:00:00",
-          "EndTime": "2024-01-25T12:00:00"
+          "StartTime": "08:00:00",
+          "EndTime": "12:00:00"
         }
       ],
       "Sessions": [
@@ -52,14 +52,14 @@
         {
 
           "AvailableDate": "2024-01-25",
-          "StartTime": "2024-01-25T08:00:00",
-          "EndTime": "2024-01-25T12:00:00"
+          "StartTime": "08:00:00",
+          "EndTime": "12:00:00"
         },
         {
 
           "AvailableDate": "2024-01-26",
-          "StartTime": "2024-01-25T08:00:00",
-          "EndTime": "2024-01-25T12:00:00"
+          "StartTime": "08:00:00",
+          "EndTime": "12:00:00"
         }
       ],
       "Sessions": [
@@ -90,14 +90,14 @@
         {
 
           "AvailableDate": "2024-01-26",
-          "StartTime": "2024-01-26T08:00:00",
-          "EndTime": "2024-01-26T12:00:00"
+          "StartTime": "08:00:00",
+          "EndTime": "12:00:00"
         },
         {
 
           "AvailableDate": "2024-01-27",
-          "StartTime": "2024-01-27T08:00:00",
-          "EndTime": "2024-01-27T12:00:00"
+          "StartTime": "08:00:00",
+          "EndTime": "12:00:00"
         }
       ],
       "Sessions": [
@@ -138,14 +138,14 @@
         {
 
           "AvailableDate": "2024-01-26",
-          "StartTime": "2024-01-26T08:00:00",
-          "EndTime": "2024-01-26T12:00:00"
+          "StartTime": "08:00:00",
+          "EndTime": "12:00:00"
         },
         {
 
           "AvailableDate": "2024-01-27",
-          "StartTime": "2024-01-27T08:00:00",
-          "EndTime": "2024-01-27T12:00:00"
+          "StartTime": "08:00:00",
+          "EndTime": "12:00:00"
         }
       ],
       "Sessions": [

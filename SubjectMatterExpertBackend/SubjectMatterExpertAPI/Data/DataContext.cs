@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SubjectMatterExpertAPI.Extensions;
 using SubjectMatterExpertAPI.Models;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.RegularExpressions;
+
 
 namespace SubjectMatterExpertAPI.Data
 {
@@ -51,6 +49,10 @@ namespace SubjectMatterExpertAPI.Data
             builder.Properties<DateOnly>()
                    .HaveConversion<Extensions.DateOnlyConverter, DateOnlyComparer>()
                    .HaveColumnType("date");
+
+            builder.Properties<TimeOnly>()
+                    .HaveConversion<TimeOnlyConverter, TimeOnlyComparer>();
+
         }
     }
 }

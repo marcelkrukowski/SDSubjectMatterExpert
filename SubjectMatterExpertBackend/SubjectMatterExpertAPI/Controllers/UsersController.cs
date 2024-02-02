@@ -31,7 +31,33 @@ namespace SubjectMatterExpertAPI.Controllers
             return smesToReturn;
         }
 
-     
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserDto>> GetUser(int id)
+        {
+            var user = await _userRepository.GetUserByIdAsync(id);
+
+            var userToReturn = _mapper.Map<UserDto>(user);
+            return userToReturn;
+        }
+
+      
+        [HttpGet("{id}/agileCoach")]
+        public async Task<ActionResult<UserDto>> GetAgileCoachOfUser(int id)
+        {
+            var agileCoach = await _userRepository.GetAgileCoachOfUserAsync(id);
+
+            if (agileCoach == null)
+            {
+                return NotFound();
+            }
+
+
+            var agileCoachToReturn = _mapper.Map<UserDto>(agileCoach);
+           
+            return Ok(agileCoachToReturn);
+
+        }
+
 
     }
 

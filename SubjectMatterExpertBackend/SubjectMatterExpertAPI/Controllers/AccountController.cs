@@ -27,7 +27,13 @@ namespace SubjectMatterExpertAPI.Controllers
             {
                 Username = registerDto.Username.ToLower(),
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key
+                PasswordSalt = hmac.Key,
+                AreaOfExpertise = registerDto.AreaOfExpertise.ToLower(),
+                Email = registerDto.Email.ToLower(),
+                Firstname = registerDto.Firstname.ToLower(),
+                Languages = registerDto.Languages.ToLower(),
+                Lastname = registerDto.Lastname.ToLower(),
+                Location = registerDto.Location.ToLower(),
             };
 
             _context.Users.Add(user);
@@ -43,9 +49,9 @@ namespace SubjectMatterExpertAPI.Controllers
         [HttpPost("login")] // POST: api/account/login
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == loginDto.Username);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == loginDto.Email);
 
-            if (user == null) return Unauthorized("Invalid username!");
+            if (user == null) return Unauthorized("Invalid email!");
 
             using var hmac = new HMACSHA512(user.PasswordSalt);
 
@@ -59,15 +65,22 @@ namespace SubjectMatterExpertAPI.Controllers
             return new UserDto
             {
                 Username = user.Username,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                AreaOfExpertise = user.AreaOfExpertise,
+                Email = user.Email,
+                Firstname = user.Firstname,
+                Languages = user.Languages,
+                Lastname = user.Lastname,
+                Location = user.Location
+
             };
         }
         private async Task<bool> UserExists(string username)
         {
             return await _context.Users.AnyAsync(x => x.Username == username.ToLower());
-    }
+        }
 
     }
 
-    
+
 }

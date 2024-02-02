@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SubjectMatterExpertAPI.DTOs;
 using SubjectMatterExpertAPI.Interfaces;
 using SubjectMatterExpertAPI.Models;
 
@@ -12,6 +14,15 @@ namespace SubjectMatterExpertAPI.Data
         {
             _context = context;
         }
+
+        public async Task<User> GetUserByIdAsync(int id)
+        {
+            return await _context.Users
+                .Include(ts => ts.TimeSlots)
+                .Include(s => s.Sessions)
+                .FirstOrDefaultAsync(u => u.Id == id);
+        }
+
         public async Task<IEnumerable<User>> GetSMEsAsync()
         {
 
@@ -21,5 +32,31 @@ namespace SubjectMatterExpertAPI.Data
                 .Include(s => s.Sessions)
                 .ToListAsync();
         }
+
+        public async Task<User> GetAgileCoachOfUserAsync(int userId)
+        {
+            var agileCoachId = await _context.Users
+                .Where(u => u.Id == userId)
+                .Select(u => u.AgileCoachId)
+                .FirstOrDefaultAsync();
+
+            if (agileCoachId == null)
+            {
+                return null;
+            }
+
+            var agileCoachUserId = await _context.AgileCoaches
+                .Where(u => u.Id == agileCoachId)
+                .Select(u => u.UserId)
+                .FirstOrDefaultAsync();
+
+            var agileCoachUser = await _context.Users
+                .FirstOrDefaultAsync(u => u.Id == agileCoachUserId);
+
+            return agileCoachUser;
+        }
+
+
+
     }
 }
