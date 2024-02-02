@@ -25,7 +25,7 @@ import {CoreModule} from "./core/core.module";
     CoreModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule  //To use external API
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
