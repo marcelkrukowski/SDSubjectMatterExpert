@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SubjectMatterExpertAPI.Data;
 
@@ -11,9 +12,11 @@ using SubjectMatterExpertAPI.Data;
 namespace SubjectMatterExpertAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240126090945_ReportsEntity")]
+    partial class ReportsEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,30 +93,6 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.ToTable("Reports");
                 });
 
-            modelBuilder.Entity("SubjectMatterExpertAPI.Models.Request", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AgileCoachId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AgileCoachId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Request");
-                });
-
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Session", b =>
                 {
                     b.Property<int>("Id")
@@ -151,17 +130,11 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.Property<DateTime>("AvailableDate")
                         .HasColumnType("date");
 
-                    b.Property<string>("BookedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan>("EndTime")
-                        .HasColumnType("time");
-
-                    b.Property<bool?>("IsBooked")
-                        .HasColumnType("bit");
-
-                    b.Property<TimeSpan>("StartTime")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -262,25 +235,6 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SubjectMatterExpertAPI.Models.Request", b =>
-                {
-                    b.HasOne("SubjectMatterExpertAPI.Models.AgileCoach", "AgileCoach")
-                        .WithMany("Requests")
-                        .HasForeignKey("AgileCoachId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
-                        .WithOne("Request")
-                        .HasForeignKey("SubjectMatterExpertAPI.Models.Request", "UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("AgileCoach");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Session", b =>
                 {
                     b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
@@ -316,8 +270,6 @@ namespace SubjectMatterExpertAPI.Migrations
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.AgileCoach", b =>
                 {
                     b.Navigation("ManagedUsers");
-
-                    b.Navigation("Requests");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Session", b =>
@@ -328,8 +280,6 @@ namespace SubjectMatterExpertAPI.Migrations
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.User", b =>
                 {
                     b.Navigation("Reports");
-
-                    b.Navigation("Request");
 
                     b.Navigation("Sessions");
 
