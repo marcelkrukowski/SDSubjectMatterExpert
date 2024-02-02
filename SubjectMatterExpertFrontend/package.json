@@ -22,6 +22,9 @@
     "@sdworx/sdwds": "^17.0.0",
     "@sdworx/sdwds-icons": "^6.1.1",
     "@sdworx/sdwds-styling": "^6.2.2",
+    "@ng-bootstrap/ng-bootstrap": "^16.0.0",
+    "@sdworx/sdwds-icons": "^6.1.1",
+    "@sdworx/sdwds-styling": "^6.2.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

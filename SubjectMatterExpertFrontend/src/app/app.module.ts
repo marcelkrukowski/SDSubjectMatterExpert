@@ -3,20 +3,29 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginPageComponent } from './core/components/login/login-page/login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NavbarComponent } from './components/nav/navbar/navbar.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HomePageComponent } from './core/components/homepage/home-page/home-page.component';
+import { ForgotPasswordComponent } from './core/components/forgotPassword-page/forgot-password/forgot-password.component';
+import {SharedModule} from "./shared/shared.module";
+import {CoreModule} from "./core/core.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    NavbarComponent,
+    LoginPageComponent,
+    HomePageComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    SharedModule,
+    CoreModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule  //To use external API
   ],
   providers: [],
   bootstrap: [AppComponent]
