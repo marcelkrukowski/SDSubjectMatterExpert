@@ -1,0 +1,21 @@
+<!-- <app-sidenav></app-sidenav>
+<app-body-template></app-body-template> -->
+
+<div class="container">
+  <h2>Home Page</h2>
+  <div class="menu-icon">
+    <i (click)="onShowSidenav()" class="icons8-o-align-justify"></i>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4" *ngFor="let card of cards">
+      <div class="card mb-4" (click)="navigateTo(card.route)">
+        <img [src]="card.imageSrc" class="card-img-top" alt="{{ card.title }} Image">
+        <div class="card-body">
+          <h5 class="card-title">{{ card.title }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    

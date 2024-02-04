@@ -1,0 +1,121 @@
+.container-fluid{
+    display: flex;
+}
+
+.sidenav{
+    background-color: white;
+    // transition: width 0.3s;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    width: 5rem;
+    height: 100%;
+}
+
+.logo-container{
+    display: flex;
+    align-items: center;
+    padding-top: 1.5rem;
+    padding-left: 1rem;
+    width: 100%;
+}
+
+.logo-img img {
+    width: 10rem;
+    height: auto;
+    padding-left: 0.5rem;
+  }
+
+.btn-open-close{
+    margin-left: auto;
+    width: 2rem;
+    height: 2rem;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+}
+
+.btn-open-close:hover {
+    color: #ed703d;
+}
+
+.sidenav-collapsed{
+    width: 16rem;
+}
+
+.sidenavbar{
+    list-style: none;
+    // padding: 1.5rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding-top: 2rem;
+}
+
+.sidenavbar-item{
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.sidenavbar-link{
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    color: black;
+    transition: color .5s;
+}
+
+.sidenavbar-icon{
+    font-size: 22px;
+    min-width: 2rem;
+    height: 2rem;
+    text-align: center;
+}
+
+.sidenavbar-link-text{
+    margin-right: 1.5rem;
+}
+
+.link-active{
+    background-color: #f9d2c3;
+    
+    .sidenavbar-icon{
+        color: black;
+    }
+
+    .sidenavbar-link-text{
+        color: black;
+    }
+
+    border-right: 5px solid #ed703d;
+}
+
+.sidenavbar-item:hover{
+    .sidenavbar-link{
+        background-color: #f9d2c3;
+        color: black;
+    }
+}
+
+@media (max-width: 1025px) {
+    .container-fluid {
+      display: none !important;;
+    }
+  }
+
+// // @media (max-width: 1025px) {
+// //     .container-fluid {
+// //         display: none !important; /* Adding !important to ensure this style takes precedence */
+// //     }
+// //     .menu-icon {
+// //         display: block;
+// //     }
+// // } 
+
+// // @media screen and (max-width: 1025px) {
+// //     .container-fluid {
+// //         display: none;
+// //     }
+// //   }
