@@ -52,16 +52,8 @@ export class LoginPageComponent implements OnInit {
           // Check for specific HTTP error status codes
           if (error.status === 401) {
             // Unauthorized error (e.g., incorrect credentials)
-            console.error('Login unsuccessful:', error);
-
-            if (error.error.includes('Invalid email!')){
-              this.errorMessage = 'Incorrect email!';
-            }
-            if (error.error.includes('Invalid password!')){
-              this.errorMessage = 'Incorrect password!';
-            }
-
-            
+            console.error('Login unsuccessful:', error);    
+              this.errorMessage = 'Incorrect credentials!';        
           }
           else if (error.status === 500) {
             // Internal server error
