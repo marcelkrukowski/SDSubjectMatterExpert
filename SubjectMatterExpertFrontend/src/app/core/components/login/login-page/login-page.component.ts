@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
-import { ServiceLoginService } from 'src/app/core/services/service-login.service';
+import { ServiceLoginService } from 'src/app/core/services/api.service';
 import { ServiceStorageService } from 'src/app/core/services/service-storage.service';
 
 @Component({
@@ -36,14 +36,12 @@ export class LoginPageComponent implements OnInit {
     // Check if the form is valid before attempting to log in
     if (this.loginForm?.valid) {
       this.serviceLoginService.request('login', 'post', this.loginForm?.value).subscribe((result: { [key: string]: any }) => {
-          console.log("Login results: ", result);
-          //this.serviceStorageService.set('SMEuser', result);    
 
           if (result) {         
-            // this.serviceStorageService.set('SMEuser', result['SMEuser']);
-            this.serviceStorageService.set('SMEuser', result['SMEuser']);
+            console.log("Login results: ", result);
+            this.serviceStorageService.set('SMEuser', result); 
             console.log("Testing storage service", this.serviceStorageService.get('SMEuser')?.location);
-            
+    
             // Successful login logic
             // Navigate to the homepage
             this.router.navigate(['/profile']);

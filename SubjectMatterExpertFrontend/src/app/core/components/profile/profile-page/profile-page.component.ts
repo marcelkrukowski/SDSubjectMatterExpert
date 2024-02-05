@@ -1,7 +1,7 @@
 import { style } from '@angular/animations';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ServiceLoginService } from 'src/app/core/services/service-login.service';
+import { ServiceLoginService } from 'src/app/core/services/api.service';
 import { ServiceStorageService } from 'src/app/core/services/service-storage.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -36,11 +36,8 @@ export class ProfilePageComponent {
       timeSlots: ['', Validators.required],
 
     })
-
-    // this.currentID = this.activatedRoute.snapshot.paramMap.get('id');
-    // console.log('User id: ', this.currentID);
+    //call method to get user details
     this.getUserDetails();
-
   }
 
   submitSMEForm() {
@@ -82,10 +79,8 @@ export class ProfilePageComponent {
 
   //Method to get current user details for profile
   getUserDetails() {
-
     this.serviceLoginService.request('profile', 'get').subscribe((result: any) => {
       console.log('User Datails results: ', result);
-
       this.currentID = this.storageService.get('SMEuser')?.id;
       this.firstName = this.storageService.get('SMEuser')?.firstname;
       this.lastName = this.storageService.get('SMEuser')?.lastname;
