@@ -28,6 +28,8 @@ export class LoginPageComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     })
+
+    
   }
 
   login() {
@@ -35,14 +37,16 @@ export class LoginPageComponent implements OnInit {
     if (this.loginForm?.valid) {
       this.serviceLoginService.request('login', 'post', this.loginForm?.value).subscribe((result: { [key: string]: any }) => {
           console.log("Login results: ", result);
-          this.serviceStorageService.set('SMEuser', result);    
+          //this.serviceStorageService.set('SMEuser', result);    
 
           if (result) {         
+            // this.serviceStorageService.set('SMEuser', result['SMEuser']);
+            this.serviceStorageService.set('SMEuser', result['SMEuser']);
             console.log("Testing storage service", this.serviceStorageService.get('SMEuser')?.location);
             
             // Successful login logic
             // Navigate to the homepage
-            this.router.navigate(['/homepage']);
+            this.router.navigate(['/profile']);
           }
         },
         // Handle any errors from the HTTP request

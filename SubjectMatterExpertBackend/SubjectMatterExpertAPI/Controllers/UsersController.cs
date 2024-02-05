@@ -6,7 +6,7 @@ using SubjectMatterExpertAPI.Models;
 
 namespace SubjectMatterExpertAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class UsersController : BaseApiController
     {
         private readonly DataContext _context;

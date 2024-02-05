@@ -1,6 +1,10 @@
 import { style } from '@angular/animations';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ServiceLoginService } from 'src/app/core/services/service-login.service';
+import { ServiceStorageService } from 'src/app/core/services/service-storage.service';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-profile-page',
@@ -9,15 +13,22 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ProfilePageComponent {
 
- SMEForm?: FormGroup;
+  SMEForm?: FormGroup;
   isEditing: boolean = false;
+  currentID: string | null = '';
+  firstName: string = '';
+  lastName: string = '';
+  email: string = '';
+  areaOfExpertise: string = '';
 
   constructor(
-    private formBuilder: FormBuilder
-  )
-  {}
+    private formBuilder: FormBuilder,
+    private serviceLoginService: ServiceLoginService,
+    private storageService: ServiceStorageService,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.SMEForm = this.formBuilder.group({
       areaOfExpertise: ['', Validators.required],
       location: ['', Validators.required],
@@ -25,9 +36,14 @@ export class ProfilePageComponent {
       timeSlots: ['', Validators.required],
 
     })
+
+    // this.currentID = this.activatedRoute.snapshot.paramMap.get('id');
+    // console.log('User id: ', this.currentID);
+    this.getUserDetails();
+
   }
 
-  submitSMEForm(){
+  submitSMEForm() {
     console.log("Login Form: ", this.SMEForm?.value);
   }
 
@@ -50,20 +66,37 @@ export class ProfilePageComponent {
 
   OpenModel() {
     const modelDiv = document.getElementById('myModal');
-    if(modelDiv!=null){
-      modelDiv.style.display = 'block';  
-    }
-  }
-  
-  
-  CloseModel(){
-    const modelDiv = document.getElementById('myModal');
-    if(modelDiv!=null){
-      modelDiv.style.display = 'none';  
+    if (modelDiv != null) {
+      modelDiv.style.display = 'block';
     }
   }
 
-  
+
+  CloseModel() {
+    const modelDiv = document.getElementById('myModal');
+    if (modelDiv != null) {
+      modelDiv.style.display = 'none';
+    }
+  }
+
+
+  //Method to get current user details for profile
+  getUserDetails() {
+
+    this.serviceLoginService.request('profile', 'get').subscribe((result: any) => {
+      console.log('User Datails results: ', result);
+
+      this.currentID = this.storageService.get('SMEuser')?.id;
+      this.firstName = this.storageService.get('SMEuser')?.firstname;
+      this.lastName = this.storageService.get('SMEuser')?.lastname;
+      this.email = this.storageService.get('SMEuser')?.email;
+      this.areaOfExpertise = this.storageService.get('SMEuser')?.areaOfExpertise;
+    });
+
+
+  }
+
+
 
 }
 

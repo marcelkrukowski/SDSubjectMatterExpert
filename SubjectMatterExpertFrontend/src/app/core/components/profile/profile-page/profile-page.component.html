@@ -25,13 +25,13 @@
           <div class="row mt-2">
             <h5 class="col-md-5 mt-4">Full Name</h5>
             <h5 class="col-md-5 mt-4 text-black-50" [contentEditable]="isEditing"
-              (input)="updateField('fullName', $event)">Henish Nobeen</h5>
+              (input)="updateField('fullName', $event)">{{ firstName }} {{ lastName }}</h5>
             <h5 class="col-md-5 mt-4">Email</h5>
             <h5 class="col-md-5 mt-4 text-black-50" [contentEditable]="isEditing" (input)="updateField('email', $event)">
-              HenishNobeen@sdworx.com</h5>
+              {{ email }}</h5>
             <h5 class="col-md-5 mt-4">Role</h5>
             <h5 class="col-md-5 mt-4 text-black-50" [contentEditable]="isEditing" (input)="updateField('role', $event)">
-              Associate Engineer</h5>
+              {{ areaOfExpertise }}</h5>
           </div>
   
           <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button"

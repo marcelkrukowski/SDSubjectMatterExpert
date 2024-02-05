@@ -12,6 +12,8 @@ export class ServiceLoginService {
 
   endpoints: { [endpoint: string]: string | any } = {
     login : `${this.baseURL}api/Account/login`,
+    profile : `${this.baseURL}api/Users`,
+
   }
 
 
@@ -23,4 +25,4 @@ export class ServiceLoginService {
   }
 }
 
-export type endpointType = 'login';
+export type endpointType = 'login' |'profile';

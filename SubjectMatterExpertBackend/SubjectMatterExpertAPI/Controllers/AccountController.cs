@@ -64,6 +64,7 @@ namespace SubjectMatterExpertAPI.Controllers
 
             return new UserDto
             {
+                Id = user.Id,
                 Username = user.Username,
                 Token = _tokenService.CreateToken(user),
                 AreaOfExpertise = user.AreaOfExpertise,
