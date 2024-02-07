@@ -20,6 +20,7 @@ namespace SubjectMatterExpertAPI.DTOs
         public string Lastname { get; set; }
         [Required]
         public string Location { get; set; }
+        public string Role { get; set; }
 
 
     }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
-import { ServiceLoginService } from 'src/app/core/services/api.service';
+import { apiService } from 'src/app/core/services/api.service';
 import { ServiceStorageService } from 'src/app/core/services/service-storage.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private serviceLoginService: ServiceLoginService,
+    private apiService: apiService,
     private serviceStorageService: ServiceStorageService,
     private router: Router
   ) {
@@ -35,7 +35,7 @@ export class LoginPageComponent implements OnInit {
   login() {
     // Check if the form is valid before attempting to log in
     if (this.loginForm?.valid) {
-      this.serviceLoginService.request('login', 'post', this.loginForm?.value).subscribe((result: { [key: string]: any }) => {
+      this.apiService.request('login', 'post', this.loginForm?.value).subscribe((result: { [key: string]: any }) => {
 
           if (result) {         
             console.log("Login results: ", result);

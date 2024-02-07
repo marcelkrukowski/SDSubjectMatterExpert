@@ -1,27 +1,41 @@
 <div class="" style="background-color: #E9EAED;">
 
-    <div class="container-sm rounded col-md-5">
-      <div class="row">
-  
-        <div class="p-3 py-5">
-  
-          <div class="d-flex justify-content-between align-items-center">
-            <h2 class="text-right">Personal Details</h2>
+  <div class="container-sm rounded col-md-5">
+    <div class="row">
+
+      <div class="p-3 py-5">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2 class="text-right">Personal Details</h2>
+        </div>
+
+        <a class="text-black-50" *ngIf="!isEditing" (click)="enableEditing()">Edit your personal details</a>
+        <a class="text-black-50" *ngIf="isEditing" (click)="saveChanges()">Save</a>
+
+
+        <div class="col-md-3 border-right">
+          <!-- <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></div> -->
+          <div class="d-flex flex-column align-items-center py-5">
+            <span class="avatar w-128 avatar-info">
+              <i class="icons8-o-contacts"></i>
+            </span>
           </div>
-  
-          <a class="text-black-50" *ngIf="!isEditing" (click)="enableEditing()">Edit your personal details</a>
-          <a class="text-black-50" *ngIf="isEditing" (click)="saveChanges()">Save</a>
-  
-  
-          <div class="col-md-3 border-right">
-            <!-- <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></div> -->
-            <div class="d-flex flex-column align-items-center py-5">
-              <span class="avatar w-128 avatar-info">
-                <i class="icons8-o-contacts"></i>
-              </span>
-            </div>
-          </div>
-  
+        </div>
+
+        <!-- <div class="row mt-2">
+            <h5 class="col-md-5 mt-4">Full Name</h5>
+            <h5 class="col-md-5 mt-4 text-black-50" [contentEditable]="isEditing"
+              (input)="updateField('fullName', $event)">{{ firstName }} {{ lastName }}</h5>
+            <h5 class="col-md-5 mt-4">Email</h5>
+            <h5 class="col-md-5 mt-4 text-black-50" [contentEditable]="isEditing" (input)="updateField('email', $event)">
+              {{ email }}</h5>
+            <h5 class="col-md-5 mt-4">Role</h5>
+            <h5 class="col-md-5 mt-4 text-black-50" [contentEditable]="isEditing" (input)="updateField('role', $event)">
+              {{ areaOfExpertise }}</h5>
+          </div> -->
+
+
+          
           <div class="row mt-2">
             <h5 class="col-md-5 mt-4">Full Name</h5>
             <h5 class="col-md-5 mt-4 text-black-50" [contentEditable]="isEditing"
@@ -33,84 +47,111 @@
             <h5 class="col-md-5 mt-4 text-black-50" [contentEditable]="isEditing" (input)="updateField('role', $event)">
               {{ areaOfExpertise }}</h5>
           </div>
-  
-          <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button"
-              (click)="OpenModel()">Apply For SME</button></div>
+
+        <!-- Display mode -->
+        <div *ngIf="!editMode">
+          <label class="form-label"><h5>Full Name </h5></label>
+          <span> <h5 class="text-black-50">{{ firstName }} </h5> </span>
+          <label class="form-label"><h5>Last Name </h5></label>
+          <span> <h5 class="text-black-50">{{ lastName }} </h5> </span>
+          <label class="form-label"><h5>Email</h5></label>
+          <span> <h5 class="text-black-50">{{ email }} </h5> </span>
+          <!-- <label class="form-label"><h5>Role </h5></label>
+          <span> <h5 class="text-black-50">{{ role }} </h5> </span> -->
         </div>
-  
-  
+
+        <!-- Edit mode -->
+        <form *ngIf="editMode" [formGroup]="profileForm">
+          <label for="editFullName" class="form-label">Edit Full Name </label>
+          <input type="text" formControlName="firstName" class="form-control" id="firstName">
+
+          <label for="editLastName" class="form-label">Edit Last Name</label>
+          <input type="text" formControlName="lastName" class="form-control" id="lastName">
+
+          <label for="editEmail" class="form-label">Edit Email</label>
+          <input type="text" formControlName="email" class="form-control" id="email">
+
+          <!-- <label for="editRole" class="form-label">Edit Role</label>
+          <input type="text" formControlName="role" class="form-control" id="role"> -->
+        </form>
+        
+        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button"
+            (click)="OpenModel()">Apply For SME</button></div>
       </div>
+
+
     </div>
   </div>
-  
-  
-  
-  
-  <!-- The Modal -->
-  <div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content card card-body">
-  
-  
-        <form *ngIf="SMEForm" [formGroup]="SMEForm">
-          <div class="form-group row mt-4">
-            <div class="col-md-6">
-  
-            </div>
-            <div class="col-md-6">
-              <h6 class="modal-title">SME Profile Registration Form</h6>
-              <a class="text-black-50">Please fill this form to register as an SME. Your Agile Coach will be notified to
-                approve or decline your
-                request.</a>
-            </div>
+</div>
+
+
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content card card-body">
+
+
+      <form *ngIf="SMEForm" [formGroup]="SMEForm">
+        <div class="form-group row mt-4">
+          <div class="col-md-6">
+
           </div>
-  
-          <!-- Area of expertise -->
-          <div class="form-group row mt-4">
-            <div class="col-md-6">
-              <label for="areaOfExpertise" class="form-label">Area OF Expertise <sup class="text-danger">*</sup></label>
-            </div>
-            <div class="col-md-6">
-              <input type="text" formControlName="areaOfExpertise" class="form-control" id="areaOfExpertise">
-            </div>
+          <div class="col-md-6">
+            <h6 class="modal-title">SME Profile Registration Form</h6>
+            <a class="text-black-50">Please fill this form to register as an SME. Your Agile Coach will be notified to
+              approve or decline your
+              request.</a>
           </div>
-  
-          <!-- Location -->
-          <div class="row mt-4">
-            <div class="col-md-6">
-              <label for="location" class="form-label">Location<sup class="text-danger">*</sup></label>
-            </div>
-            <div class="col-md-6">
-              <input type="text" formControlName="location" class="form-control" id="location">
-            </div>
+        </div>
+
+        <!-- Area of expertise -->
+        <div class="form-group row mt-4">
+          <div class="col-md-6">
+            <label for="areaOfExpertise" class="form-label">Area OF Expertise <sup class="text-danger">*</sup></label>
           </div>
-  
-          <!-- Languages -->
-          <div class="row mt-4">
-            <div class="col-md-6">
-              <label for="languages" class="form-label">Languages <sup class="text-danger">*</sup></label>
-            </div>
-            <div class="col-md-6">
-              <input type="text" formControlName="languages" class="form-control" id="languages">
-            </div>
+          <div class="col-md-6">
+            <input type="text" formControlName="areaOfExpertise" class="form-control" id="areaOfExpertise">
           </div>
-  
-          <!-- Time Slots -->
-          <div class="row mt-4">
-            <div class="col-md-6">
-              <label for="timeSlots" class="form-label">Available Time Slots <sup class="text-danger">*</sup></label>
-            </div>
-            <div class="col-md-6">
-              <input type="text" formControlName="timeSlots" class="form-control" id="timeSlots">
-            </div>
+        </div>
+
+        <!-- Location -->
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <label for="location" class="form-label">Location<sup class="text-danger">*</sup></label>
           </div>
-  
-  
-          <div class="row mt-4">
-  
-            <div class="col-md-6">
-  
-              <!-- <div class="dropdown">
+          <div class="col-md-6">
+            <input type="text" formControlName="location" class="form-control" id="location">
+          </div>
+        </div>
+
+        <!-- Languages -->
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <label for="languages" class="form-label">Languages <sup class="text-danger">*</sup></label>
+          </div>
+          <div class="col-md-6">
+            <input type="text" formControlName="languages" class="form-control" id="languages">
+          </div>
+        </div>
+
+        <!-- Time Slots -->
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <label for="timeSlots" class="form-label">Available Time Slots <sup class="text-danger">*</sup></label>
+          </div>
+          <div class="col-md-6">
+            <input type="text" formControlName="timeSlots" class="form-control" id="timeSlots">
+          </div>
+        </div>
+
+
+        <div class="row mt-4">
+
+          <div class="col-md-6">
+
+            <!-- <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="multiSelectDropdown"
                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Select Options
@@ -121,24 +162,24 @@
                   <a class="dropdown-item" href="#">Option 3</a>
                 </div>
               </div> -->
-  
-            </div>
-            
-            <!-- Submit SME form button-->
-            <div class="col-md-6">
-              <div class="row">
-                <div class="col-md-6">
-                  <button type="button" class="btn btn-secondary" (click)="CloseModel()"
-                    data-bs-dismiss="modal">Cancel</button>
-                </div>
-                <div class="col-md-6">
-                  <button type="button" class="btn btn-primary" (click)="submitSMEForm()">Submit</button>
-                </div>
+
+          </div>
+
+          <!-- Submit SME form button-->
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
+                <button type="button" class="btn btn-secondary" (click)="CloseModel()"
+                  data-bs-dismiss="modal">Cancel</button>
+              </div>
+              <div class="col-md-6">
+                <button type="button" class="btn btn-primary" (click)="submitSMEForm()">Submit</button>
               </div>
             </div>
-  
           </div>
-        </form>
-      </div>
+
+        </div>
+      </form>
     </div>
   </div>
+</div>

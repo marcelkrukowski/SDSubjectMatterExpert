@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ServiceLoginService {
+export class apiService {
   baseURL = 'http://localhost:7072/'
 
   constructor(private http: HttpClient) { }
@@ -13,6 +13,9 @@ export class ServiceLoginService {
   endpoints: { [endpoint: string]: string | any } = {
     login : `${this.baseURL}api/Account/login`,
     profile : `${this.baseURL}api/Users`,
+    profile2 : (id : number) => `${this.baseURL}api/Users/${id}`,
+    profile3 : (id : number) => `${this.baseURL}api/Account/${id}`,
+    editProfile : (slug : string) => `${this.baseURL}profile/edit/${slug}`,
 
   }
 
@@ -25,4 +28,4 @@ export class ServiceLoginService {
   }
 }
 
-export type endpointType = 'login' |'profile';
+export type endpointType = 'login' |'profile' | 'profile2' | 'profile3' | 'editProfile';

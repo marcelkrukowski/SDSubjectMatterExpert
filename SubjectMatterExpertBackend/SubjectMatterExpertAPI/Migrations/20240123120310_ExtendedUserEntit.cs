@@ -51,6 +51,13 @@ namespace SubjectMatterExpertAPI.Migrations
                 table: "Users",
                 type: "nvarchar(max)",
                 nullable: false,
+                defaultValue: ""); 
+            
+            migrationBuilder.AddColumn<string>(
+                name: "Role",
+                table: "Users",
+                type: "nvarchar(max)",
+                nullable: false,
                 defaultValue: "");
 
             migrationBuilder.CreateTable(
