@@ -22,6 +22,26 @@ namespace SubjectMatterExpertAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("SubjectMatterExpertAPI.Models.AgileCoach", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.ToTable("AgileCoaches");
+                });
+
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Colleague", b =>
                 {
                     b.Property<int>("Id")
@@ -30,22 +50,68 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("SessionId")
                         .HasColumnType("int");
-
-                    b.Property<string>("first_name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("last_name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SessionId");
 
                     b.ToTable("Colleagues");
+                });
+
+            modelBuilder.Entity("SubjectMatterExpertAPI.Models.Report", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ContactedArea")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reports");
+                });
+
+            modelBuilder.Entity("SubjectMatterExpertAPI.Models.Request", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AgileCoachId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AgileCoachId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Request");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Session", b =>
@@ -85,11 +151,17 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.Property<DateTime>("AvailableDate")
                         .HasColumnType("date");
 
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("BookedBy")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<bool?>("IsBooked")
+                        .HasColumnType("bit");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -109,8 +181,10 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("AgileCoachId")
+                        .HasColumnType("int");
+
                     b.Property<string>("AreaOfExpertise")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -121,8 +195,13 @@ namespace SubjectMatterExpertAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("InLD")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSME")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Languages")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Lastname")
@@ -130,7 +209,6 @@ namespace SubjectMatterExpertAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("PasswordHash")
@@ -147,7 +225,19 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AgileCoachId");
+
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("SubjectMatterExpertAPI.Models.AgileCoach", b =>
+                {
+                    b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
+                        .WithOne()
+                        .HasForeignKey("SubjectMatterExpertAPI.Models.AgileCoach", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Colleague", b =>
@@ -159,6 +249,36 @@ namespace SubjectMatterExpertAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Session");
+                });
+
+            modelBuilder.Entity("SubjectMatterExpertAPI.Models.Report", b =>
+                {
+                    b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
+                        .WithMany("Reports")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SubjectMatterExpertAPI.Models.Request", b =>
+                {
+                    b.HasOne("SubjectMatterExpertAPI.Models.AgileCoach", "AgileCoach")
+                        .WithMany("Requests")
+                        .HasForeignKey("AgileCoachId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
+                        .WithOne("Request")
+                        .HasForeignKey("SubjectMatterExpertAPI.Models.Request", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AgileCoach");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Session", b =>
@@ -183,6 +303,23 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("SubjectMatterExpertAPI.Models.User", b =>
+                {
+                    b.HasOne("SubjectMatterExpertAPI.Models.AgileCoach", "AgileCoach")
+                        .WithMany("ManagedUsers")
+                        .HasForeignKey("AgileCoachId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("AgileCoach");
+                });
+
+            modelBuilder.Entity("SubjectMatterExpertAPI.Models.AgileCoach", b =>
+                {
+                    b.Navigation("ManagedUsers");
+
+                    b.Navigation("Requests");
+                });
+
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Session", b =>
                 {
                     b.Navigation("Colleagues");
@@ -190,6 +327,10 @@ namespace SubjectMatterExpertAPI.Migrations
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.User", b =>
                 {
+                    b.Navigation("Reports");
+
+                    b.Navigation("Request");
+
                     b.Navigation("Sessions");
 
                     b.Navigation("TimeSlots");

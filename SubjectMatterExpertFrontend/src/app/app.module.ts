@@ -17,6 +17,8 @@ import { ForgotPasswordComponent } from './core/components/forgotPassword-page/f
 import { HomepageComponent } from './core/components/homepage/homepage.component';
 import { SidenavComponent } from './core/shared/components/sidenav/sidenav.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {SharedModule} from "./shared/shared.module";
+import {CoreModule} from "./core/core.module";
 
 @NgModule({
   declarations: [
@@ -28,6 +30,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
+    SharedModule,
+    CoreModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,

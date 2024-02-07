@@ -17,6 +17,7 @@ builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddSwaggerServices(builder.Configuration);
 
+
 builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
@@ -47,6 +48,7 @@ try
     var context = services.GetRequiredService<DataContext>();
     await context.Database.MigrateAsync();
     await Seed.SeedUsers(context);
+    await Seed.SeedAgileCoaches(context);
 
 }
 catch (Exception ex)

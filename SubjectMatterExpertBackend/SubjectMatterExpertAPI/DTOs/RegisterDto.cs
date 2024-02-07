@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using System.ComponentModel.DataAnnotations;
+
 namespace SubjectMatterExpertAPI.DTOs
 {
     public class RegisterDto
@@ -7,7 +9,7 @@ namespace SubjectMatterExpertAPI.DTOs
         [Required]
         public string Username { get; set; }
         [Required]
-        public string Password { get; set; }   
+        public string Password { get; set; }
         [Required]
         public string AreaOfExpertise { get; set; }
         [Required]
@@ -24,4 +26,3 @@ namespace SubjectMatterExpertAPI.DTOs
 
     }
 }
- 
