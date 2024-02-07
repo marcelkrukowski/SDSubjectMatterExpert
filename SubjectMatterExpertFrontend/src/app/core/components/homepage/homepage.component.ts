@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { SidenavService } from '../../services/sidenav-service.service';
 
 @Component({
   selector: 'app-homepage',
@@ -8,6 +7,7 @@ import { SidenavService } from '../../services/sidenav-service.service';
   styleUrls: ['./homepage.component.scss']
 })
 export class HomepageComponent {
+  // Array of cards with title, image source, and route
   cards = [
     { title: 'Profile', imageSrc: '../../../../assets/images/Contract still active 2.png', route: '/profile'},
     { title: 'View SME List', imageSrc: '../../../../../assets/images/Contract still active 2.png' },
@@ -18,16 +18,14 @@ export class HomepageComponent {
 
   ];
 
-  constructor(private router: Router, private sidenavService : SidenavService, private cdr: ChangeDetectorRef) {}
+  // Constructor with Router injection
+  constructor(private router: Router) {}
 
+  // Function to navigate to a specified route
   navigateTo(route: string | undefined) {
     if (route) {
       this.router.navigate([route]);
     }
   }
   
-  onShowSidenav(){
-    this.sidenavService.toggleSidenavVisibility();
-    this.cdr.detectChanges();
-  }
 }

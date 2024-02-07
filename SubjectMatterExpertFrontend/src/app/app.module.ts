@@ -1,5 +1,12 @@
-import { NgModule } from '@angular/core';
+import { Input, NgModule, signal } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {MatBadgeModule} from "@angular/material/badge";
+import {MatListModule} from "@angular/material/list";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatCardModule} from "@angular/material/card";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ForgotPasswordComponent } from './core/components/forgotPassword-page/forgot-password/forgot-password.component';
 import { HomepageComponent } from './core/components/homepage/homepage.component';
 import { SidenavComponent } from './core/shared/components/sidenav/sidenav.component';
-import { BodyTemplateComponent } from './core/shared/components/sidenav/body-template/body-template.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -18,15 +25,28 @@ import { BodyTemplateComponent } from './core/shared/components/sidenav/body-tem
     ForgotPasswordComponent,
     HomepageComponent,
     SidenavComponent,
-    BodyTemplateComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule  //To use external API
+    HttpClientModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatBadgeModule,
+    MatListModule,
+    MatSidenavModule,
+    MatCardModule
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  sideNavCollapsed = signal(false);
+  @Input() set collapsed(val:boolean){
+    this.sideNavCollapsed.set(val);
+  }
+ }

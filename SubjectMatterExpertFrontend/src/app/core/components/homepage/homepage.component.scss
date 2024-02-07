@@ -1,16 +1,13 @@
-.card-grid {
-    display: grid;
-    gap: 1rem; 
-    grid-template-columns: repeat(3, 1fr);
-  }
-
 .card {
     width: 100%;
-    max-width: 300px; /* Set a maximum width for the card if needed */
-    height: 250px; /* Adjust the height of the card */
+    max-width: 300px;
+    height: 250px;
     border-radius: 8px;
-    // overflow: hidden;
     text-align: center;
+}
+
+.page-title{
+    padding-left: 2rem;
 }
 
 .card-img{
@@ -22,34 +19,12 @@
 
 .card-title {
     padding: 5px;
-    font-size: 16px;
+    font-size: 15px;
     text-align: center;
+    font-weight: 500;
 }
 
 .card:hover {
-    border-color: #ed703d; 
+    border-color: #ed703d;
+
 }
-
-body {
-    background-color: #E9EAED;/* Use the desired shade of grey */
-  }
-  
-  /* Or if you want to apply it to a specific container */
-  .container {
-    background-color: #E9EAED; /* Use the desired shade of grey */
-  }
-
-  .menu-icon i:hover {
-    color: #007bff;
-}
-
-// .menu-icon{
-//   display: none;
-// }
-// @media(max-width : 1025px){
-//   .menu-icon{
-//     display: block;
-//   }
-// }
-
-

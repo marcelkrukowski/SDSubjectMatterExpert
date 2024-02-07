@@ -1,47 +1,43 @@
-import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
-import { sidenavbarData } from './sidenavdata';
-import { SidenavService } from 'src/app/core/services/sidenav-service.service';
-
-interface onSidenavToggle{
-  screenSize : number;
-  collapsed : boolean;
-}
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent implements OnInit{
-  @Output() sidenavToggle: EventEmitter<onSidenavToggle> = new EventEmitter();
-  collapsed = false;
-  screenSize = 0; //screen width
-  sidenavData = sidenavbarData;
-  constructor(private sidenavService: SidenavService) {}
+export class SidenavComponent {
+  isCollapsed: boolean = false;
 
-  get isSidenavVisible() {
-    return this.sidenavService.isSidenavVisible$;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.updateSidenavDisplay();
   }
-  // @HostListener('window-resize', ['$event'])
-  // onResize(event:any){
-  //   this.screenSize = window.innerWidth;
-  //   if(this.screenSize <= 768) {
-  //     this.collapsed = true;
-  //     this.sidenavToggle.emit({screenSize : this.screenSize, collapsed: this.collapsed})
-  //   }
-  // }
+
+  private sidenav: HTMLElement | null = null;
 
   ngOnInit(): void {
-    this.screenSize = window.innerWidth;
+    this.sidenav = document.querySelector('.sidenav') as HTMLElement;
+    this.updateSidenavDisplay();
   }
 
-  toggleCollapsed(): void{
-    this.collapsed = !this.collapsed;
-    this.sidenavToggle.emit({collapsed : this.collapsed, screenSize : this.screenSize})
+  private updateSidenavDisplay(): void {
+    const windowWidth = window.innerWidth;
+
+    if (windowWidth > 800) {
+      if (this.sidenav) {
+        this.sidenav.style.display = 'flex';
+      }
+    } else {
+      if (this.sidenav) {
+        this.sidenav.style.display = 'none';
+      }
+    }
   }
 
-  closeSidenav(): void {
-    this.collapsed = false;
-    this.sidenavToggle.emit({collapsed : this.collapsed, screenSize : this.screenSize})
+  toggleSidenav(): void {
+    if (this.sidenav) {
+      const currentDisplay = getComputedStyle(this.sidenav).getPropertyValue('display');
+      this.sidenav.style.display = currentDisplay === 'none' ? 'flex' : 'none';
+    }
   }
 }

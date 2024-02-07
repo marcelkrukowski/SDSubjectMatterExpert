@@ -1,26 +1,58 @@
-<div class="container-fluid" [ngStyle]="{'display': (isSidenavVisible | async) ? 'flex' : 'none'}">
-  <div class="row">
-    <div class="col-md-3 sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
-      <div class="logo-container">
-        <div class="logo-img" *ngIf="collapsed">
-          <img src="../../../../assets/hero_photos/Logo_SdWorx_Positive.png" alt="Logof Image" class="img-fluid">
-        </div>
-        <button title="button" class="btn btn-open-close" (click)="toggleCollapsed()">
-          <i [class]="collapsed ? 'icons8-o-double-left' : 'icons8-o-double-right'"></i>
-        </button>
-      </div>
-
-      <ul class="sidenavbar list-unstyled">
-        <li class="sidenavbar-item" *ngFor="let navdata of sidenavData">
-          <a class="sidenavbar-link" [routerLink]="[navdata.routerLink]" routerLinkActive="link-active" [routerLinkActiveOptions]="{exact: true}">
-            <i class="sidenavbar-icon" [class]="navdata.icon"></i>
-            <span class="sidenavbar-link-text" *ngIf="collapsed">{{navdata.label}}</span>
-          </a>
-        </li>
-      </ul>
+<!-- Main container for the sidenav and content -->
+<mat-sidenav-container class="sidenav-container" autosize>
+  <!-- Sidenav -->
+  <mat-sidenav class="sidenav" #sidenav mode="side" opened position="start">
+    <!-- Sidenav Header with logo and toggle button -->
+    <div class="sidenav-header">
+      <img *ngIf="!isCollapsed" class="logo-img" mat-image
+        src="../../../../../assets/hero_photos/Logo_SdWorx_Positive.png" alt="sdworximg">
+        <!-- Button to toggle the sidenav -->
+        <button title="button" class="btn btn-open-close" (click)="isCollapsed = !isCollapsed">
+        <i [class]="isCollapsed ? 'icons8-o-double-right' : 'icons8-o-double-left'"></i>
+      </button>
     </div>
-  </div>
-</div>
 
-  
-  
+    <mat-nav-list class="nav-list">
+      <!-- Home link with icon and label -->
+      <a class="list-link" mat-list-item routerLink="/homepage" routerLinkActive="link-active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <i class="sidenav-icon icons8-f-home"></i>
+        <span *ngIf="!isCollapsed">Home</span></a>
+    </mat-nav-list>
+
+    <mat-nav-list class="nav-list">
+      <!-- Profile link -->
+      <a class="list-link" mat-list-item routerLink="/">
+        <i class="sidenav-icon icons8-f-user"></i>
+        <span *ngIf="!isCollapsed">Profile</span></a>
+    </mat-nav-list>
+
+    <mat-nav-list class="nav-list">
+      <!-- View SME List link -->
+      <a class="list-link" mat-list-item routerLink="/">
+        <i class="sidenav-icon icons8-f-eye"></i>
+        <span *ngIf="!isCollapsed">View SME List </span></a>
+    </mat-nav-list>
+
+    <mat-nav-list class="nav-list">
+      <!-- Request to be SME link -->
+      <a class="list-link" mat-list-item routerLink="/">
+        <i class="sidenav-icon icons8-f-done"></i>
+        <span *ngIf="!isCollapsed">Request to be SME</span></a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+ <!-- Sidenav Content -->
+  <mat-sidenav-content class="content">
+    <!-- Toolbar with menu toggle button and welcome message -->
+    <mat-toolbar>
+      <button class="menu-btn" (click)="toggleSidenav()" mat-icon-button>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="welcome-msg">Welcome!</span>
+    </mat-toolbar>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
