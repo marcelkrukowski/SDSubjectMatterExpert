@@ -7,6 +7,7 @@ namespace SubjectMatterExpertAPI.Data
 {
     public class DataContext : DbContext
     {
+
         public DataContext(DbContextOptions options) : base(options)
         {
         }
@@ -17,7 +18,12 @@ namespace SubjectMatterExpertAPI.Data
         public DbSet<Colleague> Colleagues { get; set; }
         public DbSet<TimeSlot> TimeSlots { get; set; }
         public DbSet<Report> Reports { get; set; }
-       
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableDetailedErrors(true);
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AgileCoach>()
@@ -39,7 +45,24 @@ namespace SubjectMatterExpertAPI.Data
                 .HasForeignKey<Request>(r => r.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.TimeSlots)
+                .WithOne(ts => ts.User)
+                .HasForeignKey(ts => ts.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<TimeSlot>()
+                .HasOne(ts => ts.User)
+                .WithMany(u => u.TimeSlots)
+                .HasForeignKey(ts => ts.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<TimeSlot>()
+                .HasOne(ts => ts.BookedUser)
+                .WithMany()
+                .HasForeignKey(ts => ts.BookedUserId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder builder)

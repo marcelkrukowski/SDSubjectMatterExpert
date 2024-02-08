@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SubjectMatterExpertAPI.Data;
 
@@ -11,9 +12,11 @@ using SubjectMatterExpertAPI.Data;
 namespace SubjectMatterExpertAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240206105811_TimeSlotEntityDeletedBookedBy")]
+    partial class TimeSlotEntityDeletedBookedBy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +42,7 @@ namespace SubjectMatterExpertAPI.Migrations
                         .IsUnique()
                         .HasFilter("[UserId] IS NOT NULL");
 
-                    b.ToTable("AgileCoaches", (string)null);
+                    b.ToTable("AgileCoaches");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Colleague", b =>
@@ -65,7 +68,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("Colleagues", (string)null);
+                    b.ToTable("Colleagues");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Report", b =>
@@ -87,7 +90,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reports", (string)null);
+                    b.ToTable("Reports");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Request", b =>
@@ -111,7 +114,7 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Request", (string)null);
+                    b.ToTable("Request");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Session", b =>
@@ -137,7 +140,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Sessions", (string)null);
+                    b.ToTable("Sessions");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.TimeSlot", b =>
@@ -173,7 +176,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TimeSlots", (string)null);
+                    b.ToTable("TimeSlots");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.User", b =>
@@ -230,7 +233,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("AgileCoachId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.AgileCoach", b =>
