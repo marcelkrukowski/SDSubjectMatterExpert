@@ -23,7 +23,7 @@ namespace SubjectMatterExpertAPI.Controllers
         public async Task<IActionResult> GetAllTimeSlotsByUserId(int userId)
         {
             var timeSlots = await _timeSlotRepository.GetAllTimeSlotsByUserIdAsync(userId);
-            var timeSlotDtos = _mapper.Map<List<TimeSlotResponseDto>>(timeSlots);
+            var timeSlotDtos = _mapper.Map<IEnumerable<TimeSlotResponseDto>>(timeSlots);
             return Ok(timeSlotDtos);
         }
 
@@ -94,7 +94,7 @@ namespace SubjectMatterExpertAPI.Controllers
         public async Task<IActionResult> GetBookedTimeSlots(int userId)
         {
             var bookedTimeSlots = await _timeSlotRepository.GetBookedTimeSlotsAsync(userId);
-            var responseDtos = _mapper.Map<List<TimeSlotResponseDto>>(bookedTimeSlots);
+            var responseDtos = _mapper.Map<IEnumerable<TimeSlotResponseDto>>(bookedTimeSlots);
             return Ok(responseDtos);
         }
 
