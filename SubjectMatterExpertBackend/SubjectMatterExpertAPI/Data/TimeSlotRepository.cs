@@ -69,7 +69,7 @@ namespace SubjectMatterExpertAPI.Data
             }
         }
 
-      public async Task<List<TimeSlotResponseDto>> GetBookedTimeSlotsAsync(int userId)
+      public async Task<IEnumerable<TimeSlotResponseDto>> GetBookedTimeSlotsAsync(int userId)
 {
     return await _context.TimeSlots
         .Where(ts => ts.BookedUserId == userId)

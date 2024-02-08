@@ -11,7 +11,7 @@ namespace SubjectMatterExpertAPI.Interfaces
         Task UpdateTimeSlotAsync(TimeSlot timeSlot);
         Task DeleteTimeSlotAsync(int id);
         Task BookTimeSlotAsync(int userId, int timeSlotId);
-        Task<List<TimeSlotResponseDto>> GetBookedTimeSlotsAsync(int userId);
+        Task<IEnumerable<TimeSlotResponseDto>> GetBookedTimeSlotsAsync(int userId);
         Task UnbookTimeSlotAsync(int userId, int timeSlotId);
 
     }

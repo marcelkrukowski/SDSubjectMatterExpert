@@ -20,11 +20,11 @@ namespace SubjectMatterExpertAPI.Controllers
         }
 
         [HttpGet("user/{userId}")]
-        public async Task<IEnumerable<TimeSlotResponseDto>> GetAllTimeSlotsByUserId(int userId)
+        public async Task<IActionResult> GetAllTimeSlotsByUserId(int userId)
         {
             var timeSlots = await _timeSlotRepository.GetAllTimeSlotsByUserIdAsync(userId);
             var timeSlotDtos = _mapper.Map<List<TimeSlotResponseDto>>(timeSlots);
-            return timeSlotDtos;
+            return Ok(timeSlotDtos);
         }
 
         [HttpGet("{id}")]
