@@ -93,15 +93,10 @@ namespace SubjectMatterExpertAPI.Controllers
                 return NotFound();
             }
 
-            // Update user properties with data from userUpdateDto
-            //user.Username = userUpdateDto.Username;
-            //user.AreaOfExpertise = userUpdateDto.AreaOfExpertise;
             user.Email = userUpdateDto.Email;
             user.Firstname = userUpdateDto.Firstname;
-            //user.Languages = userUpdateDto.Languages;
             user.Lastname = userUpdateDto.Lastname;
-            //user.Location = userUpdateDto.Location;
-            //user.Role = userUpdateDto.Role;
+            user.Role = userUpdateDto.Role;
 
             _context.Entry(user).State = EntityState.Modified;
 

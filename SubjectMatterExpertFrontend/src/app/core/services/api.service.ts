@@ -13,9 +13,8 @@ export class apiService {
   endpoints: { [endpoint: string]: string | any } = {
     login : `${this.baseURL}api/Account/login`,
     profile : `${this.baseURL}api/Users`,
-    profile2 : (id : number) => `${this.baseURL}api/Users/${id}`,
-    profile3 : (id : number) => `${this.baseURL}api/Account/${id}`,
-    editProfile : (slug : string) => `${this.baseURL}profile/edit/${slug}`,
+    currentProfile : (id : number) => `${this.baseURL}api/Users/${id}`,
+    editProfile : (id : number) => `${this.baseURL}api/Account/${id}`,
 
   }
 
@@ -28,4 +27,4 @@ export class apiService {
   }
 }
 
-export type endpointType = 'login' |'profile' | 'profile2' | 'profile3' | 'editProfile';
+export type endpointType = 'login' |'profile' | 'currentProfile' | 'editProfile';

@@ -21,9 +21,9 @@ export class ProfilePageComponent implements OnInit {
   firstName: string = '';
   lastName: string = '';
   email: string = '';
+  role: string = '';
   areaOfExpertise: string = '';
   editMode: boolean = false;
-  profileSlug?: string | null;
   profileDetails?: any;
 
   constructor(
@@ -35,19 +35,17 @@ export class ProfilePageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    //get current user id
     this.currentID = this.storageService.get('SMEuser').id;
-    this.firstName = this.storageService.get('SMEuser').firstname;
-    this.lastName = this.storageService.get('SMEuser').lastname;
-    console.log("asfdasfsdafsdf", this.currentID);
-    console.log("aila", this.firstName);
 
-
+    //call method to get user details for current user id
+    this.getUserDetails();
 
     this.profileForm = this.formBuilder.group({
       firstName: [''],
       lastName: [''],
       email: ['', [Validators.required, Validators.email]],
+      role: ['']
     })
 
     this.SMEForm = this.formBuilder.group({
@@ -58,10 +56,18 @@ export class ProfilePageComponent implements OnInit {
 
     })
 
+  }
 
-
-    //call method to get user details
-    this.getUserDetails();
+  getUserDetails() {
+    this.apiService.request('currentProfile', 'get', undefined, this.currentID).subscribe((result: any) => {
+      console.log('User Deatils results: ', result);
+      this.currentID = this.storageService.get('SMEuser')?.id;
+      this.firstName = this.storageService.get('SMEuser')?.firstname;
+      this.lastName = this.storageService.get('SMEuser')?.lastname;
+      this.email = this.storageService.get('SMEuser')?.email;
+      this.areaOfExpertise = this.storageService.get('SMEuser')?.areaOfExpertise;
+      this.role = this.storageService.get('SMEuser')?.role;
+    })
   }
 
   submitSMEForm() {
@@ -69,56 +75,46 @@ export class ProfilePageComponent implements OnInit {
   }
 
   enableEditing() {
-    this.isEditing = true;
     this.editMode = true;
 
-
-  }
-
-  updateField(field: string, event: Event) {
-    // Handle the updated value, you may want to send it to a service or API
-    const updatedValue = (event.target as HTMLElement).innerText.trim();
-    console.log(`Updated ${field}: ${updatedValue}`);
-  }
-
-  saveChanges() {
-    // Implement logic to save changes, e.g., update server-side data
-    console.log('Changes saved.');
-    this.isEditing = false; // Disable editing mode after saving
-    this.editMode = false;
-
-    this.apiService.request('profile3', 'put', this.profileForm?.value, this.currentID).subscribe(async (result: any) => {
-      console.log('Edit car result: ', result)
-      this.profileForm.patchValue(result);
-      this.firstName=result.firstname;
-      this.lastName=result.lastname;
-      this.email=result.email;
-      console.log("fatiguer", this.firstName);
-      
-
-      if(result){
-        const {value: redirecturl} = await Swal.fire(
-          'Success',
-          'Car details updated successfully.',
-          'success'
-        );
- 
-        console.log("redirecturl: ", redirecturl)
- 
-        
-      }    
-        
-      
-
-
+    this.profileForm.patchValue({
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+      role: this.role
     });
 
 
-
-
-
   }
 
+
+  saveChanges() {
+    // Disable editing mode after saving
+    this.editMode = false;
+
+    this.apiService.request('editProfile', 'put', this.profileForm?.value, this.currentID).subscribe(async (result: any) => {
+      console.log('Edit car result: ', result)
+      this.profileForm.patchValue(result);
+      this.firstName = result.firstname;
+      this.lastName = result.lastname;
+      this.email = result.email;
+      this.role = result.role;
+
+
+      if (result) {
+        const { value: redirecturl } = await Swal.fire(
+          'Success',
+          'Profile details updated successfully.',
+          'success'
+        );
+
+        console.log('Changes saved.');
+        console.log("redirecturl: ", redirecturl)
+      }
+
+    });
+
+  }
 
   OpenModel() {
     const modelDiv = document.getElementById('myModal');
@@ -127,39 +123,11 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
-
   CloseModel() {
     const modelDiv = document.getElementById('myModal');
     if (modelDiv != null) {
       modelDiv.style.display = 'none';
     }
-  }
-
-
-  //Method to get current user details for profile
-  // getUserDetails() {
-  //   this.apiService.request('profile', 'get').subscribe((result: any) => {
-  //     console.log('User Datails results: ', result);
-  //     this.currentID = this.storageService.get('SMEuser')?.id;
-  //     this.firstName = this.storageService.get('SMEuser')?.firstname;
-  //     this.lastName = this.storageService.get('SMEuser')?.lastname;
-  //     this.email = this.storageService.get('SMEuser')?.email;
-  //     this.areaOfExpertise = this.storageService.get('SMEuser')?.areaOfExpertise;
-  //   });
-
-
-  // }
-
-
-  getUserDetails() {
-    this.apiService.request('profile2', 'get', undefined, this.currentID).subscribe((result: any) => {
-      console.log('User Deatils results: ', result);
-      this.currentID = this.storageService.get('SMEuser')?.id;
-      this.firstName = this.storageService.get('SMEuser')?.firstname;
-      this.lastName = this.storageService.get('SMEuser')?.lastname;
-      this.email = this.storageService.get('SMEuser')?.email;
-      this.areaOfExpertise = this.storageService.get('SMEuser')?.areaOfExpertise;
-    })
   }
 
 
