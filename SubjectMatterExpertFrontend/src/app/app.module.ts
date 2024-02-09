@@ -11,6 +11,7 @@ import { ForgotPasswordComponent } from './core/components/forgotPassword-page/f
 import {SharedModule} from "./shared/shared.module";
 import {CoreModule} from "./core/core.module";
 import { ProfilePageComponent } from './core/components/profile/profile-page/profile-page.component';
+import { interceptorsProviders } from './core/interceptor/interceptor';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { ProfilePageComponent } from './core/components/profile/profile-page/pro
     ReactiveFormsModule,
     HttpClientModule  //To use external API
   ],
-  providers: [],
+  providers: [interceptorsProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

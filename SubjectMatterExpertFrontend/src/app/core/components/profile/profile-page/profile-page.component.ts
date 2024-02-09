@@ -21,7 +21,8 @@ export class ProfilePageComponent implements OnInit {
   firstName: string = '';
   lastName: string = '';
   email: string = '';
-  role: string = '';
+  location: string = '';
+  languages: string = '';
   areaOfExpertise: string = '';
   editMode: boolean = false;
   profileDetails?: any;
@@ -45,7 +46,8 @@ export class ProfilePageComponent implements OnInit {
       firstName: [''],
       lastName: [''],
       email: ['', [Validators.required, Validators.email]],
-      role: ['']
+      location: [''],
+      languages: [''],
     })
 
     this.SMEForm = this.formBuilder.group({
@@ -66,7 +68,8 @@ export class ProfilePageComponent implements OnInit {
       this.lastName = this.storageService.get('SMEuser')?.lastname;
       this.email = this.storageService.get('SMEuser')?.email;
       this.areaOfExpertise = this.storageService.get('SMEuser')?.areaOfExpertise;
-      this.role = this.storageService.get('SMEuser')?.role;
+      this.location = this.storageService.get('SMEuser')?.location;
+      this.languages = this.storageService.get('SMEuser')?.languages;
     })
   }
 
@@ -81,7 +84,8 @@ export class ProfilePageComponent implements OnInit {
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.email,
-      role: this.role
+      location: this.location,
+      languages: this.languages,
     });
 
 
@@ -93,12 +97,13 @@ export class ProfilePageComponent implements OnInit {
     this.editMode = false;
 
     this.apiService.request('editProfile', 'put', this.profileForm?.value, this.currentID).subscribe(async (result: any) => {
-      console.log('Edit car result: ', result)
+      console.log('Edit profile result: ', result)
       this.profileForm.patchValue(result);
       this.firstName = result.firstname;
       this.lastName = result.lastname;
       this.email = result.email;
-      this.role = result.role;
+      this.location= result.location;
+      this.languages= result.languages;
 
 
       if (result) {

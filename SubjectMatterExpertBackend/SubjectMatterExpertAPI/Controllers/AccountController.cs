@@ -34,7 +34,7 @@ namespace SubjectMatterExpertAPI.Controllers
                 Languages = registerDto.Languages.ToLower(),
                 Lastname = registerDto.Lastname.ToLower(),
                 Location = registerDto.Location.ToLower(),
-                Role = registerDto.Role.ToLower(),
+               
             };
 
             _context.Users.Add(user);
@@ -74,7 +74,7 @@ namespace SubjectMatterExpertAPI.Controllers
                 Languages = user.Languages,
                 Lastname = user.Lastname,
                 Location = user.Location,
-                Role = user.Role,
+                
 
             };
         }
@@ -96,7 +96,9 @@ namespace SubjectMatterExpertAPI.Controllers
             user.Email = userUpdateDto.Email;
             user.Firstname = userUpdateDto.Firstname;
             user.Lastname = userUpdateDto.Lastname;
-            user.Role = userUpdateDto.Role;
+            user.Location = userUpdateDto.Location;
+            user.Languages = userUpdateDto.Languages;
+           
 
             _context.Entry(user).State = EntityState.Modified;
 
