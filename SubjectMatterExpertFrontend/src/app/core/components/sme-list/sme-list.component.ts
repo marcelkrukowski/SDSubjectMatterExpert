@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { SME } from './sme.model';
+import {SmeListService} from "./sme-list.service";
 
 @Component({
   selector: 'app-sme-list',
@@ -7,21 +8,9 @@ import { SME } from './sme.model';
   styleUrls: ['./sme-list.component.scss']
 })
 export class SmeListComponent implements OnInit {
-  smeList: SME[] = [
-    { name: 'Henish Nobeen', title: 'Associate Engineer', expertise: '.net, angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-  ];
-
+  smeList: SME[] = [];
   selectedMovie = 1;
+
   movies = [
     { id: 1, name: 'Pulp Fiction' },
     { id: 2, name: 'Reservoir Dogs' },
@@ -31,20 +20,26 @@ export class SmeListComponent implements OnInit {
 
   paginatedSmeList: SME[] = [];
   currentPage = 0;
-  pageSize = 3; // Initial value, adjustable based on screen size
+  pageSize = 3;
   totalPages = 0;
   isPaginationEnabled = true;
   isMobile: boolean;
+  isLoading: boolean = true;
   sidebarVisible: boolean;
 
-  constructor() {
+  constructor(private smeListService: SmeListService) {
     this.isMobile = window.innerWidth <= 768;
     this.sidebarVisible = !this.isMobile;
   }
 
   ngOnInit() {
-    this.adjustPageSize();
-    this.adjustPagination();
+    this.isLoading = true;
+    this.smeListService.getSme().subscribe((data: SME[]) => {
+      this.smeList = data;
+      this.adjustPageSize();
+      this.adjustPagination();
+      this.isLoading = false;
+    });
   }
 
   @HostListener('window:resize', ['$event'])

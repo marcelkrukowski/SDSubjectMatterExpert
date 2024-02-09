@@ -21,5 +21,6 @@
         public Request? Request { get; set; }
         public int? AgileCoachId { get; set; }
         public AgileCoach? AgileCoach { get; set; }
+        public string? AvatarUrl { get; set; }
     }
 }

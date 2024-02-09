@@ -236,3 +236,11 @@ h2 {
     flex-direction: column;
   }
 }
+
+.spinner-container {
+  height: 90vh;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 
 import { CoreRoutingModule } from './core-routing.module';
 import { CoreComponent } from './core.component';
@@ -27,13 +27,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SmeListComponent,
     SmeBookMeetingComponent
   ],
-  imports: [
-    CommonModule,
-    CoreRoutingModule,
-    NgSelectModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NgbModule
-  ]
+    imports: [
+        CommonModule,
+        CoreRoutingModule,
+        NgSelectModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NgbModule,
+        NgOptimizedImage
+    ]
 })
 export class CoreModule { }

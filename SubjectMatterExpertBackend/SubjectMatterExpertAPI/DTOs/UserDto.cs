@@ -19,6 +19,6 @@ namespace SubjectMatterExpertAPI.DTOs
         public List<ReportDto>? Reports { get; set; }
         public RequestDto Request { get; set; }
         public int? AgileCoachId { get; set; }
-       
+        public string? AvatarUrl { get; set; }
     }
 }

@@ -7,23 +7,30 @@
 
 <!-- Page Container -->
 <div class="page-container">
+  <div class="spinner-container" *ngIf="isLoading">
+    <div  class="spinner shake">
+      <div class="dot-primary"></div>
+      <div class="dot-accent"></div>
+      <div class="dot-red-brand"></div>
+      <div class="dot-yellow-brand"></div>
+    </div>
+  </div>
   <!-- List Container -->
-  <section class="list-container">
+  <section class="list-container" *ngIf="!isLoading">
     <header class="list-header">SME List</header>
     <div class="flex-container">
       <section class="sme-container" *ngFor="let sme of paginatedSmeList">
         <article class="sme-card">
-          <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Sam" alt="{{ sme.name }} Avatar" class="sme-avatar">
+          <img src="{{sme.avatarUrl}}" alt="{{ sme.username }} Avatar" class="sme-avatar">
           <div class="sme-details">
-            <h1>{{ sme.name }}</h1>
-            <h2>{{ sme.title }}</h2>
+            <h1>{{ sme.username }}</h1>
+            <h2>{{ sme.location }}</h2>
             <p>Subject Matter Expert in Product</p>
-            <p>Expertise: {{ sme.expertise }}</p>
+            <p>Expertise: {{ sme.areaOfExpertise }}</p>
             <button class="btn btn-secondary">View Profile</button>
           </div>
           <div class="sme-action-book">
             <div class="book-container">
-              <span>{{ sme.availability }}</span>
               <button class="btn btn-primary">Book Meeting</button>
             </div>
           </div>
