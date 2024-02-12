@@ -7,6 +7,6 @@ namespace SubjectMatterExpertAPI.Interfaces
     public interface IPhotoService
     {
         Task<BlobClient> UploadPhotoAsync(IFormFile photoFile);
-        // Task<bool> DeletePhotoAsync(int uri);
+        Task<bool> DeletePhotoAsync(int photoId, string blobUri, string Filename);
     }
 }

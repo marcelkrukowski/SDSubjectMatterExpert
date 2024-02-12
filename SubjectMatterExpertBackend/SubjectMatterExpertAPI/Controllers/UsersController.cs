@@ -7,6 +7,7 @@ using SubjectMatterExpertAPI.Data;
 using SubjectMatterExpertAPI.DTOs;
 using SubjectMatterExpertAPI.Extensions;
 using SubjectMatterExpertAPI.Interfaces;
+using SubjectMatterExpertAPI.Migrations;
 using SubjectMatterExpertAPI.Models;
 
 namespace SubjectMatterExpertAPI.Controllers
@@ -74,16 +75,58 @@ namespace SubjectMatterExpertAPI.Controllers
                 return NotFound();
             }
 
+        
+            if (photo == null)
+            {
+                return BadRequest("No file provided.");
+            }
+
+       
+            var allowedFileTypes = new[] { "image/jpeg", "image/jpg", "image/png" };
+            if (!allowedFileTypes.Contains(photo.ContentType))
+            {
+                return BadRequest("Invalid file type. Only JPEG, JPG, and PNG are allowed.");
+            }
+
             var result = await _photoService.UploadPhotoAsync(photo);
+
+
+            if (user.Photo != null)
+            {
+                return BadRequest("User already has a photo. Delete the existing photo before uploading a new one.");
+            }
 
             var photoEntity = new Photo
             {
+                Filename = photo.FileName,
                 Uri = result.Uri.ToString()
             };
 
             user.Photo = photoEntity;
             if (await _userRepository.SaveAllAsync()) return _mapper.Map<PhotoDto>(photoEntity);
             return BadRequest("Problem adding photo");
+        }
+
+        [HttpDelete("delete-photo")]
+        public async Task<IActionResult> DeletePhoto()
+        {
+
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            if (user.Photo != null)
+            {
+                await _photoService.DeletePhotoAsync(user.Photo.Id, user.Photo.Uri, user.Photo.Filename);
+            }
+          
+
+            if (await _userRepository.SaveAllAsync()) return Ok("Deleted");
+            return BadRequest("Problem deleting photo");
         }
 
 

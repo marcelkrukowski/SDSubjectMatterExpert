@@ -20,6 +20,7 @@ namespace SubjectMatterExpertAPI.Data
             return await _context.Users
                 .Include(ts => ts.TimeSlots)
                 .Include(s => s.Sessions)
+                .Include(p => p.Photo)
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
@@ -65,6 +66,8 @@ namespace SubjectMatterExpertAPI.Data
 
             return agileCoachUser;
         }
+
+        
 
         public async Task<bool> SaveAllAsync()
         {
