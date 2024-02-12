@@ -17,6 +17,8 @@ export class ProfilePageComponent implements OnInit {
   SMEForm?: FormGroup;
   profileForm!: FormGroup;
   isEditing: boolean = false;
+  isSMEButtonVisible: boolean = true;
+  isSaveButtonVisible: boolean = false;
   currentID: string | null = '';
   firstName: string = '';
   lastName: string = '';
@@ -26,6 +28,8 @@ export class ProfilePageComponent implements OnInit {
   areaOfExpertise: string = '';
   editMode: boolean = false;
   profileDetails?: any;
+
+  isModalOpen: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,8 +42,9 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit(): void {
     //get current user id
     this.currentID = this.storageService.get('SMEuser').id;
+    
 
-    //call method to get user details for current user id
+    //call method to get user details for current user deatils
     this.getUserDetails();
 
     this.profileForm = this.formBuilder.group({
@@ -73,13 +78,18 @@ export class ProfilePageComponent implements OnInit {
     })
   }
 
+
+
   submitSMEForm() {
     console.log("Login Form: ", this.SMEForm?.value);
   }
 
   enableEditing() {
     this.editMode = true;
+    this.isSMEButtonVisible = false;
+    this.isSaveButtonVisible = true;
 
+    //add current user details to text boxes
     this.profileForm.patchValue({
       firstName: this.firstName,
       lastName: this.lastName,
@@ -95,10 +105,12 @@ export class ProfilePageComponent implements OnInit {
   saveChanges() {
     // Disable editing mode after saving
     this.editMode = false;
+    this.isSaveButtonVisible = false;
+    this.isSMEButtonVisible = true;
 
     this.apiService.request('editProfile', 'put', this.profileForm?.value, this.currentID).subscribe(async (result: any) => {
       console.log('Edit profile result: ', result)
-      this.profileForm.patchValue(result);
+      // this.profileForm.patchValue(result);
       this.firstName = result.firstname;
       this.lastName = result.lastname;
       this.email = result.email;
@@ -113,6 +125,10 @@ export class ProfilePageComponent implements OnInit {
           'success'
         );
 
+        //set local storage to current user details
+        this.storageService.set('SMEuser', result);
+        
+
         console.log('Changes saved.');
         console.log("redirecturl: ", redirecturl)
       }
@@ -121,17 +137,22 @@ export class ProfilePageComponent implements OnInit {
 
   }
 
+  //Open modal when applying for SME
   OpenModel() {
     const modelDiv = document.getElementById('myModal');
     if (modelDiv != null) {
       modelDiv.style.display = 'block';
+      this.isModalOpen = true;
     }
+
+    
   }
 
   CloseModel() {
     const modelDiv = document.getElementById('myModal');
     if (modelDiv != null) {
       modelDiv.style.display = 'none';
+      this.isModalOpen = false;
     }
   }
 

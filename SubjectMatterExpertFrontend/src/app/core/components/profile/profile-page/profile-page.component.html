@@ -1,84 +1,135 @@
-<div class="" style="background-color: #E9EAED;">
+<div class="container-fluid">
 
-  <div class="container-sm rounded col-md-5">
-    <div class="row">
+  <div class="row justify-content-center align-items-center vh-100">
+    <div class="col-md-8 py-5">
+      <div class="form-group">
+        <div class="d-flex flex-column align-items-center">
 
-      <div class="p-3 py-5">
+          <h2>Personal Details</h2>
 
-        <div class="d-flex justify-content-between align-items-center">
-          <h2 class="text-right">Personal Details</h2>
+          <a class="text-black-50" *ngIf="!editMode" (click)="enableEditing()">Edit your personal details</a>
+        </div>
+      </div>
+
+      <div class="form-group">
+
+        <div class="d-flex flex-column align-items-center py-5">
+          
+          <span class="avatar w-128 avatar-info">
+            <span>{{ firstName.toUpperCase().charAt(0) }}{{ lastName.toUpperCase().charAt(0) }}</span>
+          </span>
         </div>
 
-        <a class="text-black-50" *ngIf="!editMode" (click)="enableEditing()">Edit your personal details</a>
-        <a class="text-black-50" *ngIf="editMode" (click)="saveChanges()">Save</a>
+      </div>
+
+      <!-- Display mode -->
+      <div class="col-md-12">
+        <div class="d-flex flex-column align-items-center">
+          <div *ngIf="!editMode">
+            <div class="form-group custom-class mt-5 mb-5 ">
+              <label class="form-label">
+                <h5>Full Name</h5>
+              </label>
+              <span>
+                <h5 class="textDetails">{{ firstName }} {{ lastName }}</h5>
+              </span>
+            </div>
+
+            <div class="form-group custom-class mt-5 mb-5">
+              <label class="form-label">
+                <h5>Email</h5>
+              </label>
+              <span>
+                <h5 class="textDetails">{{ email }}</h5>
+              </span>
+            </div>
 
 
-        <div class="col-md-3 border-right">
-          <div class="d-flex flex-column align-items-center py-5">
-            <span class="avatar w-128 avatar-info">
-              <i class="icons8-o-contacts"></i>
-            </span>
+
+
+
+            <div class="form-group custom-class mt-5 mb-5">
+              <label class="form-label">
+                <h5>Location</h5>
+              </label>
+              <span>
+                <h5 class="textDetails">{{ location }}</h5>
+              </span>
+            </div>
+
+            <div class="form-group custom-class mt-5 mb-5">
+              <label class="form-label">
+                <h5>Languages</h5>
+              </label>
+              <span>
+                <h5 class="textDetails">{{ languages }}</h5>
+              </span>
+            </div>
           </div>
         </div>
+      </div>
 
-        <!-- Display mode -->
-        <div *ngIf="!editMode">
-          <label class="form-label"><h5>Full Name </h5></label>
-          <span> <h5 class="text-black-50">{{ firstName }} {{ lastName }}</h5> </span>
-
-          <label class="form-label"><h5>Email</h5></label>
-          <span> <h5 class="text-black-50">{{ email }} </h5> </span>
-
-          <label class="form-label"><h5>Location</h5></label>
-          <span> <h5 class="text-black-50">{{ location }} </h5> </span>
-
-          <label class="form-label"><h5>Languages</h5></label>
-          <span> <h5 class="text-black-50">{{ languages }} </h5> </span>
-        </div>
-
-        <!-- Edit mode -->
+      <!-- Edit mode -->
+      <div class="col-md-12">
         <form *ngIf="editMode" [formGroup]="profileForm">
-          <label for="editFullName" class="form-label">Edit Full Name </label>
-          <input type="text" formControlName="firstName" class="form-control" id="firstName">
+          <div class="editForm">
+            <div class="form-group">
+              <label for="editFullName" class="form-label">Edit Full Name </label>
+              <input type="text" formControlName="firstName" class="form-control" id="firstName">
+            </div>
 
-          <label for="editLastName" class="form-label">Edit Last Name</label>
-          <input type="text" formControlName="lastName" class="form-control" id="lastName">
+            <div class="form-group">
+              <label for="editLastName" class="form-label">Edit Last Name</label>
+              <input type="text" formControlName="lastName" class="form-control" id="lastName">
+            </div>
 
-          <label for="editEmail" class="form-label">Edit Email</label>
-          <input type="text" formControlName="email" class="form-control" id="email">
-
-          <label for="editLocation" class="form-label">Edit Location</label>
-          <input type="text" formControlName="location" class="form-control" id="location">
-
-          <label for="editLanguages" class="form-label">Edit Languages</label>
-          <input type="text" formControlName="languages" class="form-control" id="languages">
+            <div class="form-group">
+              <label for="editEmail" class="form-label">Edit Email</label>
+              <input type="text" formControlName="email" class="form-control" id="email">
+            </div>
+            <div class="form-group">
+              <label for="editLocation" class="form-label">Edit Location</label>
+              <input type="text" formControlName="location" class="form-control" id="location">
+            </div>
+            <div class="form-group">
+              <label for="editLanguages" class="form-label">Edit Languages</label>
+              <input type="text" formControlName="languages" class="form-control" id="languages">
+            </div>
+          </div>
         </form>
-        
-        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button"
-            (click)="OpenModel()">Apply For SME</button></div>
+
+        <div class="col-md-12 mt-5 text-center">
+          <button class="btn btn-primary profile-button" *ngIf="isSaveButtonVisible" type="button" (click)="saveChanges()">Save</button>
+        </div>
+      </div>
+
+      <div class="col-md-12 mt-5 text-center">
+        <button class="btn btn-primary profile-button" *ngIf="isSMEButtonVisible" type="button" (click)="OpenModel()">Apply For SME</button>
       </div>
 
 
     </div>
+
   </div>
 </div>
 
 
 
 
+
 <!-- The Modal -->
 <div class="modal" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content card card-body">
+  <div class="modal-dialog custom-modal-dialog">
+    <div class="modal-content custom-modal-content card card-body">
       <form *ngIf="SMEForm" [formGroup]="SMEForm">
         <div class="form-group row mt-4">
           <div class="col-md-6">
           </div>
           <div class="col-md-6">
             <h6 class="modal-title">SME Profile Registration Form</h6>
-            <a class="text-black-50">Please fill this form to register as an SME. Your Agile Coach will be notified to
+            <div class="text-black-50">Please fill this form to register as an SME. Your Agile Coach will be notified to
               approve or decline your
-              request.</a>
+              request.</div>
           </div>
         </div>
 
@@ -131,11 +182,11 @@
           <!-- Submit SME form button-->
           <div class="col-md-6">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-6 form-group">
                 <button type="button" class="btn btn-secondary" (click)="CloseModel()"
                   data-bs-dismiss="modal">Cancel</button>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 form-group">
                 <button type="button" class="btn btn-primary" (click)="submitSMEForm()">Submit</button>
               </div>
             </div>
@@ -146,3 +197,6 @@
     </div>
   </div>
 </div>
+
+<!-- Overlay for blurring -->
+<div class="overlay" [class.active]="isModalOpen"></div>

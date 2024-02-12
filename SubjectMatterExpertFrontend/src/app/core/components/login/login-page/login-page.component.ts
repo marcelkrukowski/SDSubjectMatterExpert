@@ -40,6 +40,7 @@ export class LoginPageComponent implements OnInit {
           if (result) {         
             console.log("Login results: ", result);
             this.serviceStorageService.set('SMEuser', result); 
+            this.serviceStorageService.set('token', result['token']);
             console.log("Testing storage service", this.serviceStorageService.get('SMEuser')?.location);
     
             // Successful login logic
