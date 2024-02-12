@@ -18,6 +18,7 @@ namespace SubjectMatterExpertAPI.Data
         public DbSet<Colleague> Colleagues { get; set; }
         public DbSet<TimeSlot> TimeSlots { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

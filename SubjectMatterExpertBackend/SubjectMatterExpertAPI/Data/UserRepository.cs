@@ -30,7 +30,17 @@ namespace SubjectMatterExpertAPI.Data
                 .Where(u => u.IsSME == true)
                 .Include(ts => ts.TimeSlots)
                 .Include(s => s.Sessions)
+                .Include(p => p.Photo)
                 .ToListAsync();
+        }
+
+        public async Task<User> GetUserByUsernameAsync(string username)
+        {
+            return await _context.Users
+                .Include(ts => ts.TimeSlots)
+                .Include(s => s.Sessions)
+                .Include(p => p.Photo)
+                .SingleOrDefaultAsync(x => x.Username == username);
         }
 
         public async Task<User> GetAgileCoachOfUserAsync(int userId)
@@ -54,6 +64,11 @@ namespace SubjectMatterExpertAPI.Data
                 .FirstOrDefaultAsync(u => u.Id == agileCoachUserId);
 
             return agileCoachUser;
+        }
+
+        public async Task<bool> SaveAllAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
         }
 
 
