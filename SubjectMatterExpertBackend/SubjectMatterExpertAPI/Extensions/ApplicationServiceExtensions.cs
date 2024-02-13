@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Storage.Blobs;
+using Microsoft.EntityFrameworkCore;
 using SubjectMatterExpertAPI.Data;
 using SubjectMatterExpertAPI.Interfaces;
 using SubjectMatterExpertAPI.Services;
@@ -11,7 +12,15 @@ namespace SubjectMatterExpertAPI.Extensions
         {
             services.AddDbContext<DataContext>(
                 options => options.UseSqlServer(config.GetConnectionString("DevConnection")));
+            services.AddScoped(_ =>
+            {
+                return new BlobServiceClient(config.GetConnectionString("AzureBlobStorage"));
+            });
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITimeSlotRepository, TimeSlotRepository>();
+            services.AddScoped<IPhotoService, PhotoService>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;
         }

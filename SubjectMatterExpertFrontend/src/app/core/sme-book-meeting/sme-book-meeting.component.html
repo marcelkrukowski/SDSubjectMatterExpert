@@ -1,0 +1,58 @@
+<form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Add Title</label>
+    <input formControlName="title" placeholder="Add Title" type="text">
+  </div>
+
+  <div>
+    <label>Add Attendees</label>
+    <input formControlName="attendees" placeholder="Add Attendees" type="text">
+  </div>
+
+  <div class="date-time">
+<!--    <div>-->
+<!--      <label>Date</label>-->
+<!--      <input formControlName="date" placeholder="Date" type="date">-->
+<!--    </div>-->
+    <div class="form-group">
+      <label>Start Time</label>
+      <div class="input-group">
+
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker" (dateSelect)="onDateSelect($event)" />
+        <button class="btn" (click)="d.toggle()" type="button">
+          <i class="icons8-calendar"></i> <!-- Ensure you have this icon available -->
+        </button>
+      </div>
+    </div>
+    <div class="time-start">
+      <label>Start Time</label>
+      <input formControlName="startTime" type="time">
+    </div>
+    <div>
+      <label>End Time</label>
+      <input formControlName="endTime" type="time">
+    </div>
+  </div>
+
+  <div class="location-wrapper">
+    <div class="location">
+      <label>Add Location</label>
+      <input formControlName="location" placeholder="Add Location" type="text">
+    </div>
+
+    <div class="location-checkbox">
+      <input type="checkbox" formControlName="onlineMeeting" id="isOnline" />
+      <label for="isOnline">Online meeting</label>
+    </div>
+  </div>
+
+  <div>
+    <label>Description</label>
+    <textarea formControlName="description" placeholder="Description"></textarea>
+  </div>
+
+  <div class="button-container">
+    <button class="btn btn-secondary" type="button">Back</button>
+    <button class="btn btn-primary" type="submit">Book meeting</button>
+  </div>
+</form>
