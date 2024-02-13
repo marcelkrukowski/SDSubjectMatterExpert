@@ -65,7 +65,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("Colleagues");
+                    b.ToTable("Colleagues", (string)null);
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Photo", b =>
@@ -164,7 +164,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Sessions");
+                    b.ToTable("Sessions", (string)null);
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.TimeSlot", b =>
@@ -199,7 +199,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TimeSlots");
+                    b.ToTable("TimeSlots", (string)null);
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.User", b =>
