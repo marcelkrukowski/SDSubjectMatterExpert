@@ -24,8 +24,11 @@ namespace SubjectMatterExpertAPI.Migrations
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Colleague", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("SessionId")
                         .HasColumnType("int");
@@ -42,7 +45,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("Colleagues");
+                    b.ToTable("Colleagues", (string)null);
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Session", b =>
@@ -61,15 +64,14 @@ namespace SubjectMatterExpertAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Sessions");
+                    b.ToTable("Sessions", (string)null);
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.TimeSlot", b =>
@@ -89,21 +91,23 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TimeSlots");
+                    b.ToTable("TimeSlots", (string)null);
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.User", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AreaOfExpertise")
                         .IsRequired()
@@ -143,7 +147,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Colleague", b =>
