@@ -10,31 +10,18 @@ import {MatCardModule} from "@angular/material/card";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginPageComponent } from './core/components/login/login-page/login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ForgotPasswordComponent } from './core/components/forgotPassword-page/forgot-password/forgot-password.component';
-import { HomepageComponent } from './core/components/homepage/homepage.component';
-import { SidenavComponent } from './core/shared/components/sidenav/sidenav.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import {SharedModule} from "./shared/shared.module";
 import {CoreModule} from "./core/core.module";
-import { ProfilePageComponent } from './core/components/profile/profile-page/profile-page.component';
-import { interceptorsProviders } from './core/interceptor/interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginPageComponent,
-    ProfilePageComponent,
-    ForgotPasswordComponent,
-    HomepageComponent,
-    SidenavComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule,
     CoreModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -48,8 +35,7 @@ import { interceptorsProviders } from './core/interceptor/interceptor';
     MatCardModule
   ],
   providers: [
-    provideAnimationsAsync(),
-    interceptorsProviders
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

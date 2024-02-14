@@ -2,9 +2,9 @@
 // import { FormBuilder, FormGroup } from "@angular/forms";
 //
 // @Component({
-//   selector: 'app-sme-book-meeting',
-//   templateUrl: './sme-book-meeting.component.html',
-//   styleUrls: ['./sme-book-meeting.component.scss']
+//   selector: 'app-book-meeting',
+//   templateUrl: './book-meeting.component.html',
+//   styleUrls: ['./book-meeting.component.scss']
 // })
 // export class SmeBookMeetingComponent {
 //   meetingForm: FormGroup;
@@ -34,7 +34,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-sme-book-meeting',
+  selector: 'app-book-meeting',
   templateUrl: './sme-book-meeting.component.html',
   styleUrls: ['./sme-book-meeting.component.scss']
 })
