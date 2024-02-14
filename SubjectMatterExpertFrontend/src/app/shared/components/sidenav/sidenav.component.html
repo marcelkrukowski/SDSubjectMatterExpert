@@ -14,7 +14,7 @@
 
     <mat-nav-list class="nav-list">
       <!-- Home link with icon and label -->
-      <a class="list-link" mat-list-item routerLink="/homepage" routerLinkActive="link-active"
+      <a class="list-link" mat-list-item routerLink="/home" routerLinkActive="link-active"
         [routerLinkActiveOptions]="{exact: true}">
         <i class="sidenav-icon icons8-f-home"></i>
         <span *ngIf="!isCollapsed">Home</span></a>
@@ -29,7 +29,7 @@
 
     <mat-nav-list class="nav-list">
       <!-- View SME List link -->
-      <a class="list-link" mat-list-item routerLink="/">
+      <a class="list-link" mat-list-item routerLink="/sme-list">
         <i class="sidenav-icon icons8-f-eye"></i>
         <span *ngIf="!isCollapsed">View SME List </span></a>
     </mat-nav-list>
@@ -52,7 +52,7 @@
       <span class="welcome-msg">Welcome!</span>
     </mat-toolbar>
     <div>
-
+      <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

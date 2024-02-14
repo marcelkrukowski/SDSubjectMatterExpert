@@ -9,9 +9,7 @@ import { Router } from '@angular/router';
 export class HomepageComponent {
   // Array of cards with title, image source, and route
   cards = [
-    { title: 'Profile', imageSrc: '/assets/graphic-abstract/Contract-still-active-2.png', route: '/profile'},
-    // { title: 'View SME List', imageSrc: '../../../../../assets/graphics/Contract still active 2.png' },
-    // { title: 'Request to be SME', imageSrc: '../../../../../assets/graphics/Contract still active 2.png' },
+    { title: 'Profile', imageSrc: '/assets/graphic-abstract/contract.png', route: '/profile'},
   ];
 
   // Constructor with Router injection

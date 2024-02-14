@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
-import { ServiceLoginService } from 'src/app/core/services/service-login.service';
 import { ServiceStorageService } from 'src/app/core/services/service-storage.service';
+import {apiService} from "../../services/api.service";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private serviceLoginService: ServiceLoginService,
+    private serviceLoginService: apiService,
     private serviceStorageService: ServiceStorageService,
     private router: Router
   ) {
@@ -35,11 +35,11 @@ export class LoginPageComponent implements OnInit {
     if (this.loginForm?.valid) {
       this.serviceLoginService.request('login', 'post', this.loginForm?.value).subscribe((result: { [key: string]: any }) => {
           console.log("Login results: ", result);
-          this.serviceStorageService.set('SMEuser', result);    
+          this.serviceStorageService.set('SMEuser', result);
 
-          if (result) {         
+          if (result) {
             console.log("Testing storage service", this.serviceStorageService.get('SMEuser')?.location);
-            
+
             // Successful login logic
             // Navigate to the homepage
             this.router.navigate(['/homepage']);
@@ -59,7 +59,7 @@ export class LoginPageComponent implements OnInit {
               this.errorMessage = 'Incorrect password!';
             }
 
-            
+
           }
           else if (error.status === 500) {
             // Internal server error
