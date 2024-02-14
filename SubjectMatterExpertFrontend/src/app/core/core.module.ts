@@ -13,6 +13,7 @@ import {RegisterSecondPageComponent} from "./components/register/register-second
 import {RegisterFirstPageComponent} from "./components/register/register-first-page/register-first-page.component";
 import {LoginPageComponent} from "./components/login/login-page.component";
 import {HomepageComponent} from "./components/home/homepage.component";
+import {ProfilePageComponent} from "./components/profile-page/profile-page.component";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {HomepageComponent} from "./components/home/homepage.component";
     SmeListComponent,
     SmeBookMeetingComponent,
     LoginPageComponent,
-    HomepageComponent
+    HomepageComponent,
+    ProfilePageComponent
   ],
   exports: [
     SmeListComponent,
