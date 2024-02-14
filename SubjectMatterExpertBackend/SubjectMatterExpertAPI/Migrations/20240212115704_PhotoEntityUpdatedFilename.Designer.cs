@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SubjectMatterExpertAPI.Data;
 
@@ -11,9 +12,11 @@ using SubjectMatterExpertAPI.Data;
 namespace SubjectMatterExpertAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240212115704_PhotoEntityUpdatedFilename")]
+    partial class PhotoEntityUpdatedFilename
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,7 +68,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("Colleagues", (string)null);
+                    b.ToTable("Colleagues");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Photo", b =>
@@ -164,7 +167,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Sessions", (string)null);
+                    b.ToTable("Sessions");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.TimeSlot", b =>
@@ -199,7 +202,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TimeSlots", (string)null);
+                    b.ToTable("TimeSlots");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.User", b =>

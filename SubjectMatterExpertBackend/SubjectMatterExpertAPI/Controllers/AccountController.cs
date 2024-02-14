@@ -34,6 +34,7 @@ namespace SubjectMatterExpertAPI.Controllers
                 Languages = registerDto.Languages.ToLower(),
                 Lastname = registerDto.Lastname.ToLower(),
                 Location = registerDto.Location.ToLower(),
+               
             };
 
             _context.Users.Add(user);
@@ -64,6 +65,7 @@ namespace SubjectMatterExpertAPI.Controllers
 
             return new UserDto
             {
+                Id = user.Id,
                 Username = user.Username,
                 Token = _tokenService.CreateToken(user),
                 AreaOfExpertise = user.AreaOfExpertise,
@@ -71,7 +73,8 @@ namespace SubjectMatterExpertAPI.Controllers
                 Firstname = user.Firstname,
                 Languages = user.Languages,
                 Lastname = user.Lastname,
-                Location = user.Location
+                Location = user.Location,
+                
 
             };
         }
@@ -79,6 +82,52 @@ namespace SubjectMatterExpertAPI.Controllers
         {
             return await _context.Users.AnyAsync(x => x.Username == username.ToLower());
         }
+
+        //To retrieve user details and update database when needed
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UserUpdateDto userUpdateDto)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.Email = userUpdateDto.Email;
+            user.Firstname = userUpdateDto.Firstname;
+            user.Lastname = userUpdateDto.Lastname;
+            user.Location = userUpdateDto.Location;
+            user.Languages = userUpdateDto.Languages;
+           
+
+            _context.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(user);
+        }
+
+        private bool UserExists(int id)
+        {
+            return _context.Users.Any(e => e.Id == id);
+        }
+
+
+
 
     }
 

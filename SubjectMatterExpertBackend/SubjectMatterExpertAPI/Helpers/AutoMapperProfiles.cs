@@ -15,7 +15,9 @@ namespace SubjectMatterExpertAPI.Helpers
             CreateMap<Report, ReportDto>();
             CreateMap<Request, RequestDto>();
             CreateMap<Session, SessionDto>();
-            CreateMap<TimeSlot, TimeSlotDto>();
+            CreateMap<TimeSlot, TimeSlotRequestDto>().ReverseMap();
+            CreateMap<TimeSlot, TimeSlotResponseDto>().ReverseMap();
+            CreateMap<Photo, PhotoDto>();
 
         }
     }

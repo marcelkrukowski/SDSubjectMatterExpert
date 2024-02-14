@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
-import { ServiceLoginService } from 'src/app/core/services/service-login.service';
+import { apiService } from 'src/app/core/services/api.service';
 import { ServiceStorageService } from 'src/app/core/services/service-storage.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private serviceLoginService: ServiceLoginService,
+    private apiService: apiService,
     private serviceStorageService: ServiceStorageService,
     private router: Router
   ) {
@@ -28,21 +28,24 @@ export class LoginPageComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     })
+
+    
   }
 
   login() {
     // Check if the form is valid before attempting to log in
     if (this.loginForm?.valid) {
-      this.serviceLoginService.request('login', 'post', this.loginForm?.value).subscribe((result: { [key: string]: any }) => {
-          console.log("Login results: ", result);
-          this.serviceStorageService.set('SMEuser', result);    
+      this.apiService.request('login', 'post', this.loginForm?.value).subscribe((result: { [key: string]: any }) => {
 
           if (result) {         
+            console.log("Login results: ", result);
+            this.serviceStorageService.set('SMEuser', result); 
+            this.serviceStorageService.set('token', result['token']);
             console.log("Testing storage service", this.serviceStorageService.get('SMEuser')?.location);
-            
+    
             // Successful login logic
             // Navigate to the homepage
-            this.router.navigate(['/homepage']);
+            this.router.navigate(['/profile']);
           }
         },
         // Handle any errors from the HTTP request
@@ -50,16 +53,8 @@ export class LoginPageComponent implements OnInit {
           // Check for specific HTTP error status codes
           if (error.status === 401) {
             // Unauthorized error (e.g., incorrect credentials)
-            console.error('Login unsuccessful:', error);
-
-            if (error.error.includes('Invalid email!')){
-              this.errorMessage = 'Incorrect email!';
-            }
-            if (error.error.includes('Invalid password!')){
-              this.errorMessage = 'Incorrect password!';
-            }
-
-            
+            console.error('Login unsuccessful:', error);    
+              this.errorMessage = 'Incorrect credentials!';        
           }
           else if (error.status === 500) {
             // Internal server error

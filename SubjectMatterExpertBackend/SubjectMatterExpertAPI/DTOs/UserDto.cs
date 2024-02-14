@@ -4,6 +4,7 @@ namespace SubjectMatterExpertAPI.DTOs
 {
     public class UserDto
     {
+        public int Id { get; set; }
         public string Username { get; set; }
         public string Token { get; set; }
         public string Firstname { get; set; }
@@ -14,10 +15,11 @@ namespace SubjectMatterExpertAPI.DTOs
         public string? Languages { get; set; }
         public string? Location { get; set; }
         public string? AreaOfExpertise { get; set; }
-        public List<TimeSlotDto> TimeSlots { get; set; }
-        public List<SessionDto> Sessions { get; set; }
+        public List<TimeSlotRequestDto>? TimeSlots { get; set; }
+        public List<SessionDto>? Sessions { get; set; }
         public List<ReportDto>? Reports { get; set; }
         public RequestDto Request { get; set; }
+        public PhotoDto Photo { get; set; } 
         public int? AgileCoachId { get; set; }
        
     }

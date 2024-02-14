@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SubjectMatterExpertAPI.Data;
 
@@ -11,9 +12,11 @@ using SubjectMatterExpertAPI.Data;
 namespace SubjectMatterExpertAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240206101036_TimeSlotEntityUpdatedUserRelationship")]
+    partial class TimeSlotEntityUpdatedUserRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,34 +68,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("Colleagues", (string)null);
-                });
-
-            modelBuilder.Entity("SubjectMatterExpertAPI.Models.Photo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Filename")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Uri")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Photos");
+                    b.ToTable("Colleagues");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Report", b =>
@@ -164,7 +140,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Sessions", (string)null);
+                    b.ToTable("Sessions");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.TimeSlot", b =>
@@ -178,7 +154,11 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.Property<DateTime>("AvailableDate")
                         .HasColumnType("date");
 
+                    b.Property<string>("BookedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("BookedUserId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<TimeSpan>("EndTime")
@@ -199,7 +179,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TimeSlots", (string)null);
+                    b.ToTable("TimeSlots");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.User", b =>
@@ -280,17 +260,6 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.Navigation("Session");
                 });
 
-            modelBuilder.Entity("SubjectMatterExpertAPI.Models.Photo", b =>
-                {
-                    b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
-                        .WithOne("Photo")
-                        .HasForeignKey("SubjectMatterExpertAPI.Models.Photo", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Report", b =>
                 {
                     b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
@@ -337,7 +306,8 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.HasOne("SubjectMatterExpertAPI.Models.User", "BookedUser")
                         .WithMany()
                         .HasForeignKey("BookedUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
                         .WithMany("TimeSlots")
@@ -374,9 +344,6 @@ namespace SubjectMatterExpertAPI.Migrations
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.User", b =>
                 {
-                    b.Navigation("Photo")
-                        .IsRequired();
-
                     b.Navigation("Reports");
 
                     b.Navigation("Request");

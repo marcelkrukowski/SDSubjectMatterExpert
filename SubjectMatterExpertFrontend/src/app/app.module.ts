@@ -19,11 +19,14 @@ import { SidenavComponent } from './core/shared/components/sidenav/sidenav.compo
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {SharedModule} from "./shared/shared.module";
 import {CoreModule} from "./core/core.module";
+import { ProfilePageComponent } from './core/components/profile/profile-page/profile-page.component';
+import { interceptorsProviders } from './core/interceptor/interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
+    ProfilePageComponent,
     ForgotPasswordComponent,
     HomepageComponent,
     SidenavComponent,
@@ -45,7 +48,8 @@ import {CoreModule} from "./core/core.module";
     MatCardModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    interceptorsProviders
   ],
   bootstrap: [AppComponent]
 })
