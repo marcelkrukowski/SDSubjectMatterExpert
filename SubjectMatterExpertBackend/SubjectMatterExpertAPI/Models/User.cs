@@ -12,9 +12,9 @@
         public string Email { get; set; }
         public bool IsSME { get; set; }
         public bool InLD { get; set; }
-        public string? Languages { get; set; }
+        public List<Language>? Languages { get; set; } = new List<Language>();
         public string? Location { get; set; }
-        public string? AreaOfExpertise { get; set; }
+        public List<AreaOfExpertise>? AreasOfExpertise { get; set; } = new List<AreaOfExpertise>();
         public List<TimeSlot>? TimeSlots { get; set; } = new List<TimeSlot>();
         public List<Session>? Sessions { get; set; } = new List<Session>();
         public List<Report>? Reports { get; set; } = new List<Report>();
