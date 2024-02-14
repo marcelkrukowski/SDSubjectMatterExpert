@@ -19,6 +19,8 @@ import { SidenavComponent } from './core/shared/components/sidenav/sidenav.compo
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {SharedModule} from "./shared/shared.module";
 import {CoreModule} from "./core/core.module";
+import { HighchartsChartModule } from 'highcharts-angular';
+import { LearningAndDevelopmentComponent } from './core/components/learning-and-development/learning-and-development.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import {CoreModule} from "./core/core.module";
     ForgotPasswordComponent,
     HomepageComponent,
     SidenavComponent,
+    LearningAndDevelopmentComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import {CoreModule} from "./core/core.module";
     MatBadgeModule,
     MatListModule,
     MatSidenavModule,
-    MatCardModule
+    MatCardModule,
+    HighchartsChartModule
   ],
   providers: [
     provideAnimationsAsync()
