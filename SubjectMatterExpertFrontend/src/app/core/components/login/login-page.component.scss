@@ -10,14 +10,14 @@
     .card {
         background-color: #ffffff;
         border-radius: 2rem;
-        padding: 2rem;
+        padding: 2rem 2rem 1rem 2rem;
         box-shadow: 8px 8px 30px -1px rgba(66, 68, 90, 1);
         text-align: center;
         min-width: 30vw;
 
 
         h2 {
-            margin: 2rem 0 3rem;
+            margin: 2rem 0 1rem;
             color: #555D71;
         }
 
@@ -92,4 +92,20 @@
             margin-top: 1rem;
         }
     }
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  min-height: 3.5rem;
+}
+
+.invalid-feedback {
+  text-align: left;
+}
+
+.hidden {
+  visibility: hidden;
 }

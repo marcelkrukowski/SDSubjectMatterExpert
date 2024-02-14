@@ -16,6 +16,8 @@ export class LoginPageComponent {
     password: ['', Validators.required],
   });
 
+  public isLoading = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -24,19 +26,22 @@ export class LoginPageComponent {
   ) {}
 
   login(): void {
+    this.isLoading = true;
       this.apiService.request('login', 'post', this.loginForm.value).subscribe({
         next: (result: any) => {
           this.serviceStorageService.set('token', result.token)
           console.log(result.token);
+          this.isLoading = false;
           this.router.navigate(['/home']);
         },
         error: (error: any) => {
+          this.isLoading = false;
           if (error.status === 401) {
             this.errorMessage = 'Incorrect credentials!'
           } else {
             this.errorMessage = 'An unexpected error occurred. Please try again later.';
           }
-        },
+        }
       });
   }
 }
