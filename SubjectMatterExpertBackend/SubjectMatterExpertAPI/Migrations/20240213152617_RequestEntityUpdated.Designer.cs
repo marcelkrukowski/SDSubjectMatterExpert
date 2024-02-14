@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SubjectMatterExpertAPI.Data;
 
@@ -11,9 +12,11 @@ using SubjectMatterExpertAPI.Data;
 namespace SubjectMatterExpertAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240213152617_RequestEntityUpdated")]
+    partial class RequestEntityUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,6 +182,9 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AgileCoachId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -187,6 +193,8 @@ namespace SubjectMatterExpertAPI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AgileCoachId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -381,11 +389,19 @@ namespace SubjectMatterExpertAPI.Migrations
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Request", b =>
                 {
+                    b.HasOne("SubjectMatterExpertAPI.Models.AgileCoach", "AgileCoach")
+                        .WithMany("Requests")
+                        .HasForeignKey("AgileCoachId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
                         .WithOne("Request")
                         .HasForeignKey("SubjectMatterExpertAPI.Models.Request", "UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("AgileCoach");
 
                     b.Navigation("User");
                 });
@@ -432,6 +448,8 @@ namespace SubjectMatterExpertAPI.Migrations
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.AgileCoach", b =>
                 {
                     b.Navigation("ManagedUsers");
+
+                    b.Navigation("Requests");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Request", b =>

@@ -9,12 +9,5 @@ namespace SubjectMatterExpertAPI.Models
         public int? UserId { get; set; }
         public User? User { get; set; }
         public List<User>? ManagedUsers { get; set; } = new List<User>();
-
-        public List<Request>? Requests { get; set; } = new List<Request>();
-  
-
-
-
-
     }
 }

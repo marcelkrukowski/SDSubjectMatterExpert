@@ -45,7 +45,17 @@ namespace SubjectMatterExpertAPI.Controllers
             return userToReturn;
         }
 
-      
+        [HttpGet("user-details")]
+        public async Task<ActionResult<UserDto>> GetUserDetails()
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+
+            var userToReturn = _mapper.Map<UserDto>(user);
+            return userToReturn;
+        }
+
+
+
         [HttpGet("{id}/agileCoach")]
         public async Task<ActionResult<UserDto>> GetAgileCoachOfUser(int id)
         {
@@ -128,6 +138,8 @@ namespace SubjectMatterExpertAPI.Controllers
             if (await _userRepository.SaveAllAsync()) return Ok("Deleted");
             return BadRequest("Problem deleting photo");
         }
+
+       
 
 
     }

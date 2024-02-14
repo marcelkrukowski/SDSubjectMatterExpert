@@ -19,6 +19,9 @@ namespace SubjectMatterExpertAPI.Data
         public DbSet<TimeSlot> TimeSlots { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<AreaOfExpertise> AreasOfExpertise { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

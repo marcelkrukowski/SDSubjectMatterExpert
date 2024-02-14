@@ -28,12 +28,9 @@ namespace SubjectMatterExpertAPI.Controllers
                 Username = registerDto.Username.ToLower(),
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key,
-                AreaOfExpertise = registerDto.AreaOfExpertise.ToLower(),
                 Email = registerDto.Email.ToLower(),
                 Firstname = registerDto.Firstname.ToLower(),
-                Languages = registerDto.Languages.ToLower(),
                 Lastname = registerDto.Lastname.ToLower(),
-                Location = registerDto.Location.ToLower(),
                
             };
 
@@ -48,7 +45,7 @@ namespace SubjectMatterExpertAPI.Controllers
         }
 
         [HttpPost("login")] // POST: api/account/login
-        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+        public async Task<ActionResult<LoginResponseDto>> Login(LoginRequestDto loginDto)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == loginDto.Email);
 
@@ -63,19 +60,11 @@ namespace SubjectMatterExpertAPI.Controllers
                 if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password!");
             }
 
-            return new UserDto
+            return new LoginResponseDto
             {
-                Id = user.Id,
-                Username = user.Username,
-                Token = _tokenService.CreateToken(user),
-                AreaOfExpertise = user.AreaOfExpertise,
-                Email = user.Email,
-                Firstname = user.Firstname,
-                Languages = user.Languages,
-                Lastname = user.Lastname,
-                Location = user.Location,
                 
-
+                Token = _tokenService.CreateToken(user),
+               
             };
         }
         private async Task<bool> UserExists(string username)
@@ -96,8 +85,6 @@ namespace SubjectMatterExpertAPI.Controllers
             user.Email = userUpdateDto.Email;
             user.Firstname = userUpdateDto.Firstname;
             user.Lastname = userUpdateDto.Lastname;
-            user.Location = userUpdateDto.Location;
-            user.Languages = userUpdateDto.Languages;
            
 
             _context.Entry(user).State = EntityState.Modified;
