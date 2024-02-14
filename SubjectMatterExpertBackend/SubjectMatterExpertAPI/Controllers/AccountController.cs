@@ -28,12 +28,9 @@ namespace SubjectMatterExpertAPI.Controllers
                 Username = registerDto.Username.ToLower(),
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key,
-                AreaOfExpertise = registerDto.AreaOfExpertise.ToLower(),
                 Email = registerDto.Email.ToLower(),
                 Firstname = registerDto.Firstname.ToLower(),
-                Languages = registerDto.Languages.ToLower(),
                 Lastname = registerDto.Lastname.ToLower(),
-                Location = registerDto.Location.ToLower(),
                
             };
 
@@ -68,14 +65,9 @@ namespace SubjectMatterExpertAPI.Controllers
                 Id = user.Id,
                 Username = user.Username,
                 Token = _tokenService.CreateToken(user),
-                AreaOfExpertise = user.AreaOfExpertise,
                 Email = user.Email,
                 Firstname = user.Firstname,
-                Languages = user.Languages,
                 Lastname = user.Lastname,
-                Location = user.Location,
-                
-
             };
         }
         private async Task<bool> UserExists(string username)
@@ -96,8 +88,6 @@ namespace SubjectMatterExpertAPI.Controllers
             user.Email = userUpdateDto.Email;
             user.Firstname = userUpdateDto.Firstname;
             user.Lastname = userUpdateDto.Lastname;
-            user.Location = userUpdateDto.Location;
-            user.Languages = userUpdateDto.Languages;
            
 
             _context.Entry(user).State = EntityState.Modified;

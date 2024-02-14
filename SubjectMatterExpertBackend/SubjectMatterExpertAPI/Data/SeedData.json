@@ -7,9 +7,15 @@
       "Lastname": "Doe",
       "Email": "john.doe@example.com",
       "IsSME": true,
-      "Languages": "English, Spanish",
+      "Languages": [
+        { "LanguageName": "English" },
+        { "LanguageName": "Spanish" }
+      ],
       "Location": "City, Country",
-      "AreaOfExpertise": "Programming",
+      "AreaOfExpertise": [
+        { "ExpertiseArea": "Angular" },
+        { "ExpertiseArea": "DotNet" }
+      ],
       "TimeSlots": [
         {
 
@@ -45,9 +51,15 @@
       "Lastname": "Brick",
       "Email": "jjane.brick@example.com",
       "IsSME": false,
-      "Languages": "English, Polish",
+      "Languages": [
+        { "LanguageName": "English" },
+        { "LanguageName": "Spanish" }
+      ],
       "Location": "Poland, Katowice",
-      "AreaOfExpertise": "Programming, Designing",
+      "AreaOfExpertise": [
+        { "ExpertiseArea": "Angular" },
+        { "ExpertiseArea": "DotNet" }
+      ],
       "TimeSlots": [
         {
 
@@ -83,9 +95,15 @@
       "Lastname": "Krukowski",
       "Email": "marcel.krukowski@sdworx.com",
       "IsSME": true,
-      "Languages": "English, Polish",
+      "Languages": [
+        { "LanguageName": "English" },
+        { "LanguageName": "Spanish" }
+      ],
       "Location": "Poland, Katowice",
-      "AreaOfExpertise": "Programming",
+      "AreaOfExpertise": [
+        { "ExpertiseArea": "Angular" },
+        { "ExpertiseArea": "DotNet" }
+      ],
       "TimeSlots": [
         {
 
@@ -131,9 +149,15 @@
       "Lastname": "Oodith",
       "Email": "koushal@gmail.com",
       "IsSME": true,
-      "Languages": "English",
+      "Languages": [
+        { "LanguageName": "English" },
+        { "LanguageName": "Spanish" }
+      ],
       "Location": "Mauritius",
-      "AreaOfExpertise": "Programming",
+      "AreaOfExpertise": [
+        { "ExpertiseArea": "Angular" },
+        { "ExpertiseArea": "DotNet" }
+      ],
       "TimeSlots": [
         {
 

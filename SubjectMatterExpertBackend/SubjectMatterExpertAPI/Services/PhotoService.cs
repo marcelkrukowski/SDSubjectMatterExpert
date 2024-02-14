@@ -30,7 +30,7 @@ namespace SubjectMatterExpertAPI.Services
 
         public async Task<bool> DeletePhotoAsync(int photoId, string blobUri, string Filename)
         {
-            var blobUriBuilder = new UriBuilder(blobUri);
+           
             var containerInstance = _blobServiceClient.GetBlobContainerClient("avatars");
             var blobName = Filename;
             var blobInstance = containerInstance.GetBlobClient(blobName);

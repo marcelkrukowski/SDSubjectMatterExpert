@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SubjectMatterExpertAPI.Data;
 
@@ -11,9 +12,11 @@ using SubjectMatterExpertAPI.Data;
 namespace SubjectMatterExpertAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240213144809_NewEntities")]
+    partial class NewEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,15 +57,10 @@ namespace SubjectMatterExpertAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RequestId")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RequestId");
 
                     b.HasIndex("UserId");
 
@@ -107,15 +105,10 @@ namespace SubjectMatterExpertAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RequestId")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RequestId");
 
                     b.HasIndex("UserId");
 
@@ -181,10 +174,6 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.Property<int>("AgileCoachId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -323,10 +312,6 @@ namespace SubjectMatterExpertAPI.Migrations
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.AreaOfExpertise", b =>
                 {
-                    b.HasOne("SubjectMatterExpertAPI.Models.Request", null)
-                        .WithMany("AreasOfExpertise")
-                        .HasForeignKey("RequestId");
-
                     b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
                         .WithMany("AreasOfExpertise")
                         .HasForeignKey("UserId")
@@ -349,10 +334,6 @@ namespace SubjectMatterExpertAPI.Migrations
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Language", b =>
                 {
-                    b.HasOne("SubjectMatterExpertAPI.Models.Request", null)
-                        .WithMany("Languages")
-                        .HasForeignKey("RequestId");
-
                     b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
                         .WithMany("Languages")
                         .HasForeignKey("UserId")
@@ -447,13 +428,6 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.Navigation("ManagedUsers");
 
                     b.Navigation("Requests");
-                });
-
-            modelBuilder.Entity("SubjectMatterExpertAPI.Models.Request", b =>
-                {
-                    b.Navigation("AreasOfExpertise");
-
-                    b.Navigation("Languages");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Session", b =>
