@@ -1,202 +1,202 @@
-<div class="container-fluid">
+<!--<div class="container-fluid">-->
 
-  <div class="row justify-content-center align-items-center vh-100">
-    <div class="col-md-8 py-5">
-      <div class="form-group">
-        <div class="d-flex flex-column align-items-center">
+<!--  <div class="row justify-content-center align-items-center vh-100">-->
+<!--    <div class="col-md-8 py-5">-->
+<!--      <div class="form-group">-->
+<!--        <div class="d-flex flex-column align-items-center">-->
 
-          <h2>Personal Details</h2>
+<!--          <h2>Personal Details</h2>-->
 
-          <a class="text-black-50" *ngIf="!editMode" (click)="enableEditing()">Edit your personal details</a>
-        </div>
-      </div>
+<!--          <a class="text-black-50" *ngIf="!editMode" (click)="enableEditing()">Edit your personal details</a>-->
+<!--        </div>-->
+<!--      </div>-->
 
-      <div class="form-group">
+<!--      <div class="form-group">-->
 
-        <div class="d-flex flex-column align-items-center py-5">
-          
-          <span class="avatar w-128 avatar-info">
-            <span>{{ firstName.toUpperCase().charAt(0) }}{{ lastName.toUpperCase().charAt(0) }}</span>
-          </span>
-        </div>
+<!--        <div class="d-flex flex-column align-items-center py-5">-->
+<!--          -->
+<!--          <span class="avatar w-128 avatar-info">-->
+<!--            <span>{{ firstName.toUpperCase().charAt(0) }}{{ lastName.toUpperCase().charAt(0) }}</span>-->
+<!--          </span>-->
+<!--        </div>-->
 
-      </div>
+<!--      </div>-->
 
-      <!-- Display mode -->
-      <div class="col-md-12">
-        <div class="d-flex flex-column align-items-center">
-          <div *ngIf="!editMode">
-            <div class="form-group custom-class mt-5 mb-5 ">
-              <label class="form-label">
-                <h5>Full Name</h5>
-              </label>
-              <span>
-                <h5 class="textDetails">{{ firstName }} {{ lastName }}</h5>
-              </span>
-            </div>
+<!--      &lt;!&ndash; Display mode &ndash;&gt;-->
+<!--      <div class="col-md-12">-->
+<!--        <div class="d-flex flex-column align-items-center">-->
+<!--          <div *ngIf="!editMode">-->
+<!--            <div class="form-group custom-class mt-5 mb-5 ">-->
+<!--              <label class="form-label">-->
+<!--                <h5>Full Name</h5>-->
+<!--              </label>-->
+<!--              <span>-->
+<!--                <h5 class="textDetails">{{ firstName }} {{ lastName }}</h5>-->
+<!--              </span>-->
+<!--            </div>-->
 
-            <div class="form-group custom-class mt-5 mb-5">
-              <label class="form-label">
-                <h5>Email</h5>
-              </label>
-              <span>
-                <h5 class="textDetails">{{ email }}</h5>
-              </span>
-            </div>
-
-
-
-
-
-            <div class="form-group custom-class mt-5 mb-5">
-              <label class="form-label">
-                <h5>Location</h5>
-              </label>
-              <span>
-                <h5 class="textDetails">{{ location }}</h5>
-              </span>
-            </div>
-
-            <div class="form-group custom-class mt-5 mb-5">
-              <label class="form-label">
-                <h5>Languages</h5>
-              </label>
-              <span>
-                <h5 class="textDetails">{{ languages }}</h5>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Edit mode -->
-      <div class="col-md-12">
-        <form *ngIf="editMode" [formGroup]="profileForm">
-          <div class="editForm">
-            <div class="form-group">
-              <label for="editFullName" class="form-label">Edit Full Name </label>
-              <input type="text" formControlName="firstName" class="form-control" id="firstName">
-            </div>
-
-            <div class="form-group">
-              <label for="editLastName" class="form-label">Edit Last Name</label>
-              <input type="text" formControlName="lastName" class="form-control" id="lastName">
-            </div>
-
-            <div class="form-group">
-              <label for="editEmail" class="form-label">Edit Email</label>
-              <input type="text" formControlName="email" class="form-control" id="email">
-            </div>
-            <div class="form-group">
-              <label for="editLocation" class="form-label">Edit Location</label>
-              <input type="text" formControlName="location" class="form-control" id="location">
-            </div>
-            <div class="form-group">
-              <label for="editLanguages" class="form-label">Edit Languages</label>
-              <input type="text" formControlName="languages" class="form-control" id="languages">
-            </div>
-          </div>
-        </form>
-
-        <div class="col-md-12 mt-5 text-center">
-          <button class="btn btn-primary profile-button" *ngIf="isSaveButtonVisible" type="button" (click)="saveChanges()">Save</button>
-        </div>
-      </div>
-
-      <div class="col-md-12 mt-5 text-center">
-        <button class="btn btn-primary profile-button" *ngIf="isSMEButtonVisible" type="button" (click)="OpenModel()">Apply For SME</button>
-      </div>
-
-
-    </div>
-
-  </div>
-</div>
+<!--            <div class="form-group custom-class mt-5 mb-5">-->
+<!--              <label class="form-label">-->
+<!--                <h5>Email</h5>-->
+<!--              </label>-->
+<!--              <span>-->
+<!--                <h5 class="textDetails">{{ email }}</h5>-->
+<!--              </span>-->
+<!--            </div>-->
 
 
 
 
 
-<!-- The Modal -->
-<div class="modal" id="myModal">
-  <div class="modal-dialog custom-modal-dialog">
-    <div class="modal-content custom-modal-content card card-body">
-      <form *ngIf="SMEForm" [formGroup]="SMEForm">
-        <div class="form-group row mt-4">
-          <div class="col-md-6">
-          </div>
-          <div class="col-md-6">
-            <h6 class="modal-title">SME Profile Registration Form</h6>
-            <div class="text-black-50">Please fill this form to register as an SME. Your Agile Coach will be notified to
-              approve or decline your
-              request.</div>
-          </div>
-        </div>
+<!--            <div class="form-group custom-class mt-5 mb-5">-->
+<!--              <label class="form-label">-->
+<!--                <h5>Location</h5>-->
+<!--              </label>-->
+<!--              <span>-->
+<!--                <h5 class="textDetails">{{ location }}</h5>-->
+<!--              </span>-->
+<!--            </div>-->
 
-        <!-- Area of expertise -->
-        <div class="form-group row mt-4">
-          <div class="col-md-6">
-            <label for="areaOfExpertise" class="form-label">Area OF Expertise <sup class="text-danger">*</sup></label>
-          </div>
-          <div class="col-md-6">
-            <input type="text" formControlName="areaOfExpertise" class="form-control" id="areaOfExpertise">
-          </div>
-        </div>
+<!--            <div class="form-group custom-class mt-5 mb-5">-->
+<!--              <label class="form-label">-->
+<!--                <h5>Languages</h5>-->
+<!--              </label>-->
+<!--              <span>-->
+<!--                <h5 class="textDetails">{{ languages }}</h5>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
 
-        <!-- Location -->
-        <div class="row mt-4">
-          <div class="col-md-6">
-            <label for="location" class="form-label">Location<sup class="text-danger">*</sup></label>
-          </div>
-          <div class="col-md-6">
-            <input type="text" formControlName="location" class="form-control" id="location">
-          </div>
-        </div>
+<!--      &lt;!&ndash; Edit mode &ndash;&gt;-->
+<!--      <div class="col-md-12">-->
+<!--        <form *ngIf="editMode" [formGroup]="profileForm">-->
+<!--          <div class="editForm">-->
+<!--            <div class="form-group">-->
+<!--              <label for="editFullName" class="form-label">Edit Full Name </label>-->
+<!--              <input type="text" formControlName="firstName" class="form-control" id="firstName">-->
+<!--            </div>-->
 
-        <!-- Languages -->
-        <div class="row mt-4">
-          <div class="col-md-6">
-            <label for="languages" class="form-label">Languages <sup class="text-danger">*</sup></label>
-          </div>
-          <div class="col-md-6">
-            <input type="text" formControlName="languages" class="form-control" id="languages">
-          </div>
-        </div>
+<!--            <div class="form-group">-->
+<!--              <label for="editLastName" class="form-label">Edit Last Name</label>-->
+<!--              <input type="text" formControlName="lastName" class="form-control" id="lastName">-->
+<!--            </div>-->
 
-        <!-- Time Slots -->
-        <div class="row mt-4">
-          <div class="col-md-6">
-            <label for="timeSlots" class="form-label">Available Time Slots <sup class="text-danger">*</sup></label>
-          </div>
-          <div class="col-md-6">
-            <input type="text" formControlName="timeSlots" class="form-control" id="timeSlots">
-          </div>
-        </div>
+<!--            <div class="form-group">-->
+<!--              <label for="editEmail" class="form-label">Edit Email</label>-->
+<!--              <input type="text" formControlName="email" class="form-control" id="email">-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--              <label for="editLocation" class="form-label">Edit Location</label>-->
+<!--              <input type="text" formControlName="location" class="form-control" id="location">-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--              <label for="editLanguages" class="form-label">Edit Languages</label>-->
+<!--              <input type="text" formControlName="languages" class="form-control" id="languages">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </form>-->
+
+<!--        <div class="col-md-12 mt-5 text-center">-->
+<!--          <button class="btn btn-primary profile-button" *ngIf="isSaveButtonVisible" type="button" (click)="saveChanges()">Save</button>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="col-md-12 mt-5 text-center">-->
+<!--        <button class="btn btn-primary profile-button" *ngIf="isSMEButtonVisible" type="button" (click)="OpenModel()">Apply For SME</button>-->
+<!--      </div>-->
 
 
-        <div class="row mt-4">
+<!--    </div>-->
 
-          <div class="col-md-6">
-          </div>
+<!--  </div>-->
+<!--</div>-->
 
-          <!-- Submit SME form button-->
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-6 form-group">
-                <button type="button" class="btn btn-secondary" (click)="CloseModel()"
-                  data-bs-dismiss="modal">Cancel</button>
-              </div>
-              <div class="col-md-6 form-group">
-                <button type="button" class="btn btn-primary" (click)="submitSMEForm()">Submit</button>
-              </div>
-            </div>
-          </div>
 
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
 
-<!-- Overlay for blurring -->
-<div class="overlay" [class.active]="isModalOpen"></div>
+
+
+<!--&lt;!&ndash; The Modal &ndash;&gt;-->
+<!--<div class="modal" id="myModal">-->
+<!--  <div class="modal-dialog custom-modal-dialog">-->
+<!--    <div class="modal-content custom-modal-content card card-body">-->
+<!--      <form *ngIf="SMEForm" [formGroup]="SMEForm">-->
+<!--        <div class="form-group row mt-4">-->
+<!--          <div class="col-md-6">-->
+<!--          </div>-->
+<!--          <div class="col-md-6">-->
+<!--            <h6 class="modal-title">SME Profile Registration Form</h6>-->
+<!--            <div class="text-black-50">Please fill this form to register as an SME. Your Agile Coach will be notified to-->
+<!--              approve or decline your-->
+<!--              request.</div>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Area of expertise &ndash;&gt;-->
+<!--        <div class="form-group row mt-4">-->
+<!--          <div class="col-md-6">-->
+<!--            <label for="areaOfExpertise" class="form-label">Area OF Expertise <sup class="text-danger">*</sup></label>-->
+<!--          </div>-->
+<!--          <div class="col-md-6">-->
+<!--            <input type="text" formControlName="areaOfExpertise" class="form-control" id="areaOfExpertise">-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Location &ndash;&gt;-->
+<!--        <div class="row mt-4">-->
+<!--          <div class="col-md-6">-->
+<!--            <label for="location" class="form-label">Location<sup class="text-danger">*</sup></label>-->
+<!--          </div>-->
+<!--          <div class="col-md-6">-->
+<!--            <input type="text" formControlName="location" class="form-control" id="location">-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Languages &ndash;&gt;-->
+<!--        <div class="row mt-4">-->
+<!--          <div class="col-md-6">-->
+<!--            <label for="languages" class="form-label">Languages <sup class="text-danger">*</sup></label>-->
+<!--          </div>-->
+<!--          <div class="col-md-6">-->
+<!--            <input type="text" formControlName="languages" class="form-control" id="languages">-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Time Slots &ndash;&gt;-->
+<!--        <div class="row mt-4">-->
+<!--          <div class="col-md-6">-->
+<!--            <label for="timeSlots" class="form-label">Available Time Slots <sup class="text-danger">*</sup></label>-->
+<!--          </div>-->
+<!--          <div class="col-md-6">-->
+<!--            <input type="text" formControlName="timeSlots" class="form-control" id="timeSlots">-->
+<!--          </div>-->
+<!--        </div>-->
+
+
+<!--        <div class="row mt-4">-->
+
+<!--          <div class="col-md-6">-->
+<!--          </div>-->
+
+<!--          &lt;!&ndash; Submit SME form button&ndash;&gt;-->
+<!--          <div class="col-md-6">-->
+<!--            <div class="row">-->
+<!--              <div class="col-md-6 form-group">-->
+<!--                <button type="button" class="btn btn-secondary" (click)="CloseModel()"-->
+<!--                  data-bs-dismiss="modal">Cancel</button>-->
+<!--              </div>-->
+<!--              <div class="col-md-6 form-group">-->
+<!--                <button type="button" class="btn btn-primary" (click)="submitSMEForm()">Submit</button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--        </div>-->
+<!--      </form>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Overlay for blurring &ndash;&gt;-->
+<!--<div class="overlay" [class.active]="isModalOpen"></div>-->

@@ -2,30 +2,39 @@
   <div class="card">
     <h2>Login</h2>
 
-    <!-- Error message if unsuccesful lgin-->
-    <!-- Add an error message section -->
-    <div class="alert alert-danger" *ngIf="errorMessage">
+    <div *ngIf="errorMessage" class="alert alert-danger">
       <div class="alert-icon-functional"></div>
       <div class="alert-content">
-        <!-- <div class="h6 alert-heading">{{ errorMessage }}</div> -->
         <p>{{ errorMessage }}</p>
       </div>
     </div>
-
-
+<!--    TODO: just use is-invalid class, there's no need to create valid class - form is either valid or not-->
     <form [formGroup]="loginForm" *ngIf="loginForm">
       <div class="form-group">
-        <label for="email" class="form-label">Email </label>
-        <input type="email" formControlName="email" class="form-control" placeholder="Enter your email..." id="email"
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          formControlName="email"
+          class="form-control"
+          placeholder="Enter your email..."
+          id="email"
           [ngClass]="{
-                  'is-invalid': loginForm.controls['email'].invalid && loginForm.controls['email'].dirty,
-                  'is-valid': loginForm.controls['email'].valid
-              }">
-        <span *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].dirty" class="invalid-feedback">Please provide an valid Email</span>
+            'is-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.dirty,
+            'is-valid': loginForm.get('email')?.valid
+          }">
+        <span *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.dirty" class="invalid-feedback">
+          Please provide a valid Email
+        </span>
       </div>
+
       <div class="form-group">
-        <label>Password:</label>
-        <input type="password" formControlName="password" placeholder="Enter your password..." />
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          formControlName="password"
+          class="form-control"
+          placeholder="Enter your password..."
+          id="password">
       </div>
 
       <div class="form-group">
@@ -34,15 +43,13 @@
         </p>
       </div>
 
-      <button class="btn btn-primary btn-lg" aria-label="Login button" (click)="login()">Login</button>
-
+      <button type="submit" class="btn btn-primary btn-lg" aria-label="Login button" (click)="login()" [disabled]="loginForm.invalid">Login</button>
       <div class="form-group">
         <p class="sign-up">
           <span class="not-registered-text">Not registered yet?</span>
           <a href="/register">Sign up</a>
         </p>
       </div>
-
     </form>
   </div>
 </div>
