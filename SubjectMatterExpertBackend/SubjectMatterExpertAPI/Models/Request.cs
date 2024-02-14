@@ -8,6 +8,5 @@
         public string Location { get; set; } 
         public int UserId { get; set; }
         public User User { get; set; }
-        public AgileCoach AgileCoach { get; set; }
     }
 }
