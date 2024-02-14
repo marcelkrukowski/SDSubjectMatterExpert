@@ -15,6 +15,8 @@ namespace SubjectMatterExpertAPI.Data
             _context = context;
         }
 
+     
+
         public async Task<User> GetUserByIdAsync(int id)
         {
             return await _context.Users
