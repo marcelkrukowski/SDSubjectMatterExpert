@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-
+import { NavigationEnd, Router } from '@angular/router';
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
@@ -7,35 +7,45 @@ import { Component, HostListener } from '@angular/core';
 })
 export class SidenavComponent {
   isCollapsed: boolean = false;
-
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     this.updateSidenavDisplay();
   }
-
   private sidenav: HTMLElement | null = null;
-
+  private sidenavContent: HTMLElement | null = null;
+  constructor(private router: Router) {}
   ngOnInit(): void {
     this.sidenav = document.querySelector('.sidenav') as HTMLElement;
+    this.sidenavContent = document.querySelector('.sidenav-content') as HTMLElement;
     this.updateSidenavDisplay();
+    // Subscribe to route changes
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.updateSidenavDisplay();
+      }
+    });
   }
-
   private updateSidenavDisplay(): void {
     const windowWidth = window.innerWidth;
-
-    if (windowWidth > 800) {
-      if (this.sidenav) {
+    if (this.router.url.includes('login') || this.router.url.includes('register')) {
+      if (this.sidenav && this.sidenavContent) {
+        this.sidenav.style.display = 'none';
+        this.sidenavContent.style.display = 'none';
+      }
+    } else if (windowWidth > 800) {
+      if (this.sidenav && this.sidenavContent) {
         this.sidenav.style.display = 'flex';
+        this.sidenavContent.style.display = 'flex';
       }
     } else {
-      if (this.sidenav) {
-        this.sidenav.style.display = 'none';
+      if (this.sidenav && this.sidenavContent) {
+        this.sidenav.style.display = 'flex';
+        this.sidenavContent.style.display = 'none';
       }
     }
   }
-
   toggleSidenav(): void {
-    if (this.sidenav) {
+    if (this.sidenav && this.sidenavContent) {
       const currentDisplay = getComputedStyle(this.sidenav).getPropertyValue('display');
       this.sidenav.style.display = currentDisplay === 'none' ? 'flex' : 'none';
     }
