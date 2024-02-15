@@ -24,7 +24,8 @@ export class ProfilePageComponent implements OnInit {
   lastName: string = '';
   email: string = '';
   location: string = '';
-  areaOfExpertise: string = '';
+  isSME: boolean = false;
+  
   editMode: boolean = false;
   profileDetails?: any;
 
@@ -33,9 +34,7 @@ export class ProfilePageComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private apiService: apiService,
-    private storageService: ServiceStorageService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
+    private storageService: ServiceStorageService
   ) { }
 
   ngOnInit(): void {
@@ -64,7 +63,7 @@ export class ProfilePageComponent implements OnInit {
 
   }
 
-  getUserDetails() {
+  async getUserDetails() {
     this.currentID = this.storageService.get('SMEuser')?.id;
   
     if (this.currentID !== undefined) {
@@ -74,6 +73,10 @@ export class ProfilePageComponent implements OnInit {
         this.lastName = result.lastname;
         this.email = result.email;
         this.location = result.location;
+        this.isSME = result.isSME;
+
+        this.applyForSme();
+        
        
       });
     }
@@ -130,11 +133,23 @@ export class ProfilePageComponent implements OnInit {
 
         console.log('Changes saved.');
         console.log("redirecturl: ", redirecturl)
+        this.applyForSme();
       }
 
     });
 
   }
+
+  //function to show and hide Apply for SME button
+  applyForSme(){
+    if(this.isSME === true){
+      this.isSMEButtonVisible = false;  
+    }
+    else{
+      this.isSMEButtonVisible = true;
+    }
+  }
+
 
   //Open modal when applying for SME
   OpenModel() {
