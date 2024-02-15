@@ -24,7 +24,6 @@ export class ProfilePageComponent implements OnInit {
   lastName: string = '';
   email: string = '';
   location: string = '';
-  languages: string = '';
   areaOfExpertise: string = '';
   editMode: boolean = false;
   profileDetails?: any;
@@ -66,16 +65,18 @@ export class ProfilePageComponent implements OnInit {
   }
 
   getUserDetails() {
-    this.apiService.request('currentProfile', 'get', undefined, this.currentID).subscribe((result: any) => {
-      console.log('User Deatils results: ', result);
-      this.currentID = this.storageService.get('SMEuser')?.id;
-      this.firstName = this.storageService.get('SMEuser')?.firstname;
-      this.lastName = this.storageService.get('SMEuser')?.lastname;
-      this.email = this.storageService.get('SMEuser')?.email;
-      this.areaOfExpertise = this.storageService.get('SMEuser')?.areaOfExpertise;
-      this.location = this.storageService.get('SMEuser')?.location;
-      this.languages = this.storageService.get('SMEuser')?.languages;
-    })
+    this.currentID = this.storageService.get('SMEuser')?.id;
+  
+    if (this.currentID !== undefined) {
+      this.apiService.request('currentProfile', 'get', undefined, this.currentID).subscribe((result: any) => {
+        console.log('User Details result:', result);
+        this.firstName = result.firstname;
+        this.lastName = result.lastname;
+        this.email = result.email;
+        this.location = result.location;
+       
+      });
+    }
   }
 
 
@@ -95,7 +96,6 @@ export class ProfilePageComponent implements OnInit {
       lastName: this.lastName,
       email: this.email,
       location: this.location,
-      languages: this.languages,
     });
 
 
@@ -115,7 +115,6 @@ export class ProfilePageComponent implements OnInit {
       this.lastName = result.lastname;
       this.email = result.email;
       this.location= result.location;
-      this.languages= result.languages;
 
 
       if (result) {

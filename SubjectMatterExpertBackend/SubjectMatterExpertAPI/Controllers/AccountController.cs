@@ -64,6 +64,7 @@ namespace SubjectMatterExpertAPI.Controllers
             {
                 
                 Token = _tokenService.CreateToken(user),
+                Id=user.Id
                
             };
         }
