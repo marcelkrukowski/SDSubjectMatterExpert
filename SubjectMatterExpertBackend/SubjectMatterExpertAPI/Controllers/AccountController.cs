@@ -19,7 +19,7 @@ namespace SubjectMatterExpertAPI.Controllers
             _tokenService = tokenService;
         }
         [HttpPost("register")] // POST: api/account/register
-        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<UserRegisterResponseDto>> Register(UserRegisterRequestDto registerDto)
         {
             if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
             using var hmac = new HMACSHA512();
@@ -37,15 +37,15 @@ namespace SubjectMatterExpertAPI.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return new UserDto
+            return new UserRegisterResponseDto
             {
-                Username = user.Username,
+           
                 Token = _tokenService.CreateToken(user)
             };
         }
 
         [HttpPost("login")] // POST: api/account/login
-        public async Task<ActionResult<LoginResponseDto>> Login(LoginRequestDto loginDto)
+        public async Task<ActionResult<UserLoginResponseDto>> Login(UserLoginRequestDto loginDto)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == loginDto.Email);
 
@@ -60,7 +60,7 @@ namespace SubjectMatterExpertAPI.Controllers
                 if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password!");
             }
 
-            return new LoginResponseDto
+            return new UserLoginResponseDto
             {
                 
                 Token = _tokenService.CreateToken(user),

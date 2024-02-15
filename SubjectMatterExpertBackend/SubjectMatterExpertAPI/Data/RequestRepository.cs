@@ -36,7 +36,14 @@ namespace SubjectMatterExpertAPI.Data
         public async Task CreateRequestAsync(Request request)
         {
             await _context.Requests.AddAsync(request);
-            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Request> GetUserRequestDetailsAsync(int id)
+        {
+            return await _context.Requests
+                .Include(aoe => aoe.AreasOfExpertise)
+                .Include(l => l.Languages)
+                .SingleOrDefaultAsync(x => x.UserId == id);
         }
 
         public async Task<User> GetUserByUsernameAsync(string username)
@@ -73,10 +80,6 @@ namespace SubjectMatterExpertAPI.Data
 
 
 
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _context.SaveChangesAsync() > 0;
-        }
 
     }
 }

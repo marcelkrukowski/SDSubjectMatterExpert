@@ -35,10 +35,18 @@ namespace SubjectMatterExpertAPI.Controllers
             {
                 return NotFound();
             }
+            else if (user.IsSME == true)
+            {
+                return BadRequest("User is already an SME.");
+            }
 
-            if (user.Request != null)
+            else if (user.Request != null)
             {
                 return BadRequest("User already send a request to become an SME");
+            }
+            else if (user.AgileCoachId == null)
+            {
+                return BadRequest("User can't send the request without AgileCoach");
             }
 
             var areaOfExpertiseEntities = new List<AreaOfExpertise>();
@@ -65,13 +73,6 @@ namespace SubjectMatterExpertAPI.Controllers
                 languageEntities.Add(languageEntity);
             }
 
-
-
-
-
-
-
-
             var requestEntity = new Request
             {
                 Languages = languageEntities,
@@ -85,6 +86,28 @@ namespace SubjectMatterExpertAPI.Controllers
             if (await _userRepository.SaveAllAsync()) return Ok("Succes");
             return BadRequest("Problem creating request");
         }
+
+        [HttpGet("user-request-details")]
+        public async Task<IActionResult> GetUserRequestDetails()
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var request = await _requestRepository.GetUserRequestDetailsAsync(user.Id);
+
+            if (request == null)
+            {
+                return NotFound();
+            }
+
+            var requestToReturn = _mapper.Map<RequestDto>(request);
+            return Ok(requestToReturn);
+        }
+
+
        
     }
 }
