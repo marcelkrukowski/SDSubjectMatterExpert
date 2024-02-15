@@ -36,7 +36,6 @@ import {interceptorsProviders} from "./core/interceptor/interceptor";
     MatListModule,
     MatSidenavModule,
     MatCardModule,
-
   ],
   providers: [
     provideAnimationsAsync(),

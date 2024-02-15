@@ -15,6 +15,7 @@ import {LoginPageComponent} from "./components/login/login-page.component";
 import {HomepageComponent} from "./components/home/homepage.component";
 import {ProfilePageComponent} from "./components/profile-page/profile-page.component";
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
+import {BrowserModule} from "@angular/platform-browser";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import {ForgotPasswordComponent} from "./components/forgot-password/forgot-passw
     LoginPageComponent,
     HomepageComponent,
     ProfilePageComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
   ],
   exports: [
     SmeListComponent,
@@ -39,7 +40,7 @@ import {ForgotPasswordComponent} from "./components/forgot-password/forgot-passw
     NgSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule
+    NgbModule,
   ]
 })
 export class CoreModule { }
