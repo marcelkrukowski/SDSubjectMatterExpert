@@ -1,0 +1,36 @@
+<!-- Page Container -->
+<div class="page-container">
+  <!-- List Container -->
+  <section class="list-container">
+    <header class="list-header">Pending SME List</header>
+    <div class="flex-container">
+      <section class="sme-container" *ngFor="let sme of paginatedSmeList">
+        <article class="sme-card">
+          <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Sam" alt="{{ sme.name }} Avatar"
+            class="sme-avatar">
+          <div class="sme-details">
+            <h1>{{ sme.name }}</h1>
+            <h2>{{ sme.title }}</h2>
+            <p>Subject Matter Expert in Product</p>
+            <p>Requesting to be SME in: {{ sme.expertise }}</p>
+            <button class="btn btn-secondary">View Profile</button>
+          </div>
+          <div class="sme-action-book">
+            <div class="book-container">
+              <button class="btn btn-primary">Accept</button>
+              <button class="btn btn-secondary">Decline</button>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+    <!-- Pagination -->
+    <nav class="pagination" *ngIf="isPaginationEnabled">
+      <button (click)="previousPage()" class="btn btn-link">Previous</button>
+      <span>{{ currentPage + 1 }} / {{ totalPages }}</span>
+      <button (click)="nextPage()" class="btn btn-link">Next</button>
+    </nav>
+  </section>
+
+
+</div>

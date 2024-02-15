@@ -12,7 +12,7 @@ export class apiService {
 
   endpoints: { [endpoint: string]: string | any } = {
     login : `${this.baseURL}api/Account/login`,
-    profile : `${this.baseURL}api/Users`,
+    profile : `${this.baseURL}api/Users/user-details`,
     currentProfile : (id : number) => `${this.baseURL}api/Users/${id}`,
     editProfile : (id : number) => `${this.baseURL}api/Account/${id}`,
 

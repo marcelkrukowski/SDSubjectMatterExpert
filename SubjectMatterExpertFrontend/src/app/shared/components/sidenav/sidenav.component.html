@@ -40,6 +40,14 @@
         <i class="sidenav-icon icons8-f-done"></i>
         <span *ngIf="!isCollapsed">Request to be SME</span></a>
     </mat-nav-list>
+  
+
+    <mat-nav-list class="nav-list" *ngIf="isAgileCoach">
+      <!-- Request to be SME list link -->
+      <a class="list-link" mat-list-item routerLink="/request-to-be-sme">
+        <i class="sidenav-icon icons8-f-done"></i>
+        <span *ngIf="!isCollapsed">Pending SME list</span></a>
+    </mat-nav-list>
   </mat-sidenav>
 
  <!-- Sidenav Content -->

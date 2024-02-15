@@ -6,6 +6,9 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent {
+
+  isAgileCoach: boolean = true;
+
   isCollapsed: boolean = false;
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {

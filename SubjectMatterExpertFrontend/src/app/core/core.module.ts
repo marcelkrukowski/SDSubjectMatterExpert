@@ -14,6 +14,7 @@ import {RegisterFirstPageComponent} from "./components/register/register-first-p
 import {LoginPageComponent} from "./components/login/login-page.component";
 import {HomepageComponent} from "./components/home/homepage.component";
 import {ProfilePageComponent} from "./components/profile-page/profile-page.component";
+import { RequestToBeSmeListComponent } from './components/request-to-be-sme-list/request-to-be-sme-list.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {ProfilePageComponent} from "./components/profile-page/profile-page.compo
     SmeBookMeetingComponent,
     LoginPageComponent,
     HomepageComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    RequestToBeSmeListComponent
   ],
   exports: [
     SmeListComponent,

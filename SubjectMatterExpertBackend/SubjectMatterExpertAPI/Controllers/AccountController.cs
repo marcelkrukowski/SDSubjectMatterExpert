@@ -63,8 +63,7 @@ namespace SubjectMatterExpertAPI.Controllers
             return new LoginResponseDto
             {
                 
-                Token = _tokenService.CreateToken(user),
-                Id=user.Id
+                Token = _tokenService.CreateToken(user)
                
             };
         }
