@@ -8,6 +8,7 @@ import {RegisterFinalPageComponent} from "./components/register/register-final-p
 import {SmeListComponent} from "./components/sme-list/sme-list.component";
 import {SmeBookMeetingComponent} from "./components/book-meeting/sme-book-meeting.component";
 import {ProfilePageComponent} from "./components/profile-page/profile-page.component";
+import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 
 // TODO: add 404 page & redirect user there if no URL was matched.
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: 'sme-list', component: SmeListComponent},
   {path: 'sme-book-meeting', component: SmeBookMeetingComponent},
   {path: 'profile', component: ProfilePageComponent},
+  {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: '**', redirectTo: '/home', pathMatch: "full" },
 ];
 

@@ -14,6 +14,8 @@ import {RegisterFirstPageComponent} from "./components/register/register-first-p
 import {LoginPageComponent} from "./components/login/login-page.component";
 import {HomepageComponent} from "./components/home/homepage.component";
 import {ProfilePageComponent} from "./components/profile-page/profile-page.component";
+import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
+import {BrowserModule} from "@angular/platform-browser";
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import {ProfilePageComponent} from "./components/profile-page/profile-page.compo
     SmeBookMeetingComponent,
     LoginPageComponent,
     HomepageComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    ForgotPasswordComponent,
   ],
   exports: [
     SmeListComponent,
@@ -37,7 +40,7 @@ import {ProfilePageComponent} from "./components/profile-page/profile-page.compo
     NgSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule
+    NgbModule,
   ]
 })
 export class CoreModule { }
