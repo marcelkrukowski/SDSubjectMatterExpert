@@ -1,5 +1,4 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { SME } from '../sme-list/sme.model';
 import { RequestToBeSMEList } from './sme.model';
 
 @Component({
