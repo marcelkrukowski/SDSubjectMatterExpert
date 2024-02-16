@@ -13,12 +13,14 @@ namespace SubjectMatterExpertAPI.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly IRequestRepository _requestRepository;
+        private readonly IAgileCoachRepository _agileCoachRepository;
         private readonly IMapper _mapper;
 
-        public RequestController(IUserRepository userRepository, IRequestRepository requestRepository, IMapper mapper)
+        public RequestController(IUserRepository userRepository, IRequestRepository requestRepository, IAgileCoachRepository agileCoachRepository, IMapper mapper)
         {
             _userRepository = userRepository;
             _requestRepository = requestRepository;
+            _agileCoachRepository = agileCoachRepository;
             _mapper = mapper;
         }
 
@@ -83,6 +85,7 @@ namespace SubjectMatterExpertAPI.Controllers
           
 
             user.Request = requestEntity;
+            user.Location = requestInput.Location;
             if (await _userRepository.SaveAllAsync()) return Ok("Succes");
             return BadRequest("Problem creating request");
         }
@@ -105,6 +108,33 @@ namespace SubjectMatterExpertAPI.Controllers
 
             var requestToReturn = _mapper.Map<RequestDto>(request);
             return Ok(requestToReturn);
+        }
+
+        [HttpGet("pending-requests-for-sme")]
+        public async Task<IActionResult> GetAllPendingRequestForSME()
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            var agileCoach = await _agileCoachRepository.GetAgileCoachByUserIdAsync(user.Id);
+
+            if (agileCoach == null)
+            {
+                return NotFound("User is not an Agile Coach");
+            }
+
+            var managedUsers = await _agileCoachRepository.GetManagedUsersByAgileCoachIdAsync(agileCoach.Id);
+            if (managedUsers == null)
+            {
+                return NotFound();
+            }
+
+            //var pendingRequests = await _agileCoachRepository.GetPendingRequestForUserAsync(managedUsers);
+            //var managedUsersToReturn = _mapper.Map<List<UserDto>>(managedUsers);
+            //var pendingRequestsToReturn = _mapper.Map<List<RequestDto>>(pendingRequests);
+            //return Ok(pendingRequestsToReturn);
+            var usersWithPendingRequests = await _agileCoachRepository.GetPendingRequestForUserAsync(managedUsers);
+
+            return Ok(usersWithPendingRequests);
+
         }
 
 

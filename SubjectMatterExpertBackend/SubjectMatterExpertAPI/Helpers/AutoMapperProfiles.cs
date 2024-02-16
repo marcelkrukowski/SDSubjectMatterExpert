@@ -23,6 +23,7 @@ namespace SubjectMatterExpertAPI.Helpers
             CreateMap<RequestDto, Request>()
                 .ForMember(dest => dest.Languages, opt => opt.MapFrom(src => src.Languages))
                 .ForMember(dest => dest.AreasOfExpertise, opt => opt.MapFrom(src => src.AreasOfExpertise));
+            
 
 
         }

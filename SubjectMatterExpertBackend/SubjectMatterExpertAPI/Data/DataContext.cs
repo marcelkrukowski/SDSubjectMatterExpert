@@ -60,13 +60,6 @@ namespace SubjectMatterExpertAPI.Data
                 .WithMany(u => u.TimeSlots)
                 .HasForeignKey(ts => ts.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<TimeSlot>()
-                .HasOne(ts => ts.BookedUser)
-                .WithMany()
-                .HasForeignKey(ts => ts.BookedUserId)
-                .IsRequired(false)
-                .OnDelete(DeleteBehavior.Restrict);
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder builder)
