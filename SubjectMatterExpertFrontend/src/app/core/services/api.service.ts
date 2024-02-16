@@ -1,23 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
-export class apiService {
-  baseURL = 'http://localhost:7072/'
-
+export class ApiService {
   constructor(private http: HttpClient) { }
 
   endpoints: { [endpoint: string]: string | any } = {
-    login : `${this.baseURL}api/Account/login`,
-    profile : `${this.baseURL}api/Users/user-details`,
-    currentProfile : (id : number) => `${this.baseURL}api/Users/user-details`,
-    editProfile : (id : number) => `${this.baseURL}api/Account/${id}`,
-
+    login : `${environment.apiUrl}/api/Account/login`,
+    profile : `${environment.apiUrl}/api/Users`,
+    currentProfile : (id : number) => `${environment.apiUrl}/api/Users/${id}`,
+    editProfile : (id : number) => `${environment.apiUrl}/api/Account/${id}`,
   }
-
 
   request(url : endpointType, method : string , payload? : object , urlParams? : any){
     const finalURL = !urlParams ? this.endpoints[url] : this.endpoints[url](urlParams);

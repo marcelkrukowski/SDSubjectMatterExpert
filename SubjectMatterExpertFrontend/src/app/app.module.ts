@@ -15,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {CoreModule} from "./core/core.module";
 import {SidenavComponent} from "./shared/components/sidenav/sidenav.component";
-import { interceptorsProviders } from './core/interceptor/interceptor';
+import {interceptorsProviders} from "./core/interceptor/interceptor";
 
 @NgModule({
   declarations: [
@@ -36,7 +36,6 @@ import { interceptorsProviders } from './core/interceptor/interceptor';
     MatListModule,
     MatSidenavModule,
     MatCardModule,
-
   ],
   providers: [
     provideAnimationsAsync(),
