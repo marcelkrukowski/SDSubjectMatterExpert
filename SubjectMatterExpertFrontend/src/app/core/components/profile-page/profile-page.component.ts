@@ -39,7 +39,7 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit(): void {
     //get current user id
-    this.currentID = this.storageService.get('SMEuser').id;
+    // this.currentID = this.storageService.get('SMEuser').id;
     
 
     //call method to get user details for current user deatils
@@ -63,12 +63,14 @@ export class ProfilePageComponent implements OnInit {
 
   }
 
-  async getUserDetails() {
-    this.currentID = this.storageService.get('SMEuser')?.id;
+  getUserDetails() {
+    // this.currentID = this.storageService.get('SMEuser')?.id;
   
-    if (this.currentID !== undefined) {
-      this.apiService.request('currentProfile', 'get', undefined, this.currentID).subscribe((result: any) => {
+    // if (this.currentID !== undefined) {
+      this.apiService.request('profile', 'get').subscribe((result: any) => {
         console.log('User Details result:', result);
+        this.currentID = result.id
+        
         this.firstName = result.firstname;
         this.lastName = result.lastname;
         this.email = result.email;
@@ -79,7 +81,7 @@ export class ProfilePageComponent implements OnInit {
         
        
       });
-    }
+    // }
   }
 
 
@@ -111,6 +113,9 @@ export class ProfilePageComponent implements OnInit {
     this.isSaveButtonVisible = false;
     this.isSMEButtonVisible = true;
 
+    this.currentID = this.storageService.get('SMEuser')?.id;
+    console.log("alala", this.currentID);
+    
     this.apiService.request('editProfile', 'put', this.profileForm?.value, this.currentID).subscribe(async (result: any) => {
       console.log('Edit profile result: ', result)
       // this.profileForm.patchValue(result);

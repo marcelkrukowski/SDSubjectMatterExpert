@@ -36,6 +36,7 @@ export class LoginPageComponent implements OnInit {
       this.serviceLoginService.request('login', 'post', this.loginForm?.value).subscribe((result: { [key: string]: any }) => {
           console.log("Login results: ", result);
           this.serviceStorageService.set('SMEuser', result);
+          this.serviceStorageService.set('token', result['token']);
 
           if (result) {
             console.log("Testing storage service", this.serviceStorageService.get('SMEuser')?.location);
@@ -50,16 +51,8 @@ export class LoginPageComponent implements OnInit {
           // Check for specific HTTP error status codes
           if (error.status === 401) {
             // Unauthorized error (e.g., incorrect credentials)
-            console.error('Login unsuccessful:', error);
-
-            if (error.error.includes('Invalid email!')){
-              this.errorMessage = 'Incorrect email!';
-            }
-            if (error.error.includes('Invalid password!')){
-              this.errorMessage = 'Incorrect password!';
-            }
-
-
+            console.error('Login unsuccessful:', error);        
+              this.errorMessage = 'Incorrect credentials';
           }
           else if (error.status === 500) {
             // Internal server error
