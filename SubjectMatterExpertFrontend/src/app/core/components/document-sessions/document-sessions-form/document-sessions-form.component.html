@@ -1,0 +1,101 @@
+<div class="container my-5">
+    <div class="card">
+        <form *ngIf="sessionForm" [formGroup]="sessionForm">
+            <div class="card-header">
+                <i  class="icons8-o-details"></i>
+                Log Details
+            </div>
+    
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="sme_name" class="form-label">SME Name<sup class="text-danger">*</sup></label>
+                    <input type="text" formControlName="sme_name" class="form-control" id="sme_name"
+                           [ngClass]="{'is-invalid': (sessionForm.controls['sme_name'].invalid && sessionForm.controls['sme_name'].dirty) || (sessionForm.controls['sme_name'].hasError('pattern') && sessionForm.controls['sme_name'].dirty),
+                                       'is-valid': sessionForm.controls['sme_name'].valid}">
+                    <span *ngIf="sessionForm.controls['sme_name'].invalid && sessionForm.controls['sme_name'].dirty && !sessionForm.controls['sme_name'].hasError('pattern')"
+                          class="text-danger">SME Name is required!</span>
+                    <span *ngIf="sessionForm.controls['sme_name'].hasError('pattern') && sessionForm.controls['sme_name'].dirty"
+                          class="text-danger">Only alphabets are allowed!</span>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="coachees" class="form-label">Coachees</label>
+                    <input type="text" formControlName="coachees" class="form-control" id="coachees"
+                        [ngClass]="{'is-invalid': sessionForm.controls['coachees'].invalid && sessionForm.controls['coachees'].dirty,
+                                     'is-valid': sessionForm.controls['coachees'].valid && sessionForm.controls['coachees'].dirty && sessionForm.controls['coachees'].value}">
+                    <span *ngIf="sessionForm.controls['coachees'].hasError('pattern') && sessionForm.controls['coachees'].dirty"
+                          class="text-danger">Only alphabets are allowed!</span>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="topic" class="form-label">Topic<sup class="text-danger">*</sup></label>
+                    <input type="text" formControlName="topic" class="form-control" id="topic"
+                        [ngClass]="{'is-invalid': (sessionForm.controls['topic'].invalid && sessionForm.controls['topic'].dirty) || sessionForm.controls['topic'].hasError('pattern'),
+                                    'is-valid': sessionForm.controls['topic'].valid}">
+                    <span *ngIf="sessionForm.controls['topic'].invalid && sessionForm.controls['topic'].dirty && !sessionForm.controls['topic'].hasError('pattern')"
+                        class="text-danger">Topic is required!</span>
+                    <span *ngIf="sessionForm.controls['topic'].hasError('pattern') && sessionForm.controls['topic'].dirty && !sessionForm.controls['topic'].hasError('specialCharacters')"
+                        class="text-danger">Invalid Format</span>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="sub_topic" class="form-label">Sub Topic<sup class="text-danger">*</sup></label>
+                    <input type="text" formControlName="sub_topic" class="form-control" id="sub_topic"
+                        [ngClass]="{'is-invalid': sessionForm.controls['sub_topic'].invalid && sessionForm.controls['sub_topic'].dirty,
+                                    'is-valid': sessionForm.controls['sub_topic'].valid}">
+                    <span *ngIf="sessionForm.controls['sub_topic'].invalid && sessionForm.controls['sub_topic'].dirty && !sessionForm.controls['sub_topic'].hasError('pattern') && !sessionForm.controls['sub_topic'].hasError('specialCharacters')"
+                        class="text-danger">Sub Topic is required!</span>
+                    <span *ngIf="sessionForm.controls['sub_topic'].hasError('pattern') && sessionForm.controls['sub_topic'].dirty && !sessionForm.controls['sub_topic'].hasError('specialCharacters')"
+                        class="text-danger">Invalid Format</span>
+                </div>                
+                
+                <div class="mb-3">
+                    <label for="date" class="form-label">Date<sup class="text-danger">*</sup></label>
+                    <input type="date" formControlName="date" class="form-control" id="date"[ngClass]="{'is-invalid': sessionForm.controls['date'].invalid && sessionForm.controls['date'].dirty,
+                    'is-valid': sessionForm.controls['date'].valid}">
+                    <span *ngIf="sessionForm.controls['date'].invalid && sessionForm.controls['date'].dirty"
+                        class="text-danger">Date is required!</span>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="startTime" class="form-label">Start Time<sup class="text-danger">*</sup></label>
+                            <input type="time" formControlName="startTime" class="form-control" id="startTime"
+                                [ngClass]="{'is-invalid': sessionForm.controls['startTime'].invalid && sessionForm.controls['startTime'].dirty,
+                                'is-valid': sessionForm.controls['startTime'].valid}">
+                            <span *ngIf="sessionForm.controls['startTime'].invalid && sessionForm.controls['startTime'].dirty"
+                                class="text-danger">Start Time is required!</span>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="endTime" class="form-label">End Time<sup class="text-danger">*</sup></label>
+                            <input type="time" formControlName="endTime" class="form-control" id="endTime"
+                                [ngClass]="{'is-invalid': sessionForm.controls['endTime'].invalid && sessionForm.controls['endTime'].dirty,
+                                'is-valid': sessionForm.controls['endTime'].valid}">
+                            <span *ngIf="sessionForm.controls['endTime'].invalid && sessionForm.controls['endTime'].dirty"
+                                class="text-danger">End Time is required!</span>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description<sup class="text-danger">*</sup></label>
+                    <textarea formControlName="description" class="form-control" id="description" placeholder="..." [ngClass]="{'is-invalid': sessionForm.controls['description'].invalid && sessionForm.controls['description'].dirty,
+                    'is-valid': sessionForm.controls['description'].valid}"></textarea>
+                    <span *ngIf="sessionForm.controls['description'].invalid && sessionForm.controls['description'].dirty"
+                        class="text-danger">Description is required!</span>
+                </div>
+    
+                <div class="mb-3 text-center">
+                    <button class="btn-primary" (click)="saveLog()">
+                        Save
+                    </button>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+</div>

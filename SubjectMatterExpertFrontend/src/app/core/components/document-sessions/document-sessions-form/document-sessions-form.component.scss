@@ -1,0 +1,39 @@
+.form-label{
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    text-align: left;
+    font-size: 1.2rem;
+}
+
+.form-control{
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    box-shadow: 8px 6px 17px -11px rgba(66, 68, 90, 1);
+}
+
+.btn-primary{
+    margin: 1rem 0;
+    padding: 0.7rem 4rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #ed703d;
+    color: white;
+}
+
+.btn-primary:hover{
+    background-color: #f9d2c3;
+    color: black;
+}
+
+.card-header{
+    display: block;
+    font-weight: 500px;
+    font-size: 18px;
+    text-align: center;
+}

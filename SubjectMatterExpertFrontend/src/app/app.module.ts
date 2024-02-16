@@ -21,6 +21,9 @@ import {SharedModule} from "./shared/shared.module";
 import {CoreModule} from "./core/core.module";
 import { ProfilePageComponent } from './core/components/profile/profile-page/profile-page.component';
 import { interceptorsProviders } from './core/interceptor/interceptor';
+import { CommonModule } from '@angular/common';
+import { DocumentSessionsFormComponent } from './core/components/document-sessions/document-sessions-form/document-sessions-form.component';
+import { DocumentSessionsComponent } from './core/components/document-sessions/document-sessions.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,8 @@ import { interceptorsProviders } from './core/interceptor/interceptor';
     ForgotPasswordComponent,
     HomepageComponent,
     SidenavComponent,
+    DocumentSessionsComponent,
+    DocumentSessionsFormComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +50,8 @@ import { interceptorsProviders } from './core/interceptor/interceptor';
     MatBadgeModule,
     MatListModule,
     MatSidenavModule,
-    MatCardModule
+    MatCardModule,
+    CommonModule
   ],
   providers: [
     provideAnimationsAsync(),

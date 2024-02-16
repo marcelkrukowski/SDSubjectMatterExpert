@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'register-first-page', component: FirstPageComponent},
   { path: 'register-second-page', component: SecondPageComponent},
   { path: 'register-final', component: FinalPageComponent},
-  {path: 'register', component: FirstPageComponent}
+  {path: 'register', component: FirstPageComponent},
+
 ];
 
 @NgModule({
