@@ -12,4 +12,3 @@
         public List<AreaOfExpertiseDto> AreasOfExpertise { get; set; }
     }
 }
-

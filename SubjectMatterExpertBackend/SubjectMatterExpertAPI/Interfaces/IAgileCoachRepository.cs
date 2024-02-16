@@ -7,6 +7,5 @@ namespace SubjectMatterExpertAPI.Interfaces
     {
         Task<AgileCoach> GetAgileCoachByUserIdAsync(int id);
         Task<List<User>> GetManagedUsersByAgileCoachIdAsync(int id);
-        Task<List<UserWithPendingRequestDto>> GetPendingRequestForUserAsync(List<User> users);
     }
 }

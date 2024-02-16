@@ -60,6 +60,31 @@ namespace SubjectMatterExpertAPI.Data
                 .WithMany(u => u.TimeSlots)
                 .HasForeignKey(ts => ts.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Request>()
+                .HasMany(r => r.AreasOfExpertise)
+                .WithOne(aoe => aoe.Request)
+                .HasForeignKey(aoe => aoe.RequestId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Request>()
+                .HasMany(r => r.Languages)
+                .WithOne(aoe => aoe.Request)
+                .HasForeignKey(aoe => aoe.RequestId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<AreaOfExpertise>()
+                .HasOne(aoe => aoe.Request)
+                .WithMany(request => request.AreasOfExpertise)
+                .HasForeignKey(aoe => aoe.RequestId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Language>()
+                .HasOne(aoe => aoe.Request)
+                .WithMany(request => request.Languages)
+                .HasForeignKey(aoe => aoe.RequestId)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder builder)

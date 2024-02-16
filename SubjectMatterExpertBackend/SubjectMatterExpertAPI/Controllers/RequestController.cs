@@ -131,13 +131,32 @@ namespace SubjectMatterExpertAPI.Controllers
             //var managedUsersToReturn = _mapper.Map<List<UserDto>>(managedUsers);
             //var pendingRequestsToReturn = _mapper.Map<List<RequestDto>>(pendingRequests);
             //return Ok(pendingRequestsToReturn);
-            var usersWithPendingRequests = await _agileCoachRepository.GetPendingRequestForUserAsync(managedUsers);
+            var usersWithPendingRequests = await _requestRepository.GetPendingRequestForUserAsync(managedUsers);
 
             return Ok(usersWithPendingRequests);
 
         }
 
+        [HttpPost("accept-request/{requestId}")]
+        public async Task<IActionResult> AcceptRequest(int requestId)
+        {
+            await _requestRepository.AcceptRequestAsync(requestId);
 
-       
+            return Ok("Request accepted successfully");
+        }
+
+        [HttpPost("decline-request/{requestId}")]
+        public async Task<IActionResult> DeclineRequest(int requestId)
+        {
+
+            await _requestRepository.DeclineRequestAsync(requestId);
+
+            return Ok("Request declined successfully");
+        }
+
+
+
+
+
     }
 }

@@ -49,29 +49,7 @@ namespace SubjectMatterExpertAPI.Data
         //        .ToListAsync();
         //}
 
-        public async Task<List<UserWithPendingRequestDto>> GetPendingRequestForUserAsync(List<User> users)
-        {
-            var userIds = users.Select(u => u.Id).ToList();
-
-            var result = await _context.Users
-                            .Include(user => user.Request)
-                            .Include(user => user.AreasOfExpertise)
-                            .Include(user => user.Languages)
-                            .Where(user => userIds.Contains(user.Id))
-                            .ToListAsync();
-
-            return result.Select(user => new UserWithPendingRequestDto
-            {
-                RequestId = user.Request.Id,
-                Username = user.Username,
-                Email = user.Email,
-                Fristname = user.Firstname,
-                Lastname = user.Lastname,
-                Location = user.Location,
-                Languages = _mapper.Map<List<LanguageDto>>(user.Languages),
-                AreasOfExpertise = _mapper.Map<List<AreaOfExpertiseDto>>(user.AreasOfExpertise),
-            }).ToList();
-        }
+       
 
 
         
