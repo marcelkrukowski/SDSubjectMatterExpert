@@ -1,9 +1,13 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SubjectMatterExpertAPI.Data;
 using SubjectMatterExpertAPI.DTOs;
 using SubjectMatterExpertAPI.Extensions;
 using SubjectMatterExpertAPI.Interfaces;
+using SubjectMatterExpertAPI.Migrations;
 using SubjectMatterExpertAPI.Models;
 
 namespace SubjectMatterExpertAPI.Controllers
@@ -15,13 +19,16 @@ namespace SubjectMatterExpertAPI.Controllers
         private readonly IRequestRepository _requestRepository;
         private readonly IAgileCoachRepository _agileCoachRepository;
         private readonly IMapper _mapper;
+        private readonly DataContext _context;
 
-        public RequestController(IUserRepository userRepository, IRequestRepository requestRepository, IAgileCoachRepository agileCoachRepository, IMapper mapper)
+        public RequestController(IUserRepository userRepository, IRequestRepository requestRepository, IAgileCoachRepository agileCoachRepository, IMapper mapper, DataContext context)
         {
             _userRepository = userRepository;
             _requestRepository = requestRepository;
             _agileCoachRepository = agileCoachRepository;
             _mapper = mapper;
+            _context = context;
+
         }
 
 
@@ -75,7 +82,7 @@ namespace SubjectMatterExpertAPI.Controllers
                 languageEntities.Add(languageEntity);
             }
 
-            var requestEntity = new Request
+            var requestEntity = new Models.Request
             {
                 Languages = languageEntities,
                 Location = requestInput.Location,
@@ -88,6 +95,96 @@ namespace SubjectMatterExpertAPI.Controllers
             user.Location = requestInput.Location;
             if (await _userRepository.SaveAllAsync()) return Ok("Succes");
             return BadRequest("Problem creating request");
+        }
+
+        [HttpPut("update-request")]
+        public async Task<ActionResult<RequestDto>> UpdateRequest([FromBody] RequestInputDto updatedRequestInputDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            if (user == null)
+            {
+                return NotFound();
+            }
+            else if (user.IsSME == true)
+            {
+                return BadRequest("User is already an SME.");
+            }
+
+            var existingRequest = await _requestRepository.GetUserRequestDetailsAsync(user.Id);
+
+            if (existingRequest == null)
+            {
+                return NotFound("Request not found");
+            }
+
+            if (updatedRequestInputDto.AreasOfExpertise != null)
+            {
+                var existingExpertiseToRemove = existingRequest.AreasOfExpertise
+                    .Where(e => !updatedRequestInputDto.AreasOfExpertise.Contains(e.ExpertiseArea))
+                    .ToList();
+
+                foreach (var expertiseToRemove in existingExpertiseToRemove)
+                {
+                    existingRequest.AreasOfExpertise.Remove(expertiseToRemove);
+                    _context.Entry(expertiseToRemove).State = EntityState.Deleted;
+                }
+
+                foreach (string areaOfExpertise in updatedRequestInputDto.AreasOfExpertise)
+                {
+                    var areaOfExpertiseEntity = new AreaOfExpertise
+                    {
+                        ExpertiseArea = areaOfExpertise,
+                        User = user
+                    };
+                    existingRequest.AreasOfExpertise.Add(areaOfExpertiseEntity);
+                }
+            }
+
+       
+            if (updatedRequestInputDto.Languages != null)
+            {
+                var existingLanguagesToRemove = existingRequest.Languages
+                    .Where(l => !updatedRequestInputDto.Languages.Contains(l.LanguageName))
+                    .ToList();
+
+                foreach (var languageToRemove in existingLanguagesToRemove)
+                {
+                    existingRequest.Languages.Remove(languageToRemove);
+                    _context.Entry(languageToRemove).State = EntityState.Deleted;
+                }
+
+                foreach (string language in updatedRequestInputDto.Languages)
+                {
+                    var languageEntity = new Language
+                    {
+                        LanguageName = language,
+                        User = user
+                    };
+                    existingRequest.Languages.Add(languageEntity);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(updatedRequestInputDto.Location))
+            {
+             
+                existingRequest.Location = updatedRequestInputDto.Location;
+                user.Location = updatedRequestInputDto.Location;
+            }
+
+         
+            if (await _userRepository.SaveAllAsync())
+            {
+                return Ok("Request updated successfully");
+            }
+
+            return BadRequest("Problem updating request");
+
+
         }
 
         [HttpGet("user-request-details")]
