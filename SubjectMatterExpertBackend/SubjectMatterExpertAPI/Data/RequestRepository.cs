@@ -22,6 +22,14 @@ namespace SubjectMatterExpertAPI.Data
             await _context.Requests.AddAsync(request);
         }
 
+        public async Task<Request> GetRequestByIdAsync(int requestId)
+        {
+            return await _context.Requests
+                .Include(aoe => aoe.AreasOfExpertise)
+                .Include(l => l.Languages)
+                .SingleOrDefaultAsync(x => x.Id == requestId);
+        }
+
         public async Task<Request> GetUserRequestDetailsAsync(int id)
         {
             return await _context.Requests

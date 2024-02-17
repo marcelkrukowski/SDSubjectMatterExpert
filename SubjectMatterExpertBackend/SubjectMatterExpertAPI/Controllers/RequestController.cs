@@ -140,6 +140,24 @@ namespace SubjectMatterExpertAPI.Controllers
         [HttpPost("accept-request/{requestId}")]
         public async Task<IActionResult> AcceptRequest(int requestId)
         {
+
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var request = await _requestRepository.GetRequestByIdAsync(requestId);
+
+            var agileCoachOfUser = _userRepository.GetAgileCoachOfUserAsync(request.UserId);
+            var agileCoach = _agileCoachRepository.GetAgileCoachByUserIdAsync(user.Id);
+
+            if (agileCoachOfUser.Id != agileCoach.Id)
+            {
+                return BadRequest("User is not managed by this Agile Coach.");
+            }
+
+
             await _requestRepository.AcceptRequestAsync(requestId);
 
             return Ok("Request accepted successfully");
@@ -148,6 +166,23 @@ namespace SubjectMatterExpertAPI.Controllers
         [HttpPost("decline-request/{requestId}")]
         public async Task<IActionResult> DeclineRequest(int requestId)
         {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var request = await _requestRepository.GetRequestByIdAsync(requestId);
+
+            var agileCoachOfUser = _userRepository.GetAgileCoachOfUserAsync(request.UserId);
+            var agileCoach = _agileCoachRepository.GetAgileCoachByUserIdAsync(user.Id);
+
+            if (agileCoachOfUser.Id != agileCoach.Id)
+            {
+                return BadRequest("User is not managed by this Agile Coach.");
+            }
+
+
 
             await _requestRepository.DeclineRequestAsync(requestId);
 
