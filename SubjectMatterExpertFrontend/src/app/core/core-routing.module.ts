@@ -10,11 +10,11 @@ import {SmeBookMeetingComponent} from "./components/book-meeting/sme-book-meetin
 import {ProfilePageComponent} from "./components/profile-page/profile-page.component";
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import { RequestToBeSmeListComponent } from './components/request-to-be-sme-list/request-to-be-sme-list.component';
-
+ 
 // TODO: add 404 page & redirect user there if no URL was matched.
 const routes: Routes = [
-  {path: 'home', component: HomepageComponent },
   {path: 'login', component: LoginPageComponent },
+  {path: 'home', component: HomepageComponent },
   {path: 'register', component: RegisterFirstPageComponent },
   {path: 'register-second', component: RegisterSecondPageComponent},
   {path: 'register-final', component: RegisterFinalPageComponent},
@@ -23,11 +23,12 @@ const routes: Routes = [
   {path: 'profile', component: ProfilePageComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'request-to-be-sme', component: RequestToBeSmeListComponent},
-  {path: '**', redirectTo: '/home', pathMatch: "full" },
+  {path: '**', redirectTo: '/login', pathMatch: "full" },
 ];
-
+ 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class CoreRoutingModule { }
+ 

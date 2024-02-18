@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CoreRoutingModule } from './core-routing.module';
+// import { CoreRoutingModule } from './core-routing.module';
 import { CoreComponent } from './core.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgSelectModule} from "@ng-select/ng-select";
@@ -17,6 +17,7 @@ import {ProfilePageComponent} from "./components/profile-page/profile-page.compo
 import { RequestToBeSmeListComponent } from './components/request-to-be-sme-list/request-to-be-sme-list.component';
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {BrowserModule} from "@angular/platform-browser";
+import { CoreRoutingModule } from './core-routing.module';
 
 @NgModule({
   declarations: [

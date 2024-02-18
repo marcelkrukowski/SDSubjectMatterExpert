@@ -14,7 +14,12 @@ import {User} from "../../../../models/user.model";
   styleUrls: ['./profile-page.component.scss']
 })
 export class ProfilePageComponent implements OnInit {
+  SMEForm?: FormGroup;
+  isModalOpen: boolean = false;
+
+
   userDetails$!: Observable<User>;
+  
   ngOnInit(): void {
     this.userDetails$ = this.userService.getUserDetails();
     this.userDetails$.subscribe(e => console.log(e));
@@ -23,6 +28,29 @@ export class ProfilePageComponent implements OnInit {
   constructor(
     private userService: UserDetailsService
   ) { }
+
+
+  //Open modal when applying for SME
+  OpenModel() {
+    const modelDiv = document.getElementById('myModal');
+    if (modelDiv != null) {
+      modelDiv.style.display = 'block';
+      this.isModalOpen = true;
+    }
+    
+  }
+  CloseModel() {
+    const modelDiv = document.getElementById('myModal');
+    if (modelDiv != null) {
+      modelDiv.style.display = 'none';
+      this.isModalOpen = false;
+    }
+  }
+
+  submitSMEForm() {
+    console.log("Login Form: ", this.SMEForm?.value);
+  }
+
 }
 
 
