@@ -23,10 +23,19 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit(): void {
     this.userDetails$ = this.userService.getUserDetails();
     this.userDetails$.subscribe(e => console.log(e));
+
+    this.SMEForm = this.formBuilder.group({
+      areaOfExpertise: ['', Validators.required],
+      location: ['', Validators.required],
+      languages: ['', Validators.required],
+      timeSlots: ['', Validators.required],
+    })
+
   }
 
   constructor(
-    private userService: UserDetailsService
+    private userService: UserDetailsService,
+    private formBuilder: FormBuilder,
   ) { }
 
 

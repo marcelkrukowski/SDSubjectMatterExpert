@@ -39,11 +39,13 @@ export class SidenavComponent {
       if (this.sidenav && this.sidenavContent) {
         this.sidenav.style.display = 'flex';
         this.sidenavContent.style.display = 'flex';
+        this.isCollapsed = false;
       }
     } else {
       if (this.sidenav && this.sidenavContent) {
         this.sidenav.style.display = 'flex';
         this.sidenavContent.style.display = 'none';
+        this.isCollapsed = true;
       }
     }
   }
