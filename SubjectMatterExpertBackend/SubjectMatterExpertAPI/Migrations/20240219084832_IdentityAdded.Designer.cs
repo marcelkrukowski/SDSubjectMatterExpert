@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SubjectMatterExpertAPI.Data;
 
@@ -11,9 +12,11 @@ using SubjectMatterExpertAPI.Data;
 namespace SubjectMatterExpertAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240219084832_IdentityAdded")]
+    partial class IdentityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -399,6 +402,12 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.Property<string>("Firstname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("InLD")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSME")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Lastname")
                         .IsRequired()

@@ -2,11 +2,10 @@
 
   "users": [
     {
-      "Username": "exampleUser",
+      "UserName": "exampleUser",
       "Firstname": "John",
       "Lastname": "Doe",
       "Email": "john.doe@example.com",
-      "IsSME": true,
       "Languages": [
         { "LanguageName": "English" },
         { "LanguageName": "Spanish" }
@@ -46,11 +45,10 @@
       ]
     },
     {
-      "Username": "exampleUser2",
+      "UserName": "exampleUser2",
       "Firstname": "Jane",
       "Lastname": "Brick",
       "Email": "jjane.brick@example.com",
-      "IsSME": false,
       "Languages": [
         { "LanguageName": "English" },
         { "LanguageName": "Spanish" }
@@ -90,11 +88,10 @@
       ]
     },
     {
-      "Username": "exampleUser3",
+      "UserName": "exampleUser3",
       "Firstname": "Marcel",
       "Lastname": "Krukowski",
       "Email": "marcel.krukowski@sdworx.com",
-      "IsSME": true,
       "Languages": [
         { "LanguageName": "English" },
         { "LanguageName": "Spanish" }
@@ -144,11 +141,10 @@
       ]
     },
     {
-      "Username": "exampleUser3",
+      "UserName": "exampleUser4",
       "Firstname": "Koushal",
       "Lastname": "Oodith",
       "Email": "koushal@gmail.com",
-      "IsSME": true,
       "Languages": [
         { "LanguageName": "English" },
         { "LanguageName": "Spanish" }

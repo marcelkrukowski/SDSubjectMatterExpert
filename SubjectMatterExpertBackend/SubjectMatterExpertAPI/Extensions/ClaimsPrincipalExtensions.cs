@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace SubjectMatterExpertAPI.Extensions
 {
@@ -6,6 +7,8 @@ namespace SubjectMatterExpertAPI.Extensions
     {
         public static string GetUsername(this ClaimsPrincipal user)
         {
+
+
             return user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         }
