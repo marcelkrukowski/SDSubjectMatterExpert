@@ -1,7 +1,7 @@
 ﻿namespace SubjectMatterExpertAPI.DTOs
 {
-    public class LoginResponseDto
-    { 
+    public class UserRegisterResponseDto
+    {
         public string Token { get; set; }
     }
 }
