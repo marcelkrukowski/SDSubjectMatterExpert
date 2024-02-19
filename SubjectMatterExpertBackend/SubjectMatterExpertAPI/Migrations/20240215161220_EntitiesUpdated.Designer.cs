@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SubjectMatterExpertAPI.Data;
 
@@ -11,9 +12,11 @@ using SubjectMatterExpertAPI.Data;
 namespace SubjectMatterExpertAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240215161220_EntitiesUpdated")]
+    partial class EntitiesUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -316,18 +319,15 @@ namespace SubjectMatterExpertAPI.Migrations
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.AreaOfExpertise", b =>
                 {
-                    b.HasOne("SubjectMatterExpertAPI.Models.Request", "Request")
+                    b.HasOne("SubjectMatterExpertAPI.Models.Request", null)
                         .WithMany("AreasOfExpertise")
-                        .HasForeignKey("RequestId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("RequestId");
 
                     b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
                         .WithMany("AreasOfExpertise")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Request");
 
                     b.Navigation("User");
                 });
@@ -345,18 +345,15 @@ namespace SubjectMatterExpertAPI.Migrations
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Language", b =>
                 {
-                    b.HasOne("SubjectMatterExpertAPI.Models.Request", "Request")
+                    b.HasOne("SubjectMatterExpertAPI.Models.Request", null)
                         .WithMany("Languages")
-                        .HasForeignKey("RequestId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("RequestId");
 
                     b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
                         .WithMany("Languages")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Request");
 
                     b.Navigation("User");
                 });

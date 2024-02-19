@@ -12,9 +12,9 @@ namespace SubjectMatterExpertAPI.DTOs
         public string Email { get; set; }
         public bool IsSME { get; set; }
         public bool InLD { get; set; }
-        public string? Languages { get; set; }
+        public List<LanguageDto>? Languages { get; set; }
         public string? Location { get; set; }
-        public string? AreaOfExpertise { get; set; }
+        public List<AreaOfExpertiseDto>? AreaOfExpertise { get; set; }
         public List<TimeSlotRequestDto>? TimeSlots { get; set; }
         public List<SessionDto>? Sessions { get; set; }
         public List<ReportDto>? Reports { get; set; }
