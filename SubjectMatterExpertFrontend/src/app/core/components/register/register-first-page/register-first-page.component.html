@@ -22,7 +22,7 @@
           Passwords do not match.
         </div>
       </div>
-      <button class="btn btn-primary btn-lg" aria-label="Next step button" (click)="nextPage()" [disabled]="!(isEmailValid && isPassValid && isRepeatPassValid && !form.hasError('passwordsDoNotMatch'))">Next</button>
+      <button class="btn btn-primary btn-lg" aria-label="Next step button" (click)="nextPage()" [disabled]="!(isEmailValid && isPassValid && isRepeatPassValid && !form.hasError('passwordsDoNotMatch'))" type="button">Next</button>
     </form>
   </div>
 </div>
