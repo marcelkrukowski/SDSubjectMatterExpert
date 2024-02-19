@@ -24,6 +24,7 @@ import { interceptorsProviders } from './core/interceptor/interceptor';
 import { CommonModule } from '@angular/common';
 import { DocumentSessionsFormComponent } from './core/components/document-sessions/document-sessions-form/document-sessions-form.component';
 import { DocumentSessionsComponent } from './core/components/document-sessions/document-sessions.component';
+import { CardListTemplateComponent } from './core/shared/card-list-template/card-list-template.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { DocumentSessionsComponent } from './core/components/document-sessions/d
     HomepageComponent,
     SidenavComponent,
     DocumentSessionsComponent,
-    DocumentSessionsFormComponent
+    DocumentSessionsFormComponent,
+    CardListTemplateComponent
   ],
   imports: [
     BrowserModule,

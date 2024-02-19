@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SessionDetails } from '../../../models/session-details';
 
 @Component({
   selector: 'app-document-sessions',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './document-sessions.component.scss'
 })
 export class DocumentSessionsComponent {
-
+  sessionDetailList : SessionDetails[] = [];
 }
+

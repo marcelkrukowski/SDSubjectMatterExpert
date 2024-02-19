@@ -1,0 +1,16 @@
+<div class="row g-4 row-cols-4">
+    <div class="col" *ngFor="let item of list">
+        <div class="card card-template col mb-3 h-100" *ngIf="entity == 'sessionDetails'">
+            <div class="card-body">
+                <h5 class="text-center">{{item.sme_name}}</h5>
+                <p>Coachees: {{item.coachees}}</p>
+                <p>Topic: {{item.topic}}</p>
+                <p>Sub-Topic: {{item.sub_topic}}</p>
+                <p>Date: {{item.date}}</p>
+                <p>Start Time: {{item.start_time}}</p>
+                <p>End Time: {{item.end_time}}</p>
+                <p>Description: {{item.description}}</p>
+            </div>
+        </div>
+    </div>
+</div>
