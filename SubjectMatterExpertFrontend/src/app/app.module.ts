@@ -16,11 +16,12 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {CoreModule} from "./core/core.module";
 import {SidenavComponent} from "./shared/components/sidenav/sidenav.component";
 import {interceptorsProviders} from "./core/interceptor/interceptor";
+import { HeaderProfileComponent } from './shared/components/header-profile-component/header-profile-component.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidenavComponent
+    SidenavComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +37,7 @@ import {interceptorsProviders} from "./core/interceptor/interceptor";
     MatListModule,
     MatSidenavModule,
     MatCardModule,
+    HeaderProfileComponent
   ],
   providers: [
     provideAnimationsAsync(),

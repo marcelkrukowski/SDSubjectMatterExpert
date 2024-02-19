@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
@@ -55,4 +56,15 @@ export class SidenavComponent {
       this.sidenav.style.display = currentDisplay === 'none' ? 'flex' : 'none';
     }
   }
+
+
+  // //logout function
+  // logout() {
+  //   console.log("Loging out"); 
+  //   // Clear all stored items in the storage service
+  //   localStorage.removeItem('token');
+   
+  //   // show back login form again
+  //   this.router.navigate(['/login']);
+  // }
 }

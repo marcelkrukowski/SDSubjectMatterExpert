@@ -1,0 +1,35 @@
+<div class="d-flex gap-5">
+  <div class="col">
+    <div ngbDropdown>
+
+      <ng-container *ngIf="userDetails$ | async as user">
+        <button ngbDropdownToggle class="btn btn-secondary" *ngIf="user.username">{{ user.username }}</button>
+
+        <div ngbDropdownMenu>
+          <sdwds-header-profile [empName]="user.firstname + ' ' + user.lastname">
+
+            <div class="divider"></div>
+            <!-- <sdwds-header-profile-select
+              icon="icons8-o-language"
+              [items]="countries"
+              [selection]="countrySelected"
+            ></sdwds-header-profile-select>
+            <sdwds-header-profile-link
+              icon="icons8-o-comments"
+              label="Feedback"
+              [link]="['']"
+            ></sdwds-header-profile-link>
+            <sdwds-header-profile-button
+              icon="icons8-o-settings"
+              label="Settings"
+              new="New"
+            ></sdwds-header-profile-button> -->
+            <sdwds-header-profile-button icon="icons8-o-logout-rounded" label="Sign out"
+              cssClass="text-danger" (click)="logout()"></sdwds-header-profile-button>
+          </sdwds-header-profile>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+</div>
