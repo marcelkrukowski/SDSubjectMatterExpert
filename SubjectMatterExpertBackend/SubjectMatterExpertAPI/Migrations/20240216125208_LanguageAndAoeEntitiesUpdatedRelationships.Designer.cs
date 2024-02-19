@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SubjectMatterExpertAPI.Data;
 
@@ -11,9 +12,11 @@ using SubjectMatterExpertAPI.Data;
 namespace SubjectMatterExpertAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240216125208_LanguageAndAoeEntitiesUpdatedRelationships")]
+    partial class LanguageAndAoeEntitiesUpdatedRelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,7 +56,7 @@ namespace SubjectMatterExpertAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RequestId")
+                    b.Property<int>("RequestId")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -106,7 +109,7 @@ namespace SubjectMatterExpertAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RequestId")
+                    b.Property<int>("RequestId")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -319,7 +322,8 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.HasOne("SubjectMatterExpertAPI.Models.Request", "Request")
                         .WithMany("AreasOfExpertise")
                         .HasForeignKey("RequestId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
                         .WithMany("AreasOfExpertise")
@@ -348,7 +352,8 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.HasOne("SubjectMatterExpertAPI.Models.Request", "Request")
                         .WithMany("Languages")
                         .HasForeignKey("RequestId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
                         .WithMany("Languages")

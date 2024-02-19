@@ -32,6 +32,7 @@ namespace SubjectMatterExpertAPI.Data
             return await _context.Users
                 .Where(u => u.IsSME == true)
                 .Include(ts => ts.TimeSlots)
+                .Include(rt => rt.Request)
                 .Include(s => s.Sessions)
                 .Include(p => p.Photo)
                 .ToListAsync();

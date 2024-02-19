@@ -11,7 +11,6 @@ namespace SubjectMatterExpertAPI.Models
         public TimeOnly EndTime { get; set; }
         public bool? IsBooked { get; set; }
         public int? BookedUserId { get; set; }
-        public User BookedUser { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
 

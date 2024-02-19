@@ -21,6 +21,7 @@ namespace SubjectMatterExpertAPI.Extensions
             services.AddScoped<ITimeSlotRepository, TimeSlotRepository>();
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<IRequestRepository, RequestRepository>();
+            services.AddScoped<IAgileCoachRepository, AgileCoachRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;
