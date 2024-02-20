@@ -6,8 +6,9 @@ namespace SubjectMatterExpertAPI.Interfaces
     {
         Task<IEnumerable<User>> GetSMEsAsync();
         Task<User> GetUserByIdAsync(int userId);
-        Task<User> GetAgileCoachOfUserAsync(int userId);
+        Task<AgileCoach> GetAgileCoachOfUserAsync(int userId);
         Task<User> GetUserByUsernameAsync(string username);
+        Task<User> GetUserAgileCoachOfUserAsync(int userId);
         Task<bool> SaveAllAsync();
     }
 }

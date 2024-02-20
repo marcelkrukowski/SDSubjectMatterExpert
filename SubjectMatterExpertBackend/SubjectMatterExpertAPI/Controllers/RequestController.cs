@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Azure.Core;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SubjectMatterExpertAPI.Data;
@@ -19,14 +20,16 @@ namespace SubjectMatterExpertAPI.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IRequestRepository _requestRepository;
         private readonly IAgileCoachRepository _agileCoachRepository;
+        private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
         private readonly DataContext _context;
 
-        public RequestController(IUserRepository userRepository, IRequestRepository requestRepository, IAgileCoachRepository agileCoachRepository, IMapper mapper, DataContext context)
+        public RequestController(IUserRepository userRepository, IRequestRepository requestRepository, IAgileCoachRepository agileCoachRepository, UserManager<User> userManager, IMapper mapper, DataContext context)
         {
             _userRepository = userRepository;
             _requestRepository = requestRepository;
             _agileCoachRepository = agileCoachRepository;
+            _userManager = userManager;
             _mapper = mapper;
             _context = context;
 
@@ -45,7 +48,7 @@ namespace SubjectMatterExpertAPI.Controllers
             {
                 return NotFound();
             }
-            else if (user.IsSME == true)
+            else if (await _userManager.IsInRoleAsync(user, "SME"))
             {
                 return BadRequest("User is already an SME.");
             }
@@ -118,7 +121,7 @@ namespace SubjectMatterExpertAPI.Controllers
             {
                 return NotFound();
             }
-            else if (user.IsSME == true)
+            else if (await _userManager.IsInRoleAsync(user, "SME"))
             {
                 return BadRequest("User is already an SME.");
             }
@@ -254,8 +257,8 @@ namespace SubjectMatterExpertAPI.Controllers
 
             var request = await _requestRepository.GetRequestByIdAsync(requestId);
 
-            var agileCoachOfUser = _userRepository.GetAgileCoachOfUserAsync(request.UserId);
-            var agileCoach = _agileCoachRepository.GetAgileCoachByUserIdAsync(user.Id);
+            var agileCoachOfUser = await _userRepository.GetAgileCoachOfUserAsync(request.UserId);
+            var agileCoach = await _agileCoachRepository.GetAgileCoachByUserIdAsync(user.Id);
 
             if (agileCoachOfUser.Id != agileCoach.Id)
             {
