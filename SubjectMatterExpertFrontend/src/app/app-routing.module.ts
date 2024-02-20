@@ -7,6 +7,7 @@ import { ProfilePageComponent } from './core/components/profile/profile-page/pro
 import { HomepageComponent } from './core/components/homepage/homepage.component';
 import { DocumentSessionsFormComponent } from './core/components/document-sessions/document-sessions-form/document-sessions-form.component';
 import { DocumentSessionsComponent } from './core/components/document-sessions/document-sessions.component';
+import { SmeBookMeetingComponent } from './core/sme-book-meeting/sme-book-meeting.component';
 
 const routes: Routes = [
   {path: 'login', component : LoginPageComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'profile', component : ProfilePageComponent},
   {path: 'sessionForm', component : DocumentSessionsFormComponent},
   {path: 'document-session', component : DocumentSessionsComponent},
+  {path: 'book-meeting', component : SmeBookMeetingComponent},
 ];
 
 

@@ -70,4 +70,12 @@ export class SmeBookMeetingComponent {
   onSubmit() {
     console.log(this.meetingForm.value);
   }
+
+  openTeamsMeeting() {
+    const formData = this.meetingForm.value;   
+    console.log(formData.description)
+    const teamsMeetingLink = `msteams:/l/meeting/new?subject=${formData.title}&attendees=${formData.attendees}&location=${formData.location}&description=${formData.description}`;
+    window.location.href = teamsMeetingLink;
+    
+  }
 }

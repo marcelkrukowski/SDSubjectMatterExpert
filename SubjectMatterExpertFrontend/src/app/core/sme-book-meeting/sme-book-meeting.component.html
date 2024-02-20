@@ -6,7 +6,10 @@
 
   <div>
     <label>Add Attendees</label>
-    <input formControlName="attendees" placeholder="Add Attendees" type="text">
+    <div class="input-group">
+      <input formControlName="attendees" placeholder="Add Attendees" type="text">
+      <button type="button">+</button>
+    </div>
   </div>
 
   <div class="date-time">
@@ -53,6 +56,6 @@
 
   <div class="button-container">
     <button class="btn btn-secondary" type="button">Back</button>
-    <button class="btn btn-primary" type="submit">Book meeting</button>
+    <button class="btn btn-primary" type="submit" (click)="openTeamsMeeting()">Book meeting</button>
   </div>
 </form>
