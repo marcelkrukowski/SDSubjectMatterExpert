@@ -74,6 +74,9 @@ export class SmeBookMeetingComponent {
   openTeamsMeeting() {
     const formData = this.meetingForm.value;   
     console.log(formData.description)
+
+    const attendeesArray = (formData.attendees as string).split(',').map((email: string) => email.trim());
+
     const teamsMeetingLink = `msteams:/l/meeting/new?subject=${formData.title}&attendees=${formData.attendees}&location=${formData.location}&description=${formData.description}`;
     window.location.href = teamsMeetingLink;
     
