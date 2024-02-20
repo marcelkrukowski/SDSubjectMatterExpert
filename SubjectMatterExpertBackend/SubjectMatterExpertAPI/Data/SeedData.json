@@ -5,55 +5,39 @@
       "UserName": "exampleUser",
       "Firstname": "John",
       "Lastname": "Doe",
-      "Email": "john.doe@example.com",
-      "Languages": [
-        { "LanguageName": "English" },
-        { "LanguageName": "Spanish" }
-      ],
-      "Location": "City, Country",
-      "AreasOfExpertise": [
-        { "ExpertiseArea": "Angular" },
-        { "ExpertiseArea": "DotNet" }
-      ],
-      "TimeSlots": [
-        {
-
-          "AvailableDate": "2024-01-25",
-          "StartTime": "08:00:00",
-          "EndTime": "12:00:00"
-        },
-        {
-
-          "AvailableDate": "2024-01-26",
-          "StartTime": "08:00:00",
-          "EndTime": "12:00:00"
-        }
-      ],
-      "Sessions": [
-        {
-
-          "Topic": "Agile Principles",
-          "SubTopic": "Scrum",
-          "Colleagues": [
-            {
-
-              "FirstName": "ColleagueFirstName",
-              "LastName": "ColleagueLastName"
-            }
-          ]
-        }
-      ]
+      "Email": "exampleuser1@sdworx.com"
     },
     {
       "UserName": "exampleUser2",
       "Firstname": "Jane",
       "Lastname": "Brick",
-      "Email": "jjane.brick@example.com",
+      "Email": "exampleuser2@sdworx.com"
+    },
+    {
+      "UserName": "exampleUser3",
+      "Firstname": "Harry",
+      "Lastname": "Larris",
+      "Email": "exampleuser3@sdworx.com"
+    },
+    {
+      "UserName": "exampleUser4",
+      "Firstname": "Mia",
+      "Lastname": "Larret",
+      "Email": "exampleuser4@sdworx.com"
+    }
+  ],
+
+  "smes": [
+    {
+      "UserName": "exampleSME",
+      "Firstname": "Marcel",
+      "Lastname": "Krukowski",
+      "Email": "marcel.krukowski@sdworx.com",
       "Languages": [
         { "LanguageName": "English" },
-        { "LanguageName": "Spanish" }
+        { "LanguageName": "Polish" }
       ],
-      "Location": "Poland, Katowice",
+      "Location": "Poland",
       "AreasOfExpertise": [
         { "ExpertiseArea": "Angular" },
         { "ExpertiseArea": "DotNet" }
@@ -61,13 +45,13 @@
       "TimeSlots": [
         {
 
-          "AvailableDate": "2024-01-25",
+          "AvailableDate": "2024-02-27",
           "StartTime": "08:00:00",
           "EndTime": "12:00:00"
         },
         {
 
-          "AvailableDate": "2024-01-26",
+          "AvailableDate": "2024-02-28",
           "StartTime": "08:00:00",
           "EndTime": "12:00:00"
         }
@@ -75,8 +59,9 @@
       "Sessions": [
         {
 
-          "Topic": "Agile Principles",
-          "SubTopic": "Scrum",
+          "Topic": "DOTNET",
+          "SubTopic": "BACKEND",
+          "Description": "Learn how to code first in ef core",
           "Colleagues": [
             {
 
@@ -88,117 +73,129 @@
       ]
     },
     {
-      "UserName": "exampleUser3",
-      "Firstname": "Marcel",
-      "Lastname": "Krukowski",
-      "Email": "marcel.krukowski@sdworx.com",
+      "UserName": "exampleSME2",
+      "Firstname": "Koushal",
+      "Lastname": "Oodith",
+      "Email": "koushal.oodith@sdworx.com",
       "Languages": [
         { "LanguageName": "English" },
-        { "LanguageName": "Spanish" }
+        { "LanguageName": "Creol" }
       ],
-      "Location": "Poland, Katowice",
+      "Location": "Mauritius",
       "AreasOfExpertise": [
-        { "ExpertiseArea": "Angular" },
-        { "ExpertiseArea": "DotNet" }
+        { "ExpertiseArea": "Angular" }
       ],
       "TimeSlots": [
         {
 
-          "AvailableDate": "2024-01-26",
-          "StartTime": "08:00:00",
-          "EndTime": "12:00:00"
+          "AvailableDate": "2024-02-27",
+          "StartTime": "09:00:00",
+          "EndTime": "13:00:00"
         },
         {
 
-          "AvailableDate": "2024-01-27",
-          "StartTime": "08:00:00",
-          "EndTime": "12:00:00"
+          "AvailableDate": "2024-02-28",
+          "StartTime": "09:00:00",
+          "EndTime": "13:00:00"
         }
       ],
       "Sessions": [
         {
 
-          "Topic": "Agile",
-          "SubTopic": "Kanban",
+          "Topic": "ANGULAR",
+          "SubTopic": "GUARDS",
+          "Description": "Learn how to create guard in angular",
           "Colleagues": [
             {
 
-              "FirstName": "Filip",
-              "LastName": "Cichowski"
-            },
-            {
-
-              "FirstName": "Koushal",
-              "LastName": "Oodith"
-            },
-            {
-
-              "FirstName": "Henish",
-              "LastName": "Nobeen"
+              "FirstName": "ColleagueFirstName",
+              "LastName": "ColleagueLastName"
             }
           ]
         }
       ]
     },
     {
-      "UserName": "exampleUser4",
-      "Firstname": "Koushal",
-      "Lastname": "Oodith",
-      "Email": "koushal@gmail.com",
+      "UserName": "exampleSME3",
+      "Firstname": "Filip",
+      "Lastname": "Cichowski",
+      "Email": "filip.cichowski@sdworx.com",
       "Languages": [
         { "LanguageName": "English" },
-        { "LanguageName": "Spanish" }
+        { "LanguageName": "Polish" }
       ],
-      "Location": "Mauritius",
+      "Location": "Poland",
       "AreasOfExpertise": [
-        { "ExpertiseArea": "Angular" },
-        { "ExpertiseArea": "DotNet" }
+        { "ExpertiseArea": "Angular" }
       ],
       "TimeSlots": [
         {
 
-          "AvailableDate": "2024-01-26",
+          "AvailableDate": "2024-02-27",
           "StartTime": "08:00:00",
-          "EndTime": "12:00:00"
+          "EndTime": "14:00:00"
         },
         {
 
-          "AvailableDate": "2024-01-27",
+          "AvailableDate": "2024-02-28",
           "StartTime": "08:00:00",
-          "EndTime": "12:00:00"
+          "EndTime": "14:00:00"
         }
       ],
       "Sessions": [
         {
 
-          "Topic": "Agile",
-          "SubTopic": "Kanban",
+          "Topic": "ANGULAR",
+          "SubTopic": "FILE STRUCTURE",
+          "Description": "Learn how to structure files in angular",
           "Colleagues": [
             {
 
-              "FirstName": "Filip",
-              "LastName": "Cichowski"
-            },
-            {
-
-              "FirstName": "Koushal",
-              "LastName": "Oodith"
-            },
-            {
-
-              "FirstName": "Henish",
-              "LastName": "Nobeen"
+              "FirstName": "ColleagueFirstName",
+              "LastName": "ColleagueLastName"
             }
           ]
         }
       ]
+    },
+    {
+      "UserName": "exampleSME4",
+      "Firstname": "Henish",
+      "Lastname": "Nobeen",
+      "Email": "henish.nobeen@sdworx.com",
+      "Languages": [
+        { "LanguageName": "English" },
+        { "LanguageName": "Creol" }
+      ],
+      "Location": "Mauritius",
+      "AreasOfExpertise": [
+        { "ExpertiseArea": "Angular" }
+      ],
+      "TimeSlots": [
+        {
+
+          "AvailableDate": "2024-02-28",
+          "StartTime": "08:00:00",
+          "EndTime": "11:00:00"
+        }
+      ],
+      "Sessions": [
+        {
+
+          "Topic": "ANGULAR",
+          "SubTopic": "BOOTSTRAP",
+          "Description": "Learn how to add bootstrap in angular"
+        }
+      ]
     }
   ],
-
-  "agileCoaches": [
-    {
-      "UserId": 1
-    }
+  "ldteam": [
+      {
+        "UserName": "exampleld",
+        "Firstname": "Lira",
+        "Lastname": "Minsen",
+        "Email": "exmapleld@sdworx.com"
+      }   
   ]
 }
  

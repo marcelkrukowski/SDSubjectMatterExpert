@@ -96,7 +96,7 @@ namespace SubjectMatterExpertAPI.Controllers
 
             user.Request = requestEntity;
             user.Location = requestInput.Location;
-            if (await _userRepository.SaveAllAsync()) return Ok("Succes");
+            if (await _userRepository.SaveAllAsync()) return Ok("Success");
             return BadRequest("Problem creating request");
         }
 
