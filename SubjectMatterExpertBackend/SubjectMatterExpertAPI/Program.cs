@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SubjectMatterExpertAPI.Data;
 using SubjectMatterExpertAPI.Extensions;
 using SubjectMatterExpertAPI.Interfaces;
+using SubjectMatterExpertAPI.Models;
 using SubjectMatterExpertAPI.Services;
 using System.Text;
 
@@ -46,9 +48,11 @@ var services = scope.ServiceProvider;
 try
 {
     var context = services.GetRequiredService<DataContext>();
+    var userManager = services.GetRequiredService<UserManager<User>>();
+    var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
     await context.Database.MigrateAsync();
-    await Seed.SeedUsers(context);
-    await Seed.SeedAgileCoaches(context);
+    await Seed.SeedUsers(userManager, roleManager);
+  
 
 }
 catch (Exception ex)

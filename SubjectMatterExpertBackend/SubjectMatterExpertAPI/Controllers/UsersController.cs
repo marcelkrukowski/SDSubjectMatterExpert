@@ -59,7 +59,7 @@ namespace SubjectMatterExpertAPI.Controllers
         [HttpGet("{id}/agileCoach")]
         public async Task<ActionResult<UserDto>> GetAgileCoachOfUser(int id)
         {
-            var agileCoach = await _userRepository.GetAgileCoachOfUserAsync(id);
+            var agileCoach = await _userRepository.GetUserAgileCoachOfUserAsync(id);
 
             if (agileCoach == null)
             {

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SubjectMatterExpertAPI.Data;
 using SubjectMatterExpertAPI.DTOs;
@@ -11,106 +13,97 @@ namespace SubjectMatterExpertAPI.Controllers
 {
     public class AccountController : BaseApiController
     {
-        private readonly DataContext _context;
+        private readonly UserManager<User> _userManager;
         private readonly ITokenService _tokenService;
-        public AccountController(DataContext context, ITokenService tokenService)
+        private readonly IMapper _mapper;
+
+        public AccountController(UserManager<User> userManager, ITokenService tokenService, IMapper mapper)
         {
-            _context = context;
+            _userManager = userManager;
             _tokenService = tokenService;
+            _mapper = mapper;
         }
         [HttpPost("register")] // POST: api/account/register
         public async Task<ActionResult<UserRegisterResponseDto>> Register(UserRegisterRequestDto registerDto)
         {
-            if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
-            using var hmac = new HMACSHA512();
-            var user = new User
-            {
-                Username = registerDto.Username.ToLower(),
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key,
-                Email = registerDto.Email.ToLower(),
-                Firstname = registerDto.Firstname.ToLower(),
-                Lastname = registerDto.Lastname.ToLower(),
-               
-            };
+            if (await UserExists(registerDto.UserName)) return BadRequest("Username is taken");
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            var user = _mapper.Map<User>(registerDto);
+
+            var result = await _userManager.CreateAsync(user, registerDto.Password);
+
+            if (!result.Succeeded) return BadRequest(result.Errors);
+
+            var roleResult = await _userManager.AddToRoleAsync(user, "User");
+
+            if (!roleResult.Succeeded) return BadRequest(result.Errors);
 
             return new UserRegisterResponseDto
             {
            
-                Token = _tokenService.CreateToken(user)
+                Token = await _tokenService.CreateToken(user)
             };
         }
 
         [HttpPost("login")] // POST: api/account/login
         public async Task<ActionResult<UserLoginResponseDto>> Login(UserLoginRequestDto loginDto)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == loginDto.Email);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == loginDto.Email);
 
             if (user == null) return Unauthorized("Invalid email!");
 
-            using var hmac = new HMACSHA512(user.PasswordSalt);
+            var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
 
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
-
-            for (int i = 0; i < computedHash.Length; i++)
-            {
-                if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password!");
-            }
+            if (!result) return Unauthorized("Invalid password!");
 
             return new UserLoginResponseDto
             {
                 
-                Token = _tokenService.CreateToken(user),
+                Token = await _tokenService.CreateToken(user),
                
             };
         }
-        private async Task<bool> UserExists(string username)
-        {
-            return await _context.Users.AnyAsync(x => x.Username == username.ToLower());
-        }
+      
 
         //To retrieve user details and update database when needed
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, UserUpdateDto userUpdateDto)
-        {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> UpdateUser(int id, UserUpdateDto userUpdateDto)
+        //{
+        //    var user = await _userManager.Users.FirstAsync(x => x.Id == id);
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            user.Email = userUpdateDto.Email;
-            user.Firstname = userUpdateDto.Firstname;
-            user.Lastname = userUpdateDto.Lastname;
+        //    user.Email = userUpdateDto.Email;
+        //    user.Firstname = userUpdateDto.Firstname;
+        //    user.Lastname = userUpdateDto.Lastname;
            
 
-            _context.Entry(user).State = EntityState.Modified;
+        //    _userManager .Entry(user).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!UserExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return Ok(user);
-        }
+        //    return Ok(user);
+        //}
 
-        private bool UserExists(int id)
+        private async Task<bool> UserExists(string username)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());
         }
 
 

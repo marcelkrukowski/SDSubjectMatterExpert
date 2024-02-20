@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SubjectMatterExpertAPI.DTOs;
 using SubjectMatterExpertAPI.Interfaces;
@@ -9,11 +11,13 @@ namespace SubjectMatterExpertAPI.Data
     public class RequestRepository : IRequestRepository
     {
         private readonly DataContext _context;
+        private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
 
-        public RequestRepository(DataContext context, IMapper mapper)
+        public RequestRepository(DataContext context, UserManager<User> userManager, IMapper mapper)
         {
             _context = context;
+            _userManager = userManager;
             _mapper = mapper;
         }
 
@@ -52,7 +56,7 @@ namespace SubjectMatterExpertAPI.Data
             return result.Select(user => new UserWithPendingRequestDto
             {
                 RequestId = user.Request.Id,
-                Username = user.Username,
+                UserName = user.UserName,
                 Email = user.Email,
                 Fristname = user.Firstname,
                 Lastname = user.Lastname,
@@ -87,7 +91,7 @@ namespace SubjectMatterExpertAPI.Data
                 }
 
                 var user = await _context.Users.FindAsync(request.UserId);
-                user.IsSME = true;
+                await _userManager.AddToRoleAsync(user, "SME");
 
                 _context.Requests.Remove(request);
 

@@ -10,6 +10,7 @@ namespace SubjectMatterExpertAPI.Helpers
         {
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();
+            CreateMap<UserRegisterRequestDto, User>();
             CreateMap<AgileCoach, AgileCoachDto>();
             CreateMap<Colleague, ColleagueDto>();
             CreateMap<Report, ReportDto>();
@@ -23,6 +24,7 @@ namespace SubjectMatterExpertAPI.Helpers
             CreateMap<RequestDto, Request>()
                 .ForMember(dest => dest.Languages, opt => opt.MapFrom(src => src.Languages))
                 .ForMember(dest => dest.AreasOfExpertise, opt => opt.MapFrom(src => src.AreasOfExpertise));
+            CreateMap<UserRole, UserRoleDto>();
             
 
 
