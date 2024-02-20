@@ -9,6 +9,7 @@ using SubjectMatterExpertAPI.Extensions;
 using SubjectMatterExpertAPI.Interfaces;
 using SubjectMatterExpertAPI.Migrations;
 using SubjectMatterExpertAPI.Models;
+using SubjectMatterExpertAPI.Services;
 
 namespace SubjectMatterExpertAPI.Controllers
 {
@@ -93,7 +94,14 @@ namespace SubjectMatterExpertAPI.Controllers
 
             user.Request = requestEntity;
             user.Location = requestInput.Location;
-            if (await _userRepository.SaveAllAsync()) return Ok("Succes");
+            if (await _userRepository.SaveAllAsync())
+                return new RequestDto
+                {
+                    Languages = languageEntities.Select(l => new LanguageDto { LanguageName = l.LanguageName }).ToList(),
+                    Location = requestEntity.Location,
+                    AreasOfExpertise = areaOfExpertiseEntities.Select(a => new AreaOfExpertiseDto { ExpertiseArea = a.ExpertiseArea }).ToList()
+
+                };
             return BadRequest("Problem creating request");
         }
 

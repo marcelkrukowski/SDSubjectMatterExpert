@@ -1,5 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { RequestToBeSMEList } from './sme.model';
+import { UserDetailsService } from '../../services/user-details.service';
+import { Observable } from 'rxjs';
+import { PendingSmeRequestService } from '../../services/pending-sme-request.service';
 
 @Component({
   selector: 'app-request-to-be-sme-list',
@@ -7,6 +10,9 @@ import { RequestToBeSMEList } from './sme.model';
   styleUrl: './request-to-be-sme-list.component.scss'
 })
 export class RequestToBeSmeListComponent implements OnInit {
+
+  pendingSmeRequest$!: Observable<any>;
+
   requestToBesmeList: RequestToBeSMEList[] = [
     { name: 'Henish Nobeen', title: 'Associate Engineer', expertise: '.net, angular JS'},
     { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS'},
@@ -19,7 +25,8 @@ export class RequestToBeSmeListComponent implements OnInit {
     { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS'},
     { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS'},
     { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS'},
-  ];
+  ];  
+
 
   paginatedSmeList: RequestToBeSMEList[] = [];
   currentPage = 0;
@@ -29,7 +36,7 @@ export class RequestToBeSmeListComponent implements OnInit {
   isMobile: boolean;
   sidebarVisible: boolean;
 
-  constructor() {
+  constructor( private pendingSmeRequestService: PendingSmeRequestService) {
     this.isMobile = window.innerWidth <= 768;
     this.sidebarVisible = !this.isMobile;
   }
@@ -37,6 +44,11 @@ export class RequestToBeSmeListComponent implements OnInit {
   ngOnInit() {
     this.adjustPageSize();
     this.adjustPagination();
+
+    this.pendingSmeRequest$ = this.pendingSmeRequestService.getPendingSmeRequest();
+    this.pendingSmeRequest$.subscribe(e => console.log(e));
+
+ 
   }
 
   @HostListener('window:resize', ['$event'])
