@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SubjectMatterExpertAPI.Models;
+using System.Runtime.Intrinsics.X86;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -9,7 +10,7 @@ namespace SubjectMatterExpertAPI.Data
 {
     public class Seed
     {
-        public static async Task SeedUsers(UserManager<User> userManager, RoleManager<AppRole> roleManager)
+        public static async Task SeedUsers(UserManager<User> userManager, RoleManager<AppRole> roleManager, DataContext context)
         {
             if (await userManager.Users.AnyAsync()) return;
 
@@ -20,6 +21,8 @@ namespace SubjectMatterExpertAPI.Data
 
             var data = JsonSerializer.Deserialize<Dictionary<string, List<User>>>(userData, options);
             var users = data["users"];
+            var smes = data["smes"];
+            var lds = data["ldteam"];
 
             var roles = new List<AppRole>()
             {
@@ -33,52 +36,66 @@ namespace SubjectMatterExpertAPI.Data
             {
                 await roleManager.CreateAsync(role);
             }
-           
+
+            var agileCoach = new User
+            {
+                UserName = "AgileCoach",
+                Email = "agilecoach@sdworx.com",
+                Firstname = "Agile",
+                Lastname = "Coach",
+                Location = "Poland"
+            };
+
+            await userManager.CreateAsync(agileCoach, "Pa$$w0rd");
+            await userManager.AddToRolesAsync(agileCoach, new[] { "User", "SME", "AgileCoach" });
+
+            var agileCoachEntity = new AgileCoach
+            {
+                 User = agileCoach
+            };
+
+            context.AgileCoaches.Add(agileCoachEntity);
+            await context.SaveChangesAsync();
+
+
+
 
             foreach (var user in users)
             {
       
                 user.UserName = user.UserName.ToLower();
+                user.AgileCoachId = agileCoachEntity.Id;
 
 
                 await userManager.CreateAsync(user, "Pa$$w0rd");
                 await userManager.AddToRoleAsync(user, "User");
             }
 
-            var agileCoach = new User
+            foreach (var sme in smes)
             {
-                UserName = "AgileCoach", 
-                Email = "agilecoach@sdworx.com",
-                Firstname = "Agile",
-                Lastname = "Coach"
-            };
 
-            await userManager.CreateAsync(agileCoach, "Pa$$w0rd");
-            await userManager.AddToRolesAsync(agileCoach, new[] { "AgileCoach", "SME", "L&D" });
-        
-            
-        }
-
-        public static async Task SeedAgileCoaches(DataContext context)
-        {
-            if (await context.AgileCoaches.AnyAsync()) return;
-
-            var userData = await File.ReadAllTextAsync("Data/SeedData.json");
+                sme.UserName = sme.UserName.ToLower();
+                sme.AgileCoachId = agileCoachEntity.Id;
 
 
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-
-            var data = JsonSerializer.Deserialize<Dictionary<string, List<AgileCoach>>>(userData, options);
-            var users = data["agileCoaches"];
-
-            foreach (var user in users)
-            {
-                context.AgileCoaches.Add(user);
+                await userManager.CreateAsync(sme, "Pa$$w0rd");
+                await userManager.AddToRolesAsync(sme, new[] { "User",  "SME" });
             }
 
-            await context.SaveChangesAsync();
+            foreach (var ld in lds)
+            {
+                ld.UserName = ld.UserName.ToLower();
+                ld.AgileCoachId = agileCoachEntity.Id;
+                await userManager.CreateAsync(ld, "Pa$$w0rd");
+                await userManager.AddToRolesAsync(ld, new[] { "User", "l&D" });
+
+            }
+
+
+
+
+
+
         }
-
-
     }
 }

@@ -30,6 +30,8 @@ namespace SubjectMatterExpertAPI.Controllers
 
             var user = _mapper.Map<User>(registerDto);
 
+            user.AgileCoachId = 1;
+
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
             if (!result.Succeeded) return BadRequest(result.Errors);
