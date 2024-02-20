@@ -3,7 +3,7 @@
     <div ngbDropdown>
 
       <ng-container *ngIf="userDetails$ | async as user">
-        <button ngbDropdownToggle class="btn btn-secondary" *ngIf="user.username">{{ user.username }}</button>
+        <button ngbDropdownToggle class="btn btn-secondary">TEST</button>
 
         <div ngbDropdownMenu>
           <sdwds-header-profile [empName]="user.firstname + ' ' + user.lastname">
