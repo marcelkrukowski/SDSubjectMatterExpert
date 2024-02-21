@@ -5,25 +5,42 @@
       "UserName": "exampleUser",
       "Firstname": "John",
       "Lastname": "Doe",
-      "Email": "exampleuser1@sdworx.com"
+      "Email": "exampleuser1@sdworx.com",
+      "Photo": {
+        "Filename": "man.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/man.png"
+      }
     },
     {
       "UserName": "exampleUser2",
       "Firstname": "Jane",
       "Lastname": "Brick",
-      "Email": "exampleuser2@sdworx.com"
+      "Email": "exampleuser2@sdworx.com",
+      "Photo": {
+        "Filename": "woman.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/woman.png"
+      }
     },
     {
       "UserName": "exampleUser3",
       "Firstname": "Harry",
       "Lastname": "Larris",
-      "Email": "exampleuser3@sdworx.com"
+      "Email": "exampleuser3@sdworx.com",
+      "Photo": {
+        "Filename": "man2.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/man2.png"
+      }
     },
     {
       "UserName": "exampleUser4",
       "Firstname": "Mia",
       "Lastname": "Larret",
-      "Email": "exampleuser4@sdworx.com"
+      "Email": "exampleuser4@sdworx.com",
+      "Photo": {
+        "Filename": "woman2.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/woman2.png"
+      }
+
     }
   ],
 
@@ -33,6 +50,10 @@
       "Firstname": "Marcel",
       "Lastname": "Krukowski",
       "Email": "marcel.krukowski@sdworx.com",
+      "Photo": {
+        "Filename": "man3.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/man3.png"
+      },
       "Languages": [
         { "LanguageName": "English" },
         { "LanguageName": "Polish" }
@@ -77,6 +98,10 @@
       "Firstname": "Koushal",
       "Lastname": "Oodith",
       "Email": "koushal.oodith@sdworx.com",
+      "Photo": {
+        "Filename": "man5.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/man5.png"
+      },
       "Languages": [
         { "LanguageName": "English" },
         { "LanguageName": "Creol" }
@@ -120,6 +145,10 @@
       "Firstname": "Filip",
       "Lastname": "Cichowski",
       "Email": "filip.cichowski@sdworx.com",
+      "Photo": {
+        "Filename": "man4.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/man4.png"
+      },
       "Languages": [
         { "LanguageName": "English" },
         { "LanguageName": "Polish" }
@@ -163,6 +192,10 @@
       "Firstname": "Henish",
       "Lastname": "Nobeen",
       "Email": "henish.nobeen@sdworx.com",
+      "Photo": {
+        "Filename": "man6.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/man6.png"
+      },
       "Languages": [
         { "LanguageName": "English" },
         { "LanguageName": "Creol" }
@@ -190,12 +223,16 @@
     }
   ],
   "ldteam": [
-      {
-        "UserName": "exampleld",
-        "Firstname": "Lira",
-        "Lastname": "Minsen",
-        "Email": "exmapleld@sdworx.com"
-      }   
+    {
+      "UserName": "exampleld",
+      "Firstname": "Lira",
+      "Lastname": "Minsen",
+      "Email": "exmapleld@sdworx.com",
+      "Photo": {
+        "Filename": "woman3.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/woman3.png"
+      }
+    }   
   ]
 }
  
