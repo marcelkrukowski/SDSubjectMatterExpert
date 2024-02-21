@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { apiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-document-sessions-form',
@@ -12,7 +11,6 @@ export class DocumentSessionsFormComponent implements OnInit {
 
   constructor(
     private formBuilder : FormBuilder,
-    private apiService : apiService
     ){}
 
   ngOnInit() : void {

@@ -16,6 +16,9 @@ import {HomepageComponent} from "./components/home/homepage.component";
 import {ProfilePageComponent} from "./components/profile-page/profile-page.component";
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {BrowserModule} from "@angular/platform-browser";
+import { DocumentSessionsComponent } from './components/document-sessions/document-sessions.component';
+import { DocumentSessionsFormComponent } from './components/document-sessions/document-sessions-form/document-sessions-form.component';
+import { CardListTemplateComponent } from './shared/card-list-template/card-list-template.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,9 @@ import {BrowserModule} from "@angular/platform-browser";
     HomepageComponent,
     ProfilePageComponent,
     ForgotPasswordComponent,
+    DocumentSessionsComponent,
+    DocumentSessionsFormComponent,
+    CardListTemplateComponent
   ],
   exports: [
     SmeListComponent,
