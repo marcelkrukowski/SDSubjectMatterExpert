@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SubjectMatterExpertAPI.Data;
 using SubjectMatterExpertAPI.DTOs;
+using SubjectMatterExpertAPI.Extensions;
 using SubjectMatterExpertAPI.Interfaces;
 using SubjectMatterExpertAPI.Models;
 using System.Security.Cryptography;
@@ -66,42 +67,30 @@ namespace SubjectMatterExpertAPI.Controllers
             };
         }
 
+        [HttpPut("update-user-details")]
+        public async Task<IActionResult> UpdateUser(UserUpdateDto userUpdateDto)
+        {
+            var user = await _userManager.Users.FirstAsync(x => x.UserName == User.GetUsername());
+          
+            if (user == null)
+            {
+                return NotFound();
+            }
 
-        //To retrieve user details and update database when needed
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> UpdateUser(int id, UserUpdateDto userUpdateDto)
-        //{
-        //    var user = await _userManager.Users.FirstAsync(x => x.Id == id);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    user.Email = userUpdateDto.Email;
-        //    user.Firstname = userUpdateDto.Firstname;
-        //    user.Lastname = userUpdateDto.Lastname;
+            user.Email = userUpdateDto.Email;
+            user.Firstname = userUpdateDto.Firstname;
+            user.Lastname = userUpdateDto.Lastname;
 
 
-        //    _userManager .Entry(user).State = EntityState.Modified;
+            var result = await _userManager.UpdateAsync(user);
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!UserExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
 
-        //    return Ok(user);
-        //}
+            return Ok(user);
+        }
 
         private async Task<bool> UserExists(string username)
         {
