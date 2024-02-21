@@ -38,7 +38,7 @@ namespace SubjectMatterExpertAPI.Controllers
             return Ok(timeSlotDto);
         }
 
-        [HttpPost]
+        [HttpPost("add-timeslot")]
         public async Task<IActionResult> AddTimeSlot([FromBody] TimeSlotRequestDto timeSlotDto)
         {
             if (!ModelState.IsValid)
@@ -54,7 +54,7 @@ namespace SubjectMatterExpertAPI.Controllers
             return CreatedAtAction(nameof(GetTimeSlotById), new { id = timeSlot.Id }, timeSlot);
         }
 
-        [HttpPut]
+        [HttpPut("update-timeslot")]
         public async Task<IActionResult> UpdateTimeSlot(int timeSlotId, [FromBody] TimeSlotRequestDto timeSlotDto)
         {
             if (!ModelState.IsValid)

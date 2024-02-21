@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { SME } from './sme.model';
+import { SME } from '../../../../models/sme.model';
 
 @Component({
   selector: 'app-sme-list',

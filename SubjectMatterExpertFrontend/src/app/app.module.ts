@@ -10,38 +10,21 @@ import {MatCardModule} from "@angular/material/card";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginPageComponent } from './core/components/login/login-page/login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ForgotPasswordComponent } from './core/components/forgotPassword-page/forgot-password/forgot-password.component';
-import { HomepageComponent } from './core/components/homepage/homepage.component';
-import { SidenavComponent } from './core/shared/components/sidenav/sidenav.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import {SharedModule} from "./shared/shared.module";
 import {CoreModule} from "./core/core.module";
-import { ProfilePageComponent } from './core/components/profile/profile-page/profile-page.component';
-import { interceptorsProviders } from './core/interceptor/interceptor';
-import { CommonModule } from '@angular/common';
-import { DocumentSessionsFormComponent } from './core/components/document-sessions/document-sessions-form/document-sessions-form.component';
-import { DocumentSessionsComponent } from './core/components/document-sessions/document-sessions.component';
-import { CardListTemplateComponent } from './core/shared/card-list-template/card-list-template.component';
+import {SidenavComponent} from "./shared/components/sidenav/sidenav.component";
+import {interceptorsProviders} from "./core/interceptor/interceptor";
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginPageComponent,
-    ProfilePageComponent,
-    ForgotPasswordComponent,
-    HomepageComponent,
-    SidenavComponent,
-    DocumentSessionsComponent,
-    DocumentSessionsFormComponent,
-    CardListTemplateComponent
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule,
     CoreModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -53,7 +36,6 @@ import { CardListTemplateComponent } from './core/shared/card-list-template/card
     MatListModule,
     MatSidenavModule,
     MatCardModule,
-    CommonModule
   ],
   providers: [
     provideAnimationsAsync(),
