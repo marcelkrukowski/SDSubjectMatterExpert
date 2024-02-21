@@ -16,6 +16,8 @@ import {HomepageComponent} from "./components/home/homepage.component";
 import {ProfilePageComponent} from "./components/profile-page/profile-page.component";
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {BrowserModule} from "@angular/platform-browser";
+import { LearningAndDevelopmentComponent } from './components/learning-and-development/learning-and-development.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import {BrowserModule} from "@angular/platform-browser";
     HomepageComponent,
     ProfilePageComponent,
     ForgotPasswordComponent,
+    LearningAndDevelopmentComponent
   ],
   exports: [
     SmeListComponent,
@@ -41,6 +44,7 @@ import {BrowserModule} from "@angular/platform-browser";
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
+    HighchartsChartModule
   ]
 })
 export class CoreModule { }

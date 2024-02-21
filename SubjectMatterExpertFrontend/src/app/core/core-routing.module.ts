@@ -9,6 +9,7 @@ import {SmeListComponent} from "./components/sme-list/sme-list.component";
 import {SmeBookMeetingComponent} from "./components/book-meeting/sme-book-meeting.component";
 import {ProfilePageComponent} from "./components/profile-page/profile-page.component";
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
+import { LearningAndDevelopmentComponent } from './components/learning-and-development/learning-and-development.component';
 
 // TODO: add 404 page & redirect user there if no URL was matched.
 const routes: Routes = [
@@ -21,7 +22,9 @@ const routes: Routes = [
   {path: 'sme-book-meeting', component: SmeBookMeetingComponent},
   {path: 'profile', component: ProfilePageComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
+  {path: 'learning-development', component: LearningAndDevelopmentComponent },
   {path: '**', redirectTo: '/home', pathMatch: "full" },
+
 ];
 
 @NgModule({
