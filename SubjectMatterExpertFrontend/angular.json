@@ -30,7 +30,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/@sdworx/sdwds-styling/css/themes/default/main.min.css",
+              "node_modules/@sdworx/sdwds-icons/css/main.min.css"
             ],
             "scripts": []
           },
@@ -65,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "SubjectMatterExpertFrontend:build:production"
+              "buildTarget": "SubjectMatterExpertFrontend:build:production"
             },
             "development": {
-              "browserTarget": "SubjectMatterExpertFrontend:build:development"
+              "buildTarget": "SubjectMatterExpertFrontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "SubjectMatterExpertFrontend:build"
+            "buildTarget": "SubjectMatterExpertFrontend:build"
           }
         },
         "test": {
