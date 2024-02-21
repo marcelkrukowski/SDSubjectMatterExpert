@@ -10,11 +10,13 @@ namespace SubjectMatterExpertAPI.Helpers
         {
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();
+            CreateMap<UserRegisterRequestDto, User>();
             CreateMap<AgileCoach, AgileCoachDto>();
             CreateMap<Colleague, ColleagueDto>();
             CreateMap<Report, ReportDto>();
             CreateMap<Request, RequestDto>();
             CreateMap<Session, SessionDto>();
+            CreateMap<Session, SessionInputDto>();
             CreateMap<TimeSlot, TimeSlotRequestDto>().ReverseMap();
             CreateMap<TimeSlot, TimeSlotResponseDto>().ReverseMap();
             CreateMap<Photo, PhotoDto>();
@@ -23,6 +25,7 @@ namespace SubjectMatterExpertAPI.Helpers
             CreateMap<RequestDto, Request>()
                 .ForMember(dest => dest.Languages, opt => opt.MapFrom(src => src.Languages))
                 .ForMember(dest => dest.AreasOfExpertise, opt => opt.MapFrom(src => src.AreasOfExpertise));
+            CreateMap<UserRole, UserRoleDto>();
             
 
 
