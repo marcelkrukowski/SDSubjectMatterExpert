@@ -30,7 +30,7 @@ export class RegisterFirstPageComponent implements OnInit {
   }
   nextPage(): void {
     if (this.isEmailValid && this.isPassValid && this.isRepeatPassValid) {
-      this.router.navigate(['/register-register-second-page']);
+      this.router.navigate(['/register-second']);
     }
   }
 }
