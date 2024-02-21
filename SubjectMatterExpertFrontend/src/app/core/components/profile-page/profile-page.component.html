@@ -1,0 +1,11 @@
+<div class="profile-container"  *ngIf="(userDetails$ | async) as user">
+  <img [src]="user.photo?.url || '/assets/graphic-abstract/Illustrations_Man_Laptop.png'" alt="User Avatar" class="avatar">
+  <h2>{{ user.username }}</h2>
+  <div class="user-info">
+    <p><span>Email:</span> {{ user.email }}</p>
+    <p><span>Area of expertise:</span> {{ user.areaOfExpertise }}</p>
+    <p><span>Location:</span> {{ user.location }}</p>
+    <p><span>Languages:</span> {{ user.languages }}</p>
+  </div>
+</div>
+

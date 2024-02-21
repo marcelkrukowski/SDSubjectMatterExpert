@@ -10,31 +10,22 @@ import {MatCardModule} from "@angular/material/card";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginPageComponent } from './core/components/login/login-page/login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ForgotPasswordComponent } from './core/components/forgotPassword-page/forgot-password/forgot-password.component';
-import { HomepageComponent } from './core/components/homepage/homepage.component';
-import { SidenavComponent } from './core/shared/components/sidenav/sidenav.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import {SharedModule} from "./shared/shared.module";
 import {CoreModule} from "./core/core.module";
 import { HighchartsChartModule } from 'highcharts-angular';
-import { LearningAndDevelopmentComponent } from './core/components/learning-and-development/learning-and-development.component';
+import {SidenavComponent} from "./shared/components/sidenav/sidenav.component";
+import {interceptorsProviders} from "./core/interceptor/interceptor";
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginPageComponent,
-    ForgotPasswordComponent,
-    HomepageComponent,
-    SidenavComponent,
-    LearningAndDevelopmentComponent
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule,
     CoreModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -49,7 +40,8 @@ import { LearningAndDevelopmentComponent } from './core/components/learning-and-
     HighchartsChartModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    interceptorsProviders
   ],
   bootstrap: [AppComponent]
 })

@@ -4,9 +4,9 @@ namespace SubjectMatterExpertAPI.DTOs
 {
     public class RequestDto
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
-        public int AgileCoachId { get; set; }
-   
+        public List<LanguageDto> Languages { get; set; }
+        public string Location { get; set; }
+        public List<AreaOfExpertiseDto> AreasOfExpertise { get; set; }
+
     }
 }

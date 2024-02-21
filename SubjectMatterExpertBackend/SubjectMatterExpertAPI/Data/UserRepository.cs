@@ -15,25 +15,54 @@ namespace SubjectMatterExpertAPI.Data
             _context = context;
         }
 
+     
+
         public async Task<User> GetUserByIdAsync(int id)
         {
             return await _context.Users
                 .Include(ts => ts.TimeSlots)
                 .Include(s => s.Sessions)
+                .Include(p => p.Photo)
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<IEnumerable<User>> GetSMEsAsync()
         {
 
+            var smeRoleId = await _context.Roles
+                                  .Where(r => r.Name == "SME") 
+                                  .Select(r => r.Id)
+                                  .FirstOrDefaultAsync();
+
+            if (smeRoleId == null)
+            {
+               
+                return Enumerable.Empty<User>();
+            }
+
             return await _context.Users
-                .Where(u => u.IsSME == true)
+                .Where(u => u.UserRoles.Any(ur => ur.RoleId == smeRoleId))
                 .Include(ts => ts.TimeSlots)
+                .Include(rt => rt.Request)
                 .Include(s => s.Sessions)
+                .Include(p => p.Photo)
+                .Include(u => u.UserRoles)
+                    .ThenInclude(ur => ur.Role)
                 .ToListAsync();
         }
 
-        public async Task<User> GetAgileCoachOfUserAsync(int userId)
+        public async Task<User> GetUserByUsernameAsync(string username)
+        {
+            return await _context.Users
+                .Include(ts => ts.TimeSlots)
+                .Include(s => s.Sessions)
+                .Include(p => p.Photo)
+                .Include(u => u.UserRoles)  
+                    .ThenInclude(ur => ur.Role)
+                .SingleOrDefaultAsync(x => x.UserName == username);
+        }
+
+        public async Task<User> GetUserAgileCoachOfUserAsync(int userId)
         {
             var agileCoachId = await _context.Users
                 .Where(u => u.Id == userId)
@@ -54,6 +83,27 @@ namespace SubjectMatterExpertAPI.Data
                 .FirstOrDefaultAsync(u => u.Id == agileCoachUserId);
 
             return agileCoachUser;
+        }
+
+        public async Task<AgileCoach> GetAgileCoachOfUserAsync(int userId)
+        {
+            var agileCoachId = await _context.Users
+                .Where(u => u.Id == userId)
+                .Select(u => u.AgileCoachId)
+                .FirstOrDefaultAsync();
+
+            var agileCoach = await _context.AgileCoaches
+               .Where(u => u.Id == agileCoachId)
+               .FirstOrDefaultAsync();
+
+            return agileCoach;
+        }
+
+        
+
+        public async Task<bool> SaveAllAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
         }
 
 
