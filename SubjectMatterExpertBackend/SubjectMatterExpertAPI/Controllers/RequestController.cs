@@ -97,14 +97,7 @@ namespace SubjectMatterExpertAPI.Controllers
 
             user.Request = requestEntity;
             user.Location = requestInput.Location;
-            if (await _userRepository.SaveAllAsync())
-                return new RequestDto
-                {
-                    Languages = languageEntities.Select(l => new LanguageDto { LanguageName = l.LanguageName }).ToList(),
-                    Location = requestEntity.Location,
-                    AreasOfExpertise = areaOfExpertiseEntities.Select(a => new AreaOfExpertiseDto { ExpertiseArea = a.ExpertiseArea }).ToList()
-
-                };
+            if (await _userRepository.SaveAllAsync()) return Ok("Success");
             return BadRequest("Problem creating request");
         }
 

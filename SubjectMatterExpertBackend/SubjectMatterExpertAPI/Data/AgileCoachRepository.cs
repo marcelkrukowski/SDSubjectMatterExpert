@@ -33,26 +33,11 @@ namespace SubjectMatterExpertAPI.Data
         }
 
 
-        //public async Task<List<Request>> GetPendingRequestForAgileCoachById(int id)
-        //{
-        //    return await _context.
-        //}
-
-        //public async Task<List<Request>> GetPendingRequestForUserAsync(List<User> users)
-        //{
-        //    var userIds = users.Select(u => u.Id).ToList();
-
-        //    return await _context.Requests
-        //        .Include(rt => rt.Languages)
-        //        .Include(rt => rt.AreasOfExpertise)
-        //        .Where(rt => userIds.Contains(rt.UserId))
-        //        .ToListAsync();
-        //}
-
-       
 
 
-        
 
-}
+
+
+
+    }
 }
