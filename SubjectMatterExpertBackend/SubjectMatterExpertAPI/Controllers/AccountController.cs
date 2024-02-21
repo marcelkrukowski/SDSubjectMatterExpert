@@ -42,7 +42,7 @@ namespace SubjectMatterExpertAPI.Controllers
 
             return new UserRegisterResponseDto
             {
-           
+
                 Token = await _tokenService.CreateToken(user)
             };
         }
@@ -60,12 +60,12 @@ namespace SubjectMatterExpertAPI.Controllers
 
             return new UserLoginResponseDto
             {
-                
+
                 Token = await _tokenService.CreateToken(user),
-               
+
             };
         }
-      
+
 
         //To retrieve user details and update database when needed
         //[HttpPut("{id}")]
@@ -80,7 +80,7 @@ namespace SubjectMatterExpertAPI.Controllers
         //    user.Email = userUpdateDto.Email;
         //    user.Firstname = userUpdateDto.Firstname;
         //    user.Lastname = userUpdateDto.Lastname;
-           
+
 
         //    _userManager .Entry(user).State = EntityState.Modified;
 
@@ -107,7 +107,6 @@ namespace SubjectMatterExpertAPI.Controllers
         {
             return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());
         }
-
 
 
 
