@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class PendingSmeRequestService {
-  private apiUrl = `${environment.apiUrl}/api/Request/user-request-details`;
+  private apiUrl = `${environment.apiUrl}/api/Request/pending-requests-for-sme`;
 
   constructor(private http: HttpClient) { }
 

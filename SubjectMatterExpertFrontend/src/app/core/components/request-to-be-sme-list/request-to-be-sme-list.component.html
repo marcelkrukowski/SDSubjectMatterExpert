@@ -4,21 +4,28 @@
   <section class="list-container">
     <header class="list-header">Pending SME List</header>
     <div class="flex-container">
-      <section class="sme-container" *ngFor="let sme of paginatedSmeList">
+      <section class="sme-container" *ngFor="let request of pendingSmeRequest$ | async">
         <article class="sme-card">
-          <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Sam" alt="{{ sme.name }} Avatar"
+          <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Sam" alt="{{ request.userName }} Avatar"
             class="sme-avatar">
           <div class="sme-details">
-            <h1>{{ sme.name }}</h1>
-            <h2>{{ sme.title }}</h2>
-            <p>Subject Matter Expert in Product</p>
-            <p>Requesting to be SME in: {{ sme.expertise }}</p>
+            <h1>{{ request.userName }}</h1>
+            <h2>{{ request.email }}</h2>
+            <p>Requesting to be SME in:</p>
+            <ul>
+              <li *ngFor="let area of request.areasOfExpertise">{{ area.expertiseArea }}</li>
+            </ul>
+            <p>Languages:</p>
+            <ul>
+              <li *ngFor="let language of request.languages">{{ language.languageName }}</li>
+            </ul>
+
             <button class="btn btn-secondary">View Profile</button>
           </div>
           <div class="sme-action-book">
             <div class="book-container">
-              <button class="btn btn-primary">Accept</button>
-              <button class="btn btn-secondary">Decline</button>
+                <button class="btn btn-primary" (click)="Accept(request.requestId)">Accept</button>
+                <button class="btn btn-secondary" (click)="Decline(request.requestId)">Decline</button>
             </div>
           </div>
         </article>

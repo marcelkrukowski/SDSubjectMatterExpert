@@ -15,7 +15,8 @@ export class ApiService {
     currentProfile : (id : number) => `${environment.apiUrl}/api/Users/${id}`,
     editProfile : (id : number) => `${environment.apiUrl}/api/Account/${id}`,
     createRequestToBeSme : `${environment.apiUrl}/api/Request/create-request`,
-    pendingRequestToBeSme : `${environment.apiUrl}/api/Request/user-request-details`,
+    acceptRequestToBeSme : (requestId : number) => `${environment.apiUrl}/api/Request/accept-request/${requestId}`,
+    declineRequestToBeSme : (requestId : number) => `${environment.apiUrl}/api/Request/decline-request/${requestId}`,
   }
 
   request(url : endpointType, method : string , payload? : object , urlParams? : any){
@@ -26,4 +27,4 @@ export class ApiService {
   }
 }
 
-export type endpointType = 'login' |'profile' | 'currentProfile' | 'editProfile' |  'createRequestToBeSme' | 'pendingRequestToBeSme';
+export type endpointType = 'login' |'profile' | 'currentProfile' | 'editProfile' |  'createRequestToBeSme' | 'pendingRequestToBeSme' | 'acceptRequestToBeSme' | 'declineRequestToBeSme';

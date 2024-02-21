@@ -282,8 +282,8 @@ namespace SubjectMatterExpertAPI.Controllers
 
             var request = await _requestRepository.GetRequestByIdAsync(requestId);
 
-            var agileCoachOfUser = _userRepository.GetAgileCoachOfUserAsync(request.UserId);
-            var agileCoach = _agileCoachRepository.GetAgileCoachByUserIdAsync(user.Id);
+            var agileCoachOfUser = await _userRepository.GetAgileCoachOfUserAsync(request.UserId);
+            var agileCoach = await _agileCoachRepository.GetAgileCoachByUserIdAsync(user.Id);
 
             if (agileCoachOfUser.Id != agileCoach.Id)
             {
