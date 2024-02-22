@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { SME } from '../../../../models/sme.model';
-import {BehaviorSubject, combineLatest, map} from "rxjs";
+import {BehaviorSubject, combineLatest, map, Observable, Subscription, tap} from "rxjs";
+import {SmeListService} from "../../services/sme-list.service";
 
 @Component({
   selector: 'app-sme-list',
@@ -8,23 +9,9 @@ import {BehaviorSubject, combineLatest, map} from "rxjs";
   styleUrls: ['./sme-list.component.scss']
 })
 export class SmeListComponent implements OnInit {
-  initialSmeList: SME[] = [
-    { name: 'Henish Nobeen', title: 'Associate Engineer', expertise: '.net, angular JS', availability: 'Available', country: 'Mauritius' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Mauritius' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Mauritius' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Mauritius' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Poland' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Poland' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Poland' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Poland' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Poland' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Poland' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Poland' },
-  ];
-
+  smeList$!: Observable<SME[]>;
   selectedCountry = new BehaviorSubject<string | undefined>(undefined);
   selectedExpertise = new BehaviorSubject<string | undefined>(undefined);
-  smeList$ = new BehaviorSubject<SME[]>(this.initialSmeList);
 
   searchQuery: string = '';
   selectedSearchQuery = new BehaviorSubject<string>('');
@@ -39,27 +26,42 @@ export class SmeListComponent implements OnInit {
   ]).pipe(
     map(([smes, country, expertise, searchQuery]) =>
       smes.filter(sme =>
-        (country ? sme.country === country : true) &&
-        (expertise ? sme.expertise.includes(expertise) : true) &&
-        (searchQuery ? sme.name.toLowerCase().includes(searchQuery.toLowerCase()) : true) // Filter by name
+        (country ? sme.location === country : true) &&
+        (expertise ? sme.areaOfExpertise.includes(expertise) : true) &&
+        (searchQuery ? sme.username.toLowerCase().includes(searchQuery.toLowerCase()) : true) // Filter by name
       )
     )
   );
 
   ngOnInit() {
+    this.smeList$ = this.smeListService.getSmes();
     this.extractUniqueCountriesAndExpertise();
   }
+
+  constructor(private smeListService: SmeListService) { }
+
+  private subscription: Subscription = new Subscription();
   private extractUniqueCountriesAndExpertise() {
-    const countrySet = new Set<string>();
-    const expertiseSet = new Set<string>();
+    // Ensure we don't create a memory leak by unsubscribing from any previous subscription
+    this.subscription.unsubscribe();
 
-    this.initialSmeList.forEach(sme => {
-      countrySet.add(sme.country);
-      sme.expertise.split(', ').forEach(expertise => expertiseSet.add(expertise));
+    this.subscription = this.smeList$.subscribe(smes => {
+      const countrySet = new Set<string>();
+      const expertiseSet = new Set<string>();
+
+      smes.forEach(sme => {
+        if (sme.location) { // Assuming 'location' in your SME model is equivalent to 'country'
+          countrySet.add(sme.location);
+        }
+        if (sme.areaOfExpertise) { // Assuming 'areaOfExpertise' can be split similarly to 'expertise' in the initial model
+          // If areaOfExpertise is a string similar to 'expertise' in the initial model
+          sme.areaOfExpertise.split(', ').forEach(expertise => expertiseSet.add(expertise));
+        }
+      });
+
+      this.countries = Array.from(countrySet);
+      this.expertiseFields = Array.from(expertiseSet);
     });
-
-    this.countries = Array.from(countrySet);
-    this.expertiseFields = Array.from(expertiseSet);
   }
 
   onCountrySelected(country: string) {
@@ -71,5 +73,9 @@ export class SmeListComponent implements OnInit {
   }
   onSearchQueryChanged() {
     this.selectedSearchQuery.next(this.searchQuery);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

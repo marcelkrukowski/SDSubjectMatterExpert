@@ -11,18 +11,15 @@
       <ng-container *ngIf="(filteredSmeList$ | async)?.length; else noResultsTemplate">
         <section class="sme-container" *ngFor="let sme of filteredSmeList$ | async">
           <article class="sme-card">
-            <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Sam" alt="{{ sme.name }} Avatar" class="sme-avatar">
+            <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Sam" alt="{{ sme.username }} Avatar" class="sme-avatar">
             <div class="sme-details">
-              <h1>{{ sme.name }}</h1>
-              <h2>{{ sme.title }}</h2>
-              <p>Subject Matter Expert in Product</p>
-              <p>Expertise: {{ sme.expertise }}</p>
-              <p>Country: {{ sme.country }}</p>
+              <h1>{{ sme.username }}</h1>
+              <p>Expertise: {{ sme.areaOfExpertise }}</p>
+              <p>Country: {{ sme.location }}</p>
               <button class="btn btn-secondary">View Profile</button>
             </div>
             <div class="sme-action-book">
               <div class="book-container">
-                <span>{{ sme.availability }}</span>
                 <button class="btn btn-primary">Book Meeting</button>
               </div>
             </div>
