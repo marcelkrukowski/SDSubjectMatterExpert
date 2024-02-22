@@ -42,9 +42,9 @@
     </mat-nav-list>
   
 
-    <mat-nav-list class="nav-list" *ngIf="isAgileCoach">
+    <mat-nav-list class="nav-list" *ngIf="userDetails$ | async as user">
       <!-- Request to be SME list link -->
-      <a class="list-link" mat-list-item routerLink="/request-to-be-sme">
+      <a class="list-link" mat-list-item routerLink="/request-to-be-sme" *ngIf="hasAgileCoachRole(user)">
         <i class="sidenav-icon icons8-f-done"></i>
         <span *ngIf="!isCollapsed">Pending SME list</span></a>
     </mat-nav-list>

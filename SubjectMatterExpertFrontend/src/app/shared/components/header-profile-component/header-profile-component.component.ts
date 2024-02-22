@@ -1,7 +1,7 @@
 import { CommonModule, KeyValue } from '@angular/common';
 import { Token } from '@angular/compiler';
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
@@ -11,9 +11,11 @@ import {
   SdwdsHeaderProfileListComponent,
   SdwdsHeaderProfileSelectComponent,
 } from '@sdworx/sdwds/header-profile';
-import { Observable } from 'rxjs';
+import { Observable, filter } from 'rxjs';
 import { UserDetailsService } from '../../../core/services/user-details.service';
 import { User } from 'src/models/user.model';
+import { ApiService } from 'src/app/core/services/api.service';
+import { PendingSmeRequestService } from 'src/app/core/services/pending-sme-request.service';
 @Component({
   selector: 'sdwds-docs-header-profile',
   standalone: true,
@@ -28,20 +30,36 @@ import { User } from 'src/models/user.model';
   ],
   templateUrl: './header-profile-component.component.html',
 })
-export class HeaderProfileComponent {
+export class HeaderProfileComponent implements OnInit{
   
   userDetails$!: Observable<User>;
-  
+  notification:boolean =  false;
 
   ngOnInit(): void {
-    this.userDetails$ = this.userService.getUserDetails();
-    this.userDetails$.subscribe(e => console.log(e));
-    this.userDetails$.subscribe((e: any) => console.log(e.username));
+
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      // Check if the current route is the home page
+      if (event.url === '/home') {
+        // Execute your logic here
+        console.log('Navigation to home page detected');
+        this.userDetails$ = this.userService.getUserDetails();
+        this.userDetails$.subscribe(e => console.log(e));
+        this.userDetails$.subscribe((e: any) => console.log(e.userName));
+
+        //check for notifications
+        this.checkPendingSmeRequests();
+      }
+    });
+
+    
 
   }
 
   constructor(
     private userService: UserDetailsService,
+    private pendingSmeRequestService: PendingSmeRequestService,
     private router: Router
   ) { }
 
@@ -56,5 +74,20 @@ export class HeaderProfileComponent {
     localStorage.removeItem('token');   
     // show back login form again
     this.router.navigate(['/login']);
+  }
+
+   //get notification if there is requeest for sme
+   checkPendingSmeRequests(): void {
+    this.pendingSmeRequestService.getPendingSmeRequest().subscribe((data: any[]) => {
+      if (data && data.length > 0) {
+        // Trigger a notification to alert the user about pending requests
+        this.notification = true;
+        // You can also navigate the user to a specific page to handle these requests
+      }
+      else{
+        console.log("no pending request");
+        
+      }
+    });
   }
 }

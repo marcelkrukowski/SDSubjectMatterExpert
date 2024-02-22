@@ -3,7 +3,7 @@
     <div ngbDropdown>
 
       <ng-container *ngIf="userDetails$ | async as user">
-        <button ngbDropdownToggle class="btn btn-secondary">TEST</button>
+        <button ngbDropdownToggle class="btn btn-secondary"> {{user.firstname}} </button>
 
         <div ngbDropdownMenu>
           <sdwds-header-profile [empName]="user.firstname + ' ' + user.lastname">
@@ -24,8 +24,27 @@
               label="Settings"
               new="New"
             ></sdwds-header-profile-button> -->
-            <sdwds-header-profile-button icon="icons8-o-logout-rounded" label="Sign out"
-              cssClass="text-danger" (click)="logout()"></sdwds-header-profile-button>
+
+            <!--Notification -->
+            <div class="Notification" *ngIf="notification">
+              <div class="alert alert-lighter alert-danger ">
+
+                <div class="alert-icon-functional"></div>
+
+                <div class="alert-content">
+
+                  <div class="h6 alert-heading">Notification</div>
+                  
+                    <a href="/request-to-be-sme" class="text-info">You have pending SME requests please review
+                    <i class="icons8-o-external-link"></i>
+                    </a>
+              
+                </div>
+              </div>
+            </div>
+
+            <sdwds-header-profile-button icon="icons8-o-logout-rounded" label="Sign out" cssClass="text-danger"
+              (click)="logout()"></sdwds-header-profile-button>
           </sdwds-header-profile>
         </div>
       </ng-container>

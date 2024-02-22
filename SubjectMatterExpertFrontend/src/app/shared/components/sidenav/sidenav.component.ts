@@ -1,12 +1,17 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { UserDetailsService } from 'src/app/core/services/user-details.service';
+import { User } from 'src/models/user.model';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent {
+export class SidenavComponent implements OnInit{
+
+  userDetails$!: Observable<User>;
 
   isAgileCoach: boolean = true;
 
@@ -17,17 +22,28 @@ export class SidenavComponent {
   }
   private sidenav: HTMLElement | null = null;
   private sidenavContent: HTMLElement | null = null;
-  constructor(private router: Router) {}
+
+
+  constructor(private router: Router, private userService: UserDetailsService) {}
+
+
   ngOnInit(): void {
     this.sidenav = document.querySelector('.sidenav') as HTMLElement;
     this.sidenavContent = document.querySelector('.sidenav-content') as HTMLElement;
     this.updateSidenavDisplay();
-    // Subscribe to route changes
+
+    // Subscribe to route changes 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.updateSidenavDisplay();
       }
+
+      this.userDetails$ = this.userService.getUserDetails();
+      this.userDetails$.subscribe(user => {
+        this.updateSidenavDisplay();
+      });
     });
+    
   }
   private updateSidenavDisplay(): void {
     const windowWidth = window.innerWidth;
@@ -57,14 +73,11 @@ export class SidenavComponent {
     }
   }
 
+  hasAgileCoachRole(user: any): boolean {
+    const userRoles = user.userRoles;
+ 
+    // Check if the "AgileCoach" role is present in the array
+    return userRoles && userRoles.some((role: { role: string }) => role.role === 'AgileCoach');
+  }
 
-  // //logout function
-  // logout() {
-  //   console.log("Loging out"); 
-  //   // Clear all stored items in the storage service
-  //   localStorage.removeItem('token');
-   
-  //   // show back login form again
-  //   this.router.navigate(['/login']);
-  // }
 }
