@@ -7,7 +7,7 @@
             </div>
     
             <div class="card-body">
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label for="sme_name" class="form-label">SME Name<sup class="text-danger">*</sup></label>
                     <input type="text" formControlName="sme_name" class="form-control" id="sme_name"
                            [ngClass]="{'is-invalid': (sessionForm.controls['sme_name'].invalid && sessionForm.controls['sme_name'].dirty) || (sessionForm.controls['sme_name'].hasError('pattern') && sessionForm.controls['sme_name'].dirty),
@@ -16,14 +16,14 @@
                           class="text-danger">SME Name is required!</span>
                     <span *ngIf="sessionForm.controls['sme_name'].hasError('pattern') && sessionForm.controls['sme_name'].dirty"
                           class="text-danger">Only alphabets are allowed!</span>
-                </div>
+                </div> -->
                 
                 <div class="mb-3">
-                    <label for="coachees" class="form-label">Coachees</label>
-                    <input type="text" formControlName="coachees" class="form-control" id="coachees"
-                        [ngClass]="{'is-invalid': sessionForm.controls['coachees'].invalid && sessionForm.controls['coachees'].dirty,
-                                     'is-valid': sessionForm.controls['coachees'].valid && sessionForm.controls['coachees'].dirty && sessionForm.controls['coachees'].value}">
-                    <span *ngIf="sessionForm.controls['coachees'].hasError('pattern') && sessionForm.controls['coachees'].dirty"
+                    <label for="colleagues" class="form-label">Coachees</label>
+                    <input type="text" formControlName="colleagues" class="form-control" id="colleagues"
+                        [ngClass]="{'is-invalid': sessionForm.controls['colleagues'].invalid && sessionForm.controls['colleagues'].dirty,
+                                     'is-valid': sessionForm.controls['colleagues'].valid && sessionForm.controls['colleagues'].dirty && sessionForm.controls['colleagues'].value}">
+                    <span *ngIf="sessionForm.controls['colleagues'].hasError('pattern') && sessionForm.controls['colleagues'].dirty"
                           class="text-danger">Only alphabets are allowed!</span>
                 </div>
                 
@@ -39,25 +39,25 @@
                 </div>
                 
                 <div class="mb-3">
-                    <label for="sub_topic" class="form-label">Sub Topic<sup class="text-danger">*</sup></label>
-                    <input type="text" formControlName="sub_topic" class="form-control" id="sub_topic"
-                        [ngClass]="{'is-invalid': sessionForm.controls['sub_topic'].invalid && sessionForm.controls['sub_topic'].dirty,
-                                    'is-valid': sessionForm.controls['sub_topic'].valid}">
-                    <span *ngIf="sessionForm.controls['sub_topic'].invalid && sessionForm.controls['sub_topic'].dirty && !sessionForm.controls['sub_topic'].hasError('pattern') && !sessionForm.controls['sub_topic'].hasError('specialCharacters')"
+                    <label for="subTopic" class="form-label">Sub Topic<sup class="text-danger">*</sup></label>
+                    <input type="text" formControlName="subTopic" class="form-control" id="subTopic"
+                        [ngClass]="{'is-invalid': sessionForm.controls['subTopic'].invalid && sessionForm.controls['subTopic'].dirty,
+                                    'is-valid': sessionForm.controls['subTopic'].valid}">
+                    <span *ngIf="sessionForm.controls['subTopic'].invalid && sessionForm.controls['subTopic'].dirty && !sessionForm.controls['subTopic'].hasError('pattern') && !sessionForm.controls['subTopic'].hasError('specialCharacters')"
                         class="text-danger">Sub Topic is required!</span>
-                    <span *ngIf="sessionForm.controls['sub_topic'].hasError('pattern') && sessionForm.controls['sub_topic'].dirty && !sessionForm.controls['sub_topic'].hasError('specialCharacters')"
+                    <span *ngIf="sessionForm.controls['subTopic'].hasError('pattern') && sessionForm.controls['subTopic'].dirty && !sessionForm.controls['subTopic'].hasError('specialCharacters')"
                         class="text-danger">Invalid Format</span>
                 </div>                
                 
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label for="date" class="form-label">Date<sup class="text-danger">*</sup></label>
                     <input type="date" formControlName="date" class="form-control" id="date"[ngClass]="{'is-invalid': sessionForm.controls['date'].invalid && sessionForm.controls['date'].dirty,
                     'is-valid': sessionForm.controls['date'].valid}">
                     <span *ngIf="sessionForm.controls['date'].invalid && sessionForm.controls['date'].dirty"
                         class="text-danger">Date is required!</span>
-                </div>
+                </div> -->
     
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="startTime" class="form-label">Start Time<sup class="text-danger">*</sup></label>
@@ -67,8 +67,8 @@
                             <span *ngIf="sessionForm.controls['startTime'].invalid && sessionForm.controls['startTime'].dirty"
                                 class="text-danger">Start Time is required!</span>
                         </div>
-                    </div>
-                
+                    </div> -->
+<!--                 
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="endTime" class="form-label">End Time<sup class="text-danger">*</sup></label>
@@ -79,7 +79,7 @@
                                 class="text-danger">End Time is required!</span>
                         </div>
                     </div>
-                </div>
+                </div> -->
     
                 <div class="mb-3">
                     <label for="description" class="form-label">Description<sup class="text-danger">*</sup></label>

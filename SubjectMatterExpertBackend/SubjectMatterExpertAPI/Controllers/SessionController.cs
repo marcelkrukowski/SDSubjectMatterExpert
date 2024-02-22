@@ -67,7 +67,7 @@ namespace SubjectMatterExpertAPI.Controllers
             {
                 
 
-                return Ok("success");
+                return Ok(new {message="success"});
             }
 
             return BadRequest("Problem creating session");

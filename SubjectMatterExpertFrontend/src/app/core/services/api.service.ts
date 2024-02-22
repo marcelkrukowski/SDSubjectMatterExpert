@@ -14,6 +14,8 @@ export class ApiService {
     profile : `${environment.apiUrl}/api/Users`,
     currentProfile : (id : number) => `${environment.apiUrl}/api/Users/${id}`,
     editProfile : (id : number) => `${environment.apiUrl}/api/Account/${id}`,
+    createSession : `${environment.apiUrl}/api/Session/create-session`,
+    sessionList : `${environment.apiUrl}/api/Session/user-sessions-details`,
   }
 
   request(url : endpointType, method : string , payload? : object , urlParams? : any){
@@ -24,4 +26,4 @@ export class ApiService {
   }
 }
 
-export type endpointType = 'login' |'profile' | 'currentProfile' | 'editProfile';
+export type endpointType = 'login' |'profile' | 'currentProfile' | 'editProfile' | 'createSession' | 'sessionList';
