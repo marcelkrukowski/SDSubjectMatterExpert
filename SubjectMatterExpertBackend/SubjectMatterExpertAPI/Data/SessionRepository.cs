@@ -60,6 +60,7 @@ namespace SubjectMatterExpertAPI.Data
                     Count = g.Count()
                 })
                 .OrderByDescending(dto => dto.Count)
+                .Take(5)
                 .ToListAsync();
         }
 
