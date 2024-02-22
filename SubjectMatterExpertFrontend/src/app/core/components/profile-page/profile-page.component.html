@@ -10,7 +10,7 @@
 </div>
 
 <div class="col-md-12 mt-5 text-center">
-  <button class="btn btn-primary profile-button"  type="button" (click)="OpenModel()">Apply For SME</button>
+  <button class="btn btn-primary profile-button"  type="button" (click)="OpenModel()" *ngIf="!isSME" >Apply For SME</button>
 </div>
 
 

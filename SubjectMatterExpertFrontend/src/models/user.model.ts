@@ -46,6 +46,10 @@ export interface Photo {
   url: string;
 }
 
+export interface role{
+  role: string;
+}
+
 export interface User {
   id: number;
   username: string;
@@ -64,4 +68,5 @@ export interface User {
   request: Request;
   photo?: Photo;
   agileCoachId: number;
+  userRoles: role[];
 }

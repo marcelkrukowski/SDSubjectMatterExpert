@@ -20,10 +20,27 @@ export class ProfilePageComponent implements OnInit {
 
 
   userDetails$!: Observable<User>;
+  role: string = '';
+  isSME: boolean = true;
 
   ngOnInit(): void {
     this.userDetails$ = this.userService.getUserDetails();
-    this.userDetails$.subscribe(e => console.log(e));
+    this.userDetails$.subscribe(e => {
+      if (e.userRoles.length > 1) {
+        this.role = e.userRoles[1].role
+        console.log(this.role);
+        if (this.role === 'SME') {
+          this.isSME = true;
+        }
+      }
+      else {
+        this.isSME = false;
+      }
+
+
+    });
+
+    this.userDetails$.subscribe(e => console.log(e.userRoles[1]));
 
     this.SMEForm = this.formBuilder.group({
       areasOfExpertise: ['', Validators.required],
@@ -59,14 +76,10 @@ export class ProfilePageComponent implements OnInit {
 
 
 
-  submitSMEForm(): void {
+  Submit(): void {
     // Splitting the string values into arrays
     const languagesArray = this.SMEForm?.value.languages.split(',').map((lang: string) => lang.trim());
     const areasOfExpertiseArray = this.SMEForm?.value.areasOfExpertise.split(',').map((area: string) => area.trim());
-
-    // Log languagesArray and areasOfExpertiseArray before creating formData
-    console.log('Languages Array:', languagesArray);
-    console.log('Areas of Expertise Array:', areasOfExpertiseArray);
 
     // Creating the object to send to the backend
     const formData = {
@@ -74,25 +87,20 @@ export class ProfilePageComponent implements OnInit {
       location: this.SMEForm?.value.location,
       areasOfExpertise: areasOfExpertiseArray
     };
-
     console.log('SME form: ', formData);
 
-    // this.apiService.request('createRequestToBeSme', 'post', formData).subscribe((result: {[key: string]: any}) => {
-    //   console.log("SME form result: ", result)
-    this.apiService.request('createRequestToBeSme', 'post', formData).subscribe((result: any) => {
-      console.log("SME form result: ", result);
-
-
-      if (result) {
-        Swal.fire('Success', 'Your request has been sent to your agile coach!', 'success').then(swalResult => {
-          console.log("SwalResult:", swalResult);
-          // if(swalResult.value) this.router.navigate(['\hello']);
-        });
-      }
-    });
+    this.apiService.request('createRequestToBeSme', 'post', formData).subscribe();
+    this.CloseModel();
   }
 
-
+  submitSMEForm() {
+    Swal.fire('Success','Your request has been sent to your agile coach', 'success').then(swalResult => {
+      console.log("SwalResult:", swalResult);
+    }).then((result) => {
+      this.Submit();
+    });
+  }
 }
+
 
 
