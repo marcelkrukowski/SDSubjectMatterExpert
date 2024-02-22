@@ -26,6 +26,11 @@
         <div class="no-results">No results</div>
       </ng-template>
     </div>
+    <div class="pagination-controls">
+      <button (click)="previousPage()" class="btn btn-primary">Previous</button>
+      <span>Page {{ currentPage.value + 1 }} of {{ totalPages }}</span>
+      <button (click)="nextPage()" class="btn btn-primary">Next</button>
+    </div>
   </section>
 
   <aside class="options-container">

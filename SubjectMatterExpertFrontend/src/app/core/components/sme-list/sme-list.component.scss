@@ -242,3 +242,11 @@ h2 {
   padding: 4rem;
   font-size: 2rem;
 }
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  & span {
+    margin: 0 1rem;
+  }
+}
