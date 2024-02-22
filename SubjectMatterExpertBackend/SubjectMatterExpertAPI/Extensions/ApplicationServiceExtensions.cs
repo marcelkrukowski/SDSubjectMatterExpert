@@ -11,7 +11,7 @@ namespace SubjectMatterExpertAPI.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config) 
         {
             services.AddDbContext<DataContext>(
-                options => options.UseSqlServer(config.GetConnectionString("DevConnection")));
+                options => options.UseSqlServer(config.GetConnectionString("DBConnection")));
             services.AddScoped(_ =>
             {
                 return new BlobServiceClient(config.GetConnectionString("AzureBlobStorage"));
