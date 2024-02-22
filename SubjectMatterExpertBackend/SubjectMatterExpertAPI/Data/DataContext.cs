@@ -20,7 +20,6 @@ namespace SubjectMatterExpertAPI.Data
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Colleague> Colleagues { get; set; }
         public DbSet<TimeSlot> TimeSlots { get; set; }
-        public DbSet<Report> Reports { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<Language> Languages { get; set; }

@@ -24,10 +24,19 @@ namespace SubjectMatterExpertAPI.Controllers
             _tokenService = tokenService;
             _mapper = mapper;
         }
-        [HttpPost("register")] // POST: api/account/register
+        [HttpPost("register")] 
         public async Task<ActionResult<UserRegisterResponseDto>> Register(UserRegisterRequestDto registerDto)
         {
-            if (await UserExists(registerDto.UserName)) return BadRequest("Username is taken");
+            if (await UserExists(registerDto.UserName))
+            {
+                return BadRequest("Username is taken");
+            }
+            else if (!registerDto.Email.EndsWith("@sdworx.com", StringComparison.OrdinalIgnoreCase))
+            {
+                return BadRequest("Invalid email domain. Please use an email ending with @sdworx.com");
+            }
+
+
 
             var user = _mapper.Map<User>(registerDto);
 
@@ -48,7 +57,7 @@ namespace SubjectMatterExpertAPI.Controllers
             };
         }
 
-        [HttpPost("login")] // POST: api/account/login
+        [HttpPost("login")] 
         public async Task<ActionResult<UserLoginResponseDto>> Login(UserLoginRequestDto loginDto)
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == loginDto.Email);

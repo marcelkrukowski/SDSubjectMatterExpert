@@ -15,7 +15,6 @@ namespace SubjectMatterExpertAPI.DTOs
         public List<AreaOfExpertiseDto>? AreaOfExpertise { get; set; }
         public List<TimeSlotRequestDto>? TimeSlots { get; set; }
         public List<SessionDto>? Sessions { get; set; }
-        public List<ReportDto>? Reports { get; set; }
         public RequestDto Request { get; set; }
         public PhotoDto Photo { get; set; } 
         public int? AgileCoachId { get; set; }
