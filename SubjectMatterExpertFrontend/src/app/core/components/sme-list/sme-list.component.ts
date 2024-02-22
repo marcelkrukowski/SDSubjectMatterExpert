@@ -1,7 +1,8 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SME } from '../../../../models/sme.model';
-import {BehaviorSubject, combineLatest, map, Observable, Subscription, tap} from "rxjs";
-import {SmeListService} from "../../services/sme-list.service";
+import {BehaviorSubject, combineLatest, Observable, of} from "rxjs";
+import { map } from "rxjs/operators";
+import { SmeListService } from "../../services/sme-list.service";
 
 @Component({
   selector: 'app-sme-list',
@@ -9,54 +10,48 @@ import {SmeListService} from "../../services/sme-list.service";
   styleUrls: ['./sme-list.component.scss']
 })
 export class SmeListComponent implements OnInit {
-  smeList$!: Observable<SME[]>;
+  smeList$: Observable<SME[]> = of([]);
   selectedCountry = new BehaviorSubject<string | undefined>(undefined);
   selectedExpertise = new BehaviorSubject<string | undefined>(undefined);
-
+  filteredSmeList$: Observable<SME[]> = of([]);
   searchQuery: string = '';
   selectedSearchQuery = new BehaviorSubject<string>('');
-  countries!: string[];
-  expertiseFields!: string[];
+  countries: string[] = [];
+  expertiseFields: string[] = [];
 
-  filteredSmeList$ = combineLatest([
-    this.smeList$,
-    this.selectedCountry,
-    this.selectedExpertise,
-    this.selectedSearchQuery // Include the new search query BehaviorSubject
-  ]).pipe(
-    map(([smes, country, expertise, searchQuery]) =>
-      smes.filter(sme =>
-        (country ? sme.location === country : true) &&
-        (expertise ? sme.areaOfExpertise.includes(expertise) : true) &&
-        (searchQuery ? sme.username.toLowerCase().includes(searchQuery.toLowerCase()) : true) // Filter by name
-      )
-    )
-  );
+  constructor(private smeListService: SmeListService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.smeList$ = this.smeListService.getSmes();
+    this.initializeFilteredSmeList();
     this.extractUniqueCountriesAndExpertise();
   }
 
-  constructor(private smeListService: SmeListService) { }
+  initializeFilteredSmeList(): void {
+    this.filteredSmeList$ = combineLatest([
+      this.smeList$,
+      this.selectedCountry,
+      this.selectedExpertise,
+      this.selectedSearchQuery
+    ]).pipe(
+      map(([smes, country, expertise, searchQuery]) => smes.filter(sme =>
+        (!country || sme.location === country) &&
+        (!expertise || sme.areaOfExpertise?.some(exp => exp.expertiseArea?.toLowerCase().includes(expertise.toLowerCase()))) &&
+        (!searchQuery || sme.userName?.toLowerCase().includes(searchQuery.toLowerCase()))
+      ))
+    );
+  }
 
-  private subscription: Subscription = new Subscription();
-  private extractUniqueCountriesAndExpertise() {
-    // Ensure we don't create a memory leak by unsubscribing from any previous subscription
-    this.subscription.unsubscribe();
-
-    this.subscription = this.smeList$.subscribe(smes => {
+  private extractUniqueCountriesAndExpertise(): void {
+    this.smeList$.subscribe(smes => {
       const countrySet = new Set<string>();
       const expertiseSet = new Set<string>();
 
       smes.forEach(sme => {
-        if (sme.location) { // Assuming 'location' in your SME model is equivalent to 'country'
-          countrySet.add(sme.location);
-        }
-        if (sme.areaOfExpertise) { // Assuming 'areaOfExpertise' can be split similarly to 'expertise' in the initial model
-          // If areaOfExpertise is a string similar to 'expertise' in the initial model
-          sme.areaOfExpertise.split(', ').forEach(expertise => expertiseSet.add(expertise));
-        }
+        if (sme.location) countrySet.add(sme.location);
+        sme.areaOfExpertise?.forEach(expertise => {
+          if (expertise.expertiseArea) expertiseSet.add(expertise.expertiseArea);
+        });
       });
 
       this.countries = Array.from(countrySet);
@@ -64,18 +59,16 @@ export class SmeListComponent implements OnInit {
     });
   }
 
-  onCountrySelected(country: string) {
+  onCountrySelected(country: string): void {
     this.selectedCountry.next(country || undefined);
   }
 
-  onExpertiseSelected(expertise: string) {
+  onExpertiseSelected(expertise: string): void {
     this.selectedExpertise.next(expertise || undefined);
   }
-  onSearchQueryChanged() {
+
+  onSearchQueryChanged(): void {
     this.selectedSearchQuery.next(this.searchQuery);
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 }
