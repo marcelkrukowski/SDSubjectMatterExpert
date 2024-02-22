@@ -3,4 +3,5 @@ export interface SME {
   title: string;
   expertise: string;
   availability: string;
+  country: string;
 }

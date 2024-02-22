@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { SME } from '../../../../models/sme.model';
+import {BehaviorSubject, combineLatest, map} from "rxjs";
 
 @Component({
   selector: 'app-sme-list',
@@ -7,87 +8,68 @@ import { SME } from '../../../../models/sme.model';
   styleUrls: ['./sme-list.component.scss']
 })
 export class SmeListComponent implements OnInit {
-  smeList: SME[] = [
-    { name: 'Henish Nobeen', title: 'Associate Engineer', expertise: '.net, angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
+  initialSmeList: SME[] = [
+    { name: 'Henish Nobeen', title: 'Associate Engineer', expertise: '.net, angular JS', availability: 'Available', country: 'Mauritius' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Mauritius' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Mauritius' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Mauritius' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Poland' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Poland' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Poland' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Poland' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Poland' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Poland' },
+    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available', country: 'Poland' },
   ];
 
-  selectedMovie = 1;
-  movies = [
-    { id: 1, name: 'Pulp Fiction' },
-    { id: 2, name: 'Reservoir Dogs' },
-    { id: 3, name: 'Django Unchained' },
-    { id: 4, name: 'Jackie Brown' },
-  ];
+  selectedCountry = new BehaviorSubject<string | undefined>(undefined);
+  selectedExpertise = new BehaviorSubject<string | undefined>(undefined);
+  smeList$ = new BehaviorSubject<SME[]>(this.initialSmeList);
 
-  paginatedSmeList: SME[] = [];
-  currentPage = 0;
-  pageSize = 3; // Initial value, adjustable based on screen size
-  totalPages = 0;
-  isPaginationEnabled = true;
-  isMobile: boolean;
-  sidebarVisible: boolean;
+  searchQuery: string = '';
+  selectedSearchQuery = new BehaviorSubject<string>('');
+  countries!: string[];
+  expertiseFields!: string[];
 
-  constructor() {
-    this.isMobile = window.innerWidth <= 768;
-    this.sidebarVisible = !this.isMobile;
-  }
+  filteredSmeList$ = combineLatest([
+    this.smeList$,
+    this.selectedCountry,
+    this.selectedExpertise,
+    this.selectedSearchQuery // Include the new search query BehaviorSubject
+  ]).pipe(
+    map(([smes, country, expertise, searchQuery]) =>
+      smes.filter(sme =>
+        (country ? sme.country === country : true) &&
+        (expertise ? sme.expertise.includes(expertise) : true) &&
+        (searchQuery ? sme.name.toLowerCase().includes(searchQuery.toLowerCase()) : true) // Filter by name
+      )
+    )
+  );
 
   ngOnInit() {
-    this.adjustPageSize();
-    this.adjustPagination();
+    this.extractUniqueCountriesAndExpertise();
+  }
+  private extractUniqueCountriesAndExpertise() {
+    const countrySet = new Set<string>();
+    const expertiseSet = new Set<string>();
+
+    this.initialSmeList.forEach(sme => {
+      countrySet.add(sme.country);
+      sme.expertise.split(', ').forEach(expertise => expertiseSet.add(expertise));
+    });
+
+    this.countries = Array.from(countrySet);
+    this.expertiseFields = Array.from(expertiseSet);
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    this.isMobile = window.innerWidth <= 768;
-    this.sidebarVisible = !this.isMobile;
-    this.adjustPageSize();
-    this.adjustPagination();
+  onCountrySelected(country: string) {
+    this.selectedCountry.next(country || undefined);
   }
 
-  adjustPageSize() {
-    const viewportHeight = window.innerHeight;
-    this.pageSize = this.isMobile ? this.smeList.length : Math.floor(viewportHeight / 280); // 280 is item height
-    this.isPaginationEnabled = this.pageSize < this.smeList.length;
+  onExpertiseSelected(expertise: string) {
+    this.selectedExpertise.next(expertise || undefined);
   }
-
-  adjustPagination() {
-    this.totalPages = Math.ceil(this.smeList.length / this.pageSize);
-    this.currentPage = Math.max(0, Math.min(this.currentPage, this.totalPages - 1));
-    this.paginate();
-  }
-
-  paginate() {
-    const startIndex = this.currentPage * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.paginatedSmeList = this.smeList.slice(startIndex, endIndex);
-  }
-
-  previousPage() {
-    if (this.currentPage > 0) {
-      this.currentPage--;
-      this.paginate();
-    }
-  }
-
-  nextPage() {
-    if (this.currentPage < this.totalPages - 1) {
-      this.currentPage++;
-      this.paginate();
-    }
-  }
-
-  toggleSidebar() {
-    this.sidebarVisible = !this.sidebarVisible;
+  onSearchQueryChanged() {
+    this.selectedSearchQuery.next(this.searchQuery);
   }
 }
