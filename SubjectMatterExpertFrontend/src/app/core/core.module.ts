@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CoreRoutingModule } from './core-routing.module';
+// import { CoreRoutingModule } from './core-routing.module';
 import { CoreComponent } from './core.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgSelectModule} from "@ng-select/ng-select";
@@ -14,8 +14,12 @@ import {RegisterFirstPageComponent} from "./components/register/register-first-p
 import {LoginPageComponent} from "./components/login/login-page.component";
 import {HomepageComponent} from "./components/home/homepage.component";
 import {ProfilePageComponent} from "./components/profile-page/profile-page.component";
+import { RequestToBeSmeListComponent } from './components/request-to-be-sme-list/request-to-be-sme-list.component';
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {BrowserModule} from "@angular/platform-browser";
+import { CoreRoutingModule } from './core-routing.module';
+import { EditPictureTemplateComponent } from '../shared/components/edit-picture-template/edit-picture-template.component';
+import { DisplayDetailsModalComponent } from '../shared/components/display-details-modal/display-details-modal.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +32,7 @@ import {BrowserModule} from "@angular/platform-browser";
     LoginPageComponent,
     HomepageComponent,
     ProfilePageComponent,
+    RequestToBeSmeListComponent,
     ForgotPasswordComponent,
   ],
   exports: [
@@ -41,6 +46,8 @@ import {BrowserModule} from "@angular/platform-browser";
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
+    EditPictureTemplateComponent,
+    DisplayDetailsModalComponent
   ]
 })
 export class CoreModule { }

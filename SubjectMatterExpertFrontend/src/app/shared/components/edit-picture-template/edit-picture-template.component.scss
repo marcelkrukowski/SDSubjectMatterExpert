@@ -1,0 +1,5 @@
+//remove box shadow
+.box{
+    -webkit-box-shadow: none !important; /* Override webkit box-shadow */
+    box-shadow: none !important; /* Override standard box-shadow */
+}

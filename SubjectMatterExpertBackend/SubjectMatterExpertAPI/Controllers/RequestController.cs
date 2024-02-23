@@ -10,6 +10,7 @@ using SubjectMatterExpertAPI.Extensions;
 using SubjectMatterExpertAPI.Interfaces;
 using SubjectMatterExpertAPI.Migrations;
 using SubjectMatterExpertAPI.Models;
+using SubjectMatterExpertAPI.Services;
 
 namespace SubjectMatterExpertAPI.Controllers
 {
