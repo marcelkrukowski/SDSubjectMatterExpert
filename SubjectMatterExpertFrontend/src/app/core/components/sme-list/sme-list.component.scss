@@ -236,3 +236,17 @@ h2 {
     flex-direction: column;
   }
 }
+
+.no-results {
+  text-align: center;
+  padding: 4rem;
+  font-size: 2rem;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  & span {
+    margin: 0 1rem;
+  }
+}
