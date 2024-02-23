@@ -92,7 +92,7 @@ export class DocumentSessionsFormComponent implements OnInit {
   }
 
   editSession(){
-
+    console.log("acbd: ",this.sessionForm?.value)
      this.apiService.request('editSession', 'put', this.sessionForm?.value).subscribe();
   //   .subscribe(async (result) => {
   //     console.log("Edit session: ", result);
