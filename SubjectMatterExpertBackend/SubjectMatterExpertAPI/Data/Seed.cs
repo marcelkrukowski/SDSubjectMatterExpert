@@ -62,8 +62,21 @@ namespace SubjectMatterExpertAPI.Data
             context.AgileCoaches.Add(agileCoachEntity);
             await context.SaveChangesAsync();
 
+            var areaOfExpertiseAgileCoach = new AreaOfExpertise
+            {
+                ExpertiseArea = "Agile Methodology",
+                User = agileCoach,
+            };
 
+            var LanguageAgileCoach = new Language
+            {
+                LanguageName = "English",
+                User = agileCoach
+            };
 
+            context.AreasOfExpertise.Add(areaOfExpertiseAgileCoach);
+            context.Languages.Add(LanguageAgileCoach);
+            await context.SaveChangesAsync();
 
             foreach (var user in users)
             {

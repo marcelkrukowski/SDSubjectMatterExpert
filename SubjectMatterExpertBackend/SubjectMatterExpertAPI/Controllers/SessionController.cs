@@ -90,7 +90,7 @@ namespace SubjectMatterExpertAPI.Controllers
                 return BadRequest("AHAHAHAHHAHAHA TEST");
             }
 
-            if  (user.Sessions.Any(s => s.Id != sessionId))
+            if  (user.Sessions.All(s => s.Id != session.Id))
             {
                 return BadRequest("Test 2");
             }

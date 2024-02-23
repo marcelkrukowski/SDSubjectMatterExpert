@@ -1,11 +1,160 @@
-<div class="profile-container"  *ngIf="(userDetails$ | async) as user">
-  <img [src]="user.photo?.url || '/assets/graphic-abstract/Illustrations_Man_Laptop.png'" alt="User Avatar" class="avatar">
-  <h2>{{ user.username }}</h2>
-  <div class="user-info">
-    <p><span>Email:</span> {{ user.email }}</p>
-    <p><span>Area of expertise:</span> {{ user.areaOfExpertise }}</p>
-    <p><span>Location:</span> {{ user.location }}</p>
-    <p><span>Languages:</span> {{ user.languages }}</p>
+<div class="profile-container" *ngIf="(userDetails$ | async) as user">
+  <div *ngIf="!editMode">
+    <div class="profile-heading">
+
+      <h1>Personal Details</h1>
+
+      <a (click)="enableEditing()">Edit your personal details <i class="icons8-o-edit"></i></a>
+    </div>
+
+
+    <img [src]="user.photo?.url || '/assets/graphic-abstract/Illustrations_Man_Laptop.png'" alt="User Avatar"
+      class="avatar">
+    <h2>{{ user.username }}</h2>
+    <div class="user-info">
+      <div class="user-details">
+        <p><span>Email:</span> {{ user.email }}</p>
+      </div>
+      <div class="user-details">
+        <p><span>First Name:</span> {{ user.firstname }}</p>
+      </div>
+      <div class="user-details">
+        <p><span>Last Name:</span> {{ user.lastname }}</p>
+      </div>
+      <div class="user-details">
+        <p><span>Location:</span> {{ user.location }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Edit mode -->
+<div class="card-container" *ngIf="editMode" >
+  <div class="card" *ngIf="(userDetails$ | async) as user">
+<div class="edit-container" >
+  <form  [formGroup]="profileForm">
+    <div class="editForm">
+      <div class="form-group">
+        <h1>Edit Personal Details</h1>
+        <!-- <img [src]="user.photo?.url || '/assets/graphic-abstract/Illustrations_Man_Laptop.png'" alt="User Avatar" class="avatar"> -->
+        <!-- <div class="sd"><app-edit-picture-template></app-edit-picture-template></div> -->
+      
+        <label for="editFullName" class="form-label">Edit Full Name </label>
+        <input type="text" formControlName="firstName" class="form-control" id="firstName">
+      </div>
+
+      <div class="form-group">
+        <label for="editLastName" class="form-label">Edit Last Name</label>
+        <input type="text" formControlName="lastName" class="form-control" id="lastName">
+      </div>
+
+      <div class="form-group">
+        <label for="editEmail" class="form-label">Edit Email</label>
+        <input type="text" formControlName="email" class="form-control" id="email">
+      </div>
+      <div class="form-group">
+        <label for="editLocation" class="form-label">Edit Location</label>
+        <input type="text" formControlName="location" class="form-control" id="location">
+      </div>
+      <div class="form-group">
+        <label for="editLanguages" class="form-label">Edit Languages</label>
+        <input type="text" formControlName="languages" class="form-control" id="languages">
+      </div>
+    </div>
+  </form>
+
+  <div class="col-md-12 mt-5 text-center">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <button class="btn btn-secondary profile-button" type="button" (click)="cancelChanges()">Cancel</button>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary profile-button" type="button" (click)="saveChanges()">Save</button>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+</div>
   </div>
 </div>
 
+
+
+
+
+
+<div class="col-md-12 mt-5 text-center">
+  <button class="btn btn-primary profile-button" type="button" (click)="OpenModel()" *ngIf="!isSME">Apply For
+    SME</button>
+</div>
+
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog custom-modal-dialog">
+    <div class="modal-content custom-modal-content card card-body">
+      <form *ngIf="SMEForm" [formGroup]="SMEForm">
+        <div class="form-group row mt-4">
+          <div class="col-md-6">
+          </div>
+          <div class="col-md-6">
+            <h6 class="modal-title">SME Profile Registration Form</h6>
+            <div class="text-black-50">Please fill this form to register as an SME. Your Agile Coach will be notified to
+              approve or decline your
+              request.</div>
+          </div>
+        </div>
+        <!-- Area of expertise -->
+        <div class="form-group row mt-4">
+          <div class="col-md-6">
+            <label for="areasOfExpertise" class="form-label">Areas OF Expertise <sup class="text-danger">*</sup></label>
+          </div>
+          <div class="col-md-6">
+            <input type="text" formControlName="areasOfExpertise" class="form-control" id="areasOfExpertise">
+          </div>
+        </div>
+        <!-- Location -->
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <label for="location" class="form-label">Location<sup class="text-danger">*</sup></label>
+          </div>
+          <div class="col-md-6">
+            <input type="text" formControlName="location" class="form-control" id="location">
+          </div>
+        </div>
+        <!-- Languages -->
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <label for="languages" class="form-label">Languages <sup class="text-danger">*</sup></label>
+          </div>
+          <div class="col-md-6">
+            <input type="text" formControlName="languages" class="form-control" id="languages">
+          </div>
+        </div>
+
+
+        <div class="row mt-4">
+          <div class="col-md-6">
+          </div>
+          <!-- Submit SME form button-->
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <button type="button" class="btn btn-secondary" (click)="CloseModel()"
+                  data-bs-dismiss="modal">Cancel</button>
+              </div>
+              <div class="col-md-6 form-group">
+                <button type="button" class="btn btn-primary" (click)="submitSMEForm()">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay for blurring -->
+<div class="overlay" [class.active]="isModalOpen"></div>

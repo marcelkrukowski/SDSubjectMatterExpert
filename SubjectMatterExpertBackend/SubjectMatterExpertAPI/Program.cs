@@ -23,12 +23,22 @@ builder.Services.AddSwaggerServices(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(setupAction =>
+    {
+        setupAction.SwaggerEndpoint("/swagger/v1/swagger.json", "SubjectMatterExpertAPI");
+    });
+
 }
+
+app.UseSwagger();
+app.UseSwaggerUI(setupAction =>
+{
+    setupAction.SwaggerEndpoint("/swagger/v1/swagger.json", "SubjectMatterExpertAPI");
+});
 
 app.UseCors(x => x
             .AllowAnyOrigin()
@@ -52,7 +62,7 @@ try
     var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
     await context.Database.MigrateAsync();
     await Seed.SeedUsers(userManager, roleManager, context);
-  
+
 
 }
 catch (Exception ex)

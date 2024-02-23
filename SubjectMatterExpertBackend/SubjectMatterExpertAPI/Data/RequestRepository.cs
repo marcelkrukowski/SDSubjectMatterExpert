@@ -58,7 +58,7 @@ namespace SubjectMatterExpertAPI.Data
                 RequestId = user.Request.Id,
                 UserName = user.UserName,
                 Email = user.Email,
-                Fristname = user.Firstname,
+                Firstname = user.Firstname,
                 Lastname = user.Lastname,
                 Location = user.Location,
                 Languages = _mapper.Map<List<LanguageDto>>(user.Languages),
