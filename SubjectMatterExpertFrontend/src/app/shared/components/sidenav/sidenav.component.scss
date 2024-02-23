@@ -1,0 +1,99 @@
+.mat-toolbar {
+    position: relative;
+    z-index: 5;
+}
+
+.sidenav-container {
+    height: 100vh;
+}
+
+.sidenav {
+    display: flex;
+    background-color: white;
+    top: 0;
+    height: 100%;
+
+}
+
+.sidenav-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+}
+
+.logo-img {
+    width: 10rem;
+    height: auto;
+    padding-left: 0.5rem;
+    padding-top: 2rem;
+}
+
+.nav-list {
+    .list-link:hover {
+        background-color: #f9d2c3;
+        color: black;
+    }
+}
+
+.btn-open-close {
+    margin-left: auto;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+}
+
+.btn-open-close:hover {
+    color: #ed703d;
+}
+
+.sidenav-icon {
+    font-size: 22px;
+    min-width: 2rem;
+    height: 2rem;
+    text-align: center;
+}
+
+.list-link {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.mat-toolbar {
+    background-color: #c8cdd9;
+}
+
+.menu-btn {
+    align-items: center;
+    display: none;
+}
+
+@media(max-width: 800px) {
+    .menu-btn {
+        display: block;
+    }
+
+    .sidenav {
+        display: none;
+    }
+}
+
+.link-active {
+    background-color: #f9d2c3;
+
+    .sidenavbar-icon {
+        color: black;
+    }
+
+    .sidenavbar-link-text {
+        color: black;
+    }
+
+    border-right: 5px solid #ed703d;
+}
+
+//place logout button in the left
+.left-most {
+    margin-left: auto;
+  }
+

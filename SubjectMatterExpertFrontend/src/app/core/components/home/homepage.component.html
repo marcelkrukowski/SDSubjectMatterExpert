@@ -1,0 +1,20 @@
+<!-- Page Title Section -->
+<div class="page-title">
+  <h2 class="mt-4 mb-4">Home Page</h2>
+</div>
+<!-- Main Content Container -->
+<div class="container">
+  <div class="row">
+    <!-- Angular ngFor Loop: Iterating over 'cards' array -->
+    <div *ngFor="let card of cards" class="col-12 col-sm-6 col-md-4 mb-2">
+      <!-- Card Element: Click event triggers 'navigateTo' function with 'card.route' parameter -->
+      <div class="card" (click)="navigateTo(card.route)">
+        <img [src]="card.imageSrc" class="card-img-top" alt="{{ card.title }} Image">
+        <!-- Card Body: Displays card title -->
+        <div class="card-body">
+          <h5 class="card-title">{{ card.title }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

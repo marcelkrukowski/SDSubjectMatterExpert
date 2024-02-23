@@ -80,7 +80,7 @@ body {
   display: flex;
   flex-direction: column;
   margin-right: 2rem;
-  align-items: end;
+  align-items: flex-end;
   flex-grow: 1;
 
   button {
@@ -234,5 +234,19 @@ h2 {
 
   .page-container {
     flex-direction: column;
+  }
+}
+
+.no-results {
+  text-align: center;
+  padding: 4rem;
+  font-size: 2rem;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  & span {
+    margin: 0 1rem;
   }
 }

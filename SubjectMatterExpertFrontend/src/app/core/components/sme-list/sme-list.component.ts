@@ -1,5 +1,8 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { SME } from './sme.model';
+import {Component, HostListener, OnInit} from '@angular/core';
+import { SME } from '../../../../models/sme.model';
+import {BehaviorSubject, combineLatest, Observable, of} from "rxjs";
+import { map } from "rxjs/operators";
+import { SmeListService } from "../../services/sme-list.service";
 
 @Component({
   selector: 'app-sme-list',
@@ -7,87 +10,135 @@ import { SME } from './sme.model';
   styleUrls: ['./sme-list.component.scss']
 })
 export class SmeListComponent implements OnInit {
-  smeList: SME[] = [
-    { name: 'Henish Nobeen', title: 'Associate Engineer', expertise: '.net, angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-    { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS', availability: 'Available' },
-  ];
-
-  selectedMovie = 1;
-  movies = [
-    { id: 1, name: 'Pulp Fiction' },
-    { id: 2, name: 'Reservoir Dogs' },
-    { id: 3, name: 'Django Unchained' },
-    { id: 4, name: 'Jackie Brown' },
-  ];
-
-  paginatedSmeList: SME[] = [];
-  currentPage = 0;
-  pageSize = 3; // Initial value, adjustable based on screen size
+  smeList$: Observable<SME[]> = of([]);
+  selectedCountry = new BehaviorSubject<string | undefined>(undefined);
+  selectedExpertise = new BehaviorSubject<string | undefined>(undefined);
+  filteredSmeList$: Observable<SME[]> = of([]);
+  searchQuery: string = '';
+  selectedSearchQuery = new BehaviorSubject<string>('');
+  countries: string[] = [];
+  expertiseFields: string[] = [];
+  paginatedSmeList$: Observable<SME[]> = new Observable<SME[]>();
+  currentPage = new BehaviorSubject<number>(0);
+  itemsPerPage = 3; // Fixed items per page
+  totalItems = 0;
   totalPages = 0;
-  isPaginationEnabled = true;
-  isMobile: boolean;
-  sidebarVisible: boolean;
+  private readonly smeCardHeight: number = 200;
 
-  constructor() {
-    this.isMobile = window.innerWidth <= 768;
-    this.sidebarVisible = !this.isMobile;
+  constructor(private smeListService: SmeListService) {}
+
+  ngOnInit(): void {
+    this.smeList$ = this.smeListService.getSmes();
+    this.initializeFilteredSmeList();
+    this.extractUniqueCountriesAndExpertise();
+    this.updatePagination();
   }
 
-  ngOnInit() {
-    this.adjustPageSize();
-    this.adjustPagination();
+  initializeFilteredSmeList(): void {
+    // Use combineLatest to react to changes in filtering or page changes
+    this.filteredSmeList$ = combineLatest([
+      this.smeList$,
+      this.selectedCountry,
+      this.selectedExpertise,
+      this.selectedSearchQuery,
+      this.currentPage.asObservable() // Make currentPage part of the reactive stream
+    ]).pipe(
+      map(([smes, country, expertise, searchQuery, page]) => {
+        const filtered = smes.filter(sme =>
+          (!country || sme.location === country) &&
+          (!expertise || sme.areaOfExpertise?.some(exp => exp.expertiseArea?.toLowerCase().includes(expertise.toLowerCase()))) &&
+          (!searchQuery || sme.userName?.toLowerCase().includes(searchQuery.toLowerCase()))
+        );
+
+        this.totalItems = filtered.length;
+        this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+
+        // Check if the current page is out of range
+        if (this.currentPage.value > this.totalPages - 1) {
+          this.currentPage.next(this.totalPages - 1);
+        } else if (this.currentPage.value < 0) {
+          this.currentPage.next(0);
+        }
+
+        // Calculate the slice of items to be displayed based on the current page
+        const startIndex = page * this.itemsPerPage;
+        const endIndex = startIndex + this.itemsPerPage;
+        return filtered.slice(startIndex, endIndex);
+      })
+    );
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    this.isMobile = window.innerWidth <= 768;
-    this.sidebarVisible = !this.isMobile;
-    this.adjustPageSize();
-    this.adjustPagination();
+  private extractUniqueCountriesAndExpertise(): void {
+    this.smeList$.subscribe(smes => {
+      const countrySet = new Set<string>();
+      const expertiseSet = new Set<string>();
+
+      smes.forEach(sme => {
+        if (sme.location) countrySet.add(sme.location);
+        sme.areaOfExpertise?.forEach(expertise => {
+          if (expertise.expertiseArea) expertiseSet.add(expertise.expertiseArea);
+        });
+      });
+
+      this.countries = Array.from(countrySet);
+      this.expertiseFields = Array.from(expertiseSet);
+    });
   }
 
-  adjustPageSize() {
+  onCountrySelected(country: string): void {
+    this.selectedCountry.next(country || undefined);
+  }
+
+  onExpertiseSelected(expertise: string): void {
+    this.selectedExpertise.next(expertise || undefined);
+  }
+
+  onSearchQueryChanged(): void {
+    this.selectedSearchQuery.next(this.searchQuery);
+  }
+
+  updatePagination(): void {
+    this.filteredSmeList$.subscribe(smes => {
+      this.totalItems = smes.length;
+      this.calculateItemsPerPage();
+      this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+      this.paginateSmeList();
+    });
+  }
+
+  calculateItemsPerPage(): void {
     const viewportHeight = window.innerHeight;
-    this.pageSize = this.isMobile ? this.smeList.length : Math.floor(viewportHeight / 280); // 280 is item height
-    this.isPaginationEnabled = this.pageSize < this.smeList.length;
+    const headerHeight = 150; // Adjust as necessary
+    const availableHeight = viewportHeight - headerHeight;
+
+    this.itemsPerPage = Math.max(1, Math.floor(availableHeight / this.smeCardHeight));
   }
 
-  adjustPagination() {
-    this.totalPages = Math.ceil(this.smeList.length / this.pageSize);
-    this.currentPage = Math.max(0, Math.min(this.currentPage, this.totalPages - 1));
-    this.paginate();
+  paginateSmeList(): void {
+    this.paginatedSmeList$ = this.filteredSmeList$.pipe(
+      map(smes => smes.slice(this.currentPage.value * this.itemsPerPage, (this.currentPage.value + 1) * this.itemsPerPage))
+    );
   }
 
-  paginate() {
-    const startIndex = this.currentPage * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.paginatedSmeList = this.smeList.slice(startIndex, endIndex);
-  }
-
-  previousPage() {
-    if (this.currentPage > 0) {
-      this.currentPage--;
-      this.paginate();
+  nextPage(): void {
+    const nextPage = this.currentPage.value + 1;
+    if (nextPage < this.totalPages) {
+      this.currentPage.next(nextPage);
     }
   }
 
-  nextPage() {
-    if (this.currentPage < this.totalPages - 1) {
-      this.currentPage++;
-      this.paginate();
+  previousPage(): void {
+    const previousPage = this.currentPage.value - 1;
+    if (previousPage >= 0) {
+      this.currentPage.next(previousPage);
     }
   }
 
-  toggleSidebar() {
-    this.sidebarVisible = !this.sidebarVisible;
+  @HostListener('window:resize')
+  onResize(): void {
+    this.calculateItemsPerPage();
+    // Instead of calling updatePagination, we emit the current page to recalculate the items per page
+    this.currentPage.next(this.currentPage.value);
   }
 }
+

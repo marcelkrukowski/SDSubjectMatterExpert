@@ -1,57 +1,48 @@
-<!-- Mobile Header -->
-<div class="mobile-header" *ngIf="isMobile">
-  <button class="hamburger-menu" (click)="toggleSidebar()" aria-label="Toggle Sidebar">
+<nav class="mobile-header">
+  <button class="hamburger-menu" aria-label="Toggle Sidebar">
     ☰
   </button>
-</div>
+</nav>
 
-<!-- Page Container -->
-<div class="page-container">
-  <!-- List Container -->
+<main class="page-container">
   <section class="list-container">
-    <header class="list-header">SME List</header>
+    <h1 class="list-header">SME List</h1>
     <div class="flex-container">
-      <section class="sme-container" *ngFor="let sme of paginatedSmeList">
-        <article class="sme-card">
-          <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Sam" alt="{{ sme.name }} Avatar" class="sme-avatar">
+      <ng-container *ngIf="(filteredSmeList$ | async)?.length; else noResultTemplate">
+        <article class="sme-card" *ngFor="let sme of filteredSmeList$ | async">
+          <img src="{{sme.photo?.uri}}" alt="{{ sme.userName }} Avatar" class="sme-avatar">
           <div class="sme-details">
-            <h1>{{ sme.name }}</h1>
-            <h2>{{ sme.title }}</h2>
-            <p>Subject Matter Expert in Product</p>
-            <p>Expertise: {{ sme.expertise }}</p>
+            <h2>{{ sme.userName }}</h2>
+            <p>Expertise: {{ sme.areaOfExpertise }}</p>
+            <p>Country: {{ sme.location }}</p>
             <button class="btn btn-secondary">View Profile</button>
           </div>
           <div class="sme-action-book">
-            <div class="book-container">
-              <span>{{ sme.availability }}</span>
-              <button class="btn btn-primary">Book Meeting</button>
-            </div>
+            <button class="btn btn-primary">Book Meeting</button>
           </div>
         </article>
-      </section>
+      </ng-container>
+      <ng-template #noResultTemplate>
+        <div class="no-results">No results</div>
+      </ng-template>
     </div>
-    <!-- Pagination -->
-    <nav class="pagination" *ngIf="isPaginationEnabled">
-      <button (click)="previousPage()" class="btn btn-link">Previous</button>
-      <span>{{ currentPage + 1 }} / {{ totalPages }}</span>
-      <button (click)="nextPage()" class="btn btn-link">Next</button>
-    </nav>
+    <div class="pagination-controls">
+      <button (click)="previousPage()" class="btn btn-primary">Previous</button>
+      <span>Page {{ currentPage.value + 1 }} of {{ totalPages }}</span>
+      <button (click)="nextPage()" class="btn btn-primary">Next</button>
+    </div>
   </section>
 
-  <!-- Options Container -->
-  <aside class="options-container" [ngClass]="{'visible': sidebarVisible}">
-    <!-- Search Box -->
+  <aside class="options-container">
     <div class="search-container">
-      <div class="search-box">
-        <label for="txtSearch" class="form-label">Search</label>
-        <input type="search" class="form-control" id="txtSearch" placeholder="Search...">
-      </div>
+      <label for="txtSearch" class="form-label">Search by user name</label>
+      <input type="search" class="form-control" id="txtSearch" placeholder="Enter name here..." [(ngModel)]="searchQuery" (input)="onSearchQueryChanged()">
     </div>
-    <!-- Filter Container -->
-    <div class="filter-container">
-      <label for="filterOption">Filter Option</label>
-      <ng-select id="filterOption" [items]="movies" bindLabel="name" bindValue="id" [(ngModel)]="selectedMovie"></ng-select>
-      <ng-select id="filterOption2" [items]="movies" bindLabel="name" bindValue="id" [(ngModel)]="selectedMovie"></ng-select>
-    </div>
+
+    <ng-select [items]="countries" bindLabel="name" placeholder="Select Country" (change)="onCountrySelected($event)">
+    </ng-select>
+
+    <ng-select [items]="expertiseFields" bindLabel="name" placeholder="Select Expertise" (change)="onExpertiseSelected($event)">
+    </ng-select>
   </aside>
-</div>
+</main>
