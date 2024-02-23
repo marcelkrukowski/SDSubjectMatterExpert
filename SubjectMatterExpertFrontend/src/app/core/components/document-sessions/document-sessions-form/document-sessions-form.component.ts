@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api.service';
+import { SessionFormService } from 'src/app/core/services/session-form.service';
 import { StorageService } from 'src/app/core/services/storage.service';
+import { SessionDetails } from 'src/app/models/session-details';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,27 +14,48 @@ import Swal from 'sweetalert2';
 })
 export class DocumentSessionsFormComponent implements OnInit {
   sessionForm? : FormGroup;
-
+  id:number=0;
+  sessionDetail? : any |SessionDetails;
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private serviceStorageService: StorageService,
-    private router: Router
+    private router: Router,
+    private activatedRoute : ActivatedRoute,
+    private sessionService : SessionFormService
     ){}
 
-  ngOnInit() : void {
-    this.sessionForm = this.formBuilder.group({
-      // sme_name: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
-      // coachees: ['', Validators.pattern('^[a-zA-Z ]+$')],
-      topic: ['', [Validators.required, Validators.pattern('^[a-zA-Z +\\-#]+$')]],
-      subTopic: ['', [Validators.required, Validators.pattern('^[a-zA-Z +\\-#]+$')]],
-      // date: ['', Validators.required],
-      // startTime: ['', Validators.required],
-      // endTime: ['', Validators.required],
-      description: ['', Validators.required],
-      colleagues: ['', Validators.required],
-    })
-  }
+    ngOnInit(): void {
+  
+      this.sessionForm = this.formBuilder.group({
+        topic: ['', [Validators.required, Validators.pattern('^[a-zA-Z +\\-#]+$')]],
+        subTopic: ['', [Validators.required, Validators.pattern('^[a-zA-Z +\\-#]+$')]],
+        description: ['', Validators.required],
+        colleagues: ['', Validators.required],
+      })
+    
+      this.activatedRoute.params.subscribe(params => {
+        this.id = +params['id']; // Convert the id to a number
+        console.log('Current session id: ', this.id);
+  
+        // Fetch session details using the retrieved id
+        this.sessionService.getCurrentSession().subscribe((result: any | SessionDetails) => {
+          // console.log(result);
+          this.sessionDetail = result.find((user: { id: number; }) => user.id === this.id);
+  
+          console.log('Specific Id session details: ', this.sessionDetail);
+
+          const colleaguesNames = this.sessionDetail.colleagues.map((colleague: { firstName: string; lastName: string; }) => `${colleague.firstName} ${colleague.lastName}`);
+          
+          this.sessionForm?.patchValue({
+            topic: this.sessionDetail.topic,
+            subTopic: this.sessionDetail.subTopic,
+            description: this.sessionDetail.description,
+            colleagues: colleaguesNames.join(', ')
+          })
+        });
+      });
+    }
 
   saveLog() {
 
@@ -67,38 +90,24 @@ export class DocumentSessionsFormComponent implements OnInit {
         },
       );
   }
+
+  editSession(){
+
+     this.apiService.request('editSession', 'put', this.sessionForm?.value).subscribe();
+  //   .subscribe(async (result) => {
+  //     console.log("Edit session: ", result);
+  //     if (result) {
+  //       const { value: redirecturl } = await Swal.fire(
+  //         'Success',
+  //         'Session details updated successfully',
+  //         'success'
+  //       );
+  //       console.log('redirect url: ', redirecturl);
+  //       if (redirecturl) {
+  //         this.router.navigate(['/document-session']);
+  //       }
+  //     }
+  //   })
+  // }
 }
-
-// submitSMEForm(): void {
-//   // Splitting the string values into arrays
-//   const languagesArray = this.SMEForm?.value.languages.split(',').map((lang: string) => lang.trim());
-//   const areasOfExpertiseArray = this.SMEForm?.value.areasOfExpertise.split(',').map((area: string) => area.trim());
-
-//   // Log languagesArray and areasOfExpertiseArray before creating formData
-//   console.log('Languages Array:', languagesArray);
-//   console.log('Areas of Expertise Array:', areasOfExpertiseArray);
-
-//   // Creating the object to send to the backend
-//   const formData = {
-//     languages: languagesArray,
-//     location: this.SMEForm?.value.location,
-//     areasOfExpertise: areasOfExpertiseArray
-//   };
-
-//   console.log('SME form: ', formData);
-
-//   // this.apiService.request('createRequestToBeSme', 'post', formData).subscribe((result: {[key: string]: any}) => {
-//   //   console.log("SME form result: ", result)
-//   this.apiService.request('createRequestToBeSme', 'post', formData).subscribe((result: any) => {
-//     console.log("SME form result: ", result);
-
-
-//     if (result) {
-//       Swal.fire('Success', 'Your request has been sent to your agile coach!', 'success').then(swalResult => {
-//         console.log("SwalResult:", swalResult);
-//         // if(swalResult.value) this.router.navigate(['\hello']);
-//       });
-//     }
-//   });
-// }
-// has context menu
+}

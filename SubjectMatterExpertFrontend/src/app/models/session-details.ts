@@ -1,11 +1,8 @@
 export interface SessionDetails {
-    // sme_name : string;
+    id:number;
     colleagues :  Colleagues[];
     topic : string;
     subTopic : string;
-    // date : Date;
-    // start_time : string;
-    // end_time : string;
     description : string;
 }
 

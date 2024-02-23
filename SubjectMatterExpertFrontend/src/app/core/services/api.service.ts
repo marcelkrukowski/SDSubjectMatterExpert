@@ -16,6 +16,9 @@ export class ApiService {
     editProfile : (id : number) => `${environment.apiUrl}/api/Account/${id}`,
     createSession : `${environment.apiUrl}/api/Session/create-session`,
     sessionList : `${environment.apiUrl}/api/Session/user-sessions-details`,
+    editSession : `${environment.apiUrl}/api/Session/update-session`,
+    mostContactedSME : `${environment.apiUrl}/api/Session/most-contacted-smes`,
+    mostContactedAreas : `${environment.apiUrl}/api/Session/most-contacted-areas`,
   }
 
   request(url : endpointType, method : string , payload? : object , urlParams? : any){
@@ -26,4 +29,4 @@ export class ApiService {
   }
 }
 
-export type endpointType = 'login' |'profile' | 'currentProfile' | 'editProfile' | 'createSession' | 'sessionList';
+export type endpointType = 'login' |'profile' | 'currentProfile' | 'editProfile' | 'createSession' | 'sessionList' | 'editSession' | 'mostContactedSME' | 'mostContactedAreas';

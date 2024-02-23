@@ -25,6 +25,7 @@ const routes: Routes = [
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'session-form', component: DocumentSessionsFormComponent},
   {path: 'document-session', component: DocumentSessionsComponent},
+  {path: 'edit-session/:id', component: DocumentSessionsFormComponent},
   {path: '**', redirectTo: '/home', pathMatch: "full" },
 ];
 
