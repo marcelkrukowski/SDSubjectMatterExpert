@@ -30,10 +30,10 @@ import { PendingSmeRequestService } from 'src/app/core/services/pending-sme-requ
   ],
   templateUrl: './header-profile-component.component.html',
 })
-export class HeaderProfileComponent implements OnInit{
-  
+export class HeaderProfileComponent implements OnInit {
+
   userDetails$!: Observable<User>;
-  notification:boolean =  false;
+  notification: boolean = false;
 
   ngOnInit(): void {
 
@@ -41,19 +41,37 @@ export class HeaderProfileComponent implements OnInit{
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       // Check if the current route is the home page
-      if (event.url === '/home') {
+      if (event.url.includes('/login')) {
+
+        console.log("epps");
+
+      }
+
+      else if (event.url.includes('/')) {
         // Execute your logic here
-        console.log('Navigation to home page detected');
         this.userDetails$ = this.userService.getUserDetails();
         this.userDetails$.subscribe(e => console.log(e));
         this.userDetails$.subscribe((e: any) => console.log(e.userName));
 
-        //check for notifications
-        this.checkPendingSmeRequests();
+        //get user details, loop throught role to see if user is agile coach
+        this.userDetails$.subscribe(e => {
+          e.userRoles.forEach(role => {
+            if (role.role === 'agile coach') {
+              // if user is agile coach check if there are pending sme requests
+              console.log('User is an agile coach');
+              this.checkPendingSmeRequests();
+
+            }
+          
+          });
+
+        });
+        
       }
+    
     });
 
-    
+
 
   }
 
@@ -69,24 +87,25 @@ export class HeaderProfileComponent implements OnInit{
 
   //logout function
   logout() {
-    console.log("Login out"); 
+    console.log("Login out");
     // Clear all stored items in the storage service
-    localStorage.removeItem('token');   
+    localStorage.removeItem('token');
     // show back login form again
     this.router.navigate(['/login']);
   }
 
-   //get notification if there is requeest for sme
-   checkPendingSmeRequests(): void {
+  //get notification if there is requeest for sme
+  checkPendingSmeRequests(): void {
+
     this.pendingSmeRequestService.getPendingSmeRequest().subscribe((data: any[]) => {
       if (data && data.length > 0) {
         // Trigger a notification to alert the user about pending requests
         this.notification = true;
         // You can also navigate the user to a specific page to handle these requests
       }
-      else{
+      else {
         console.log("no pending request");
-        
+
       }
     });
   }

@@ -7,21 +7,30 @@ import { UserDetailsService } from "../../services/user-details.service";
 import { Observable } from "rxjs";
 import { User } from "../../../../models/user.model";
 import { ApiService } from '../../services/api.service';
+import { SdwdsHeaderProfileComponent } from '@sdworx/sdwds/header-profile';
 
 
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
-  styleUrls: ['./profile-page.component.scss']
+  styleUrls: ['./profile-page.component.scss'],
 })
+
 export class ProfilePageComponent implements OnInit {
   SMEForm?: FormGroup;
+  profileForm!: FormGroup;
   isModalOpen: boolean = false;
+
+  //profile form var
+  firstName: string = '';
+  lastName: string = '';
 
 
   userDetails$!: Observable<User>;
   role: string = '';
   isSME: boolean = true;
+  editMode: boolean = false;
+  
 
   ngOnInit(): void {
     this.userDetails$ = this.userService.getUserDetails();
@@ -48,6 +57,14 @@ export class ProfilePageComponent implements OnInit {
       languages: ['', Validators.required],
     })
 
+    this.profileForm = this.formBuilder.group({
+      firstName: [''],
+      lastName: [''],
+      email: ['', [Validators.required, Validators.email]],
+      location: [''],
+      languages: [''],
+    })
+
   }
 
   constructor(
@@ -72,6 +89,19 @@ export class ProfilePageComponent implements OnInit {
       modelDiv.style.display = 'none';
       this.isModalOpen = false;
     }
+  }
+
+  enableEditing(){
+    console.log("Click editing");
+    this.editMode = true;
+
+    //add current user details to text boxes
+    this.profileForm?.patchValue({
+      firstName: this.firstName,
+      lastName: this.lastName
+     
+    });
+    
   }
 
 

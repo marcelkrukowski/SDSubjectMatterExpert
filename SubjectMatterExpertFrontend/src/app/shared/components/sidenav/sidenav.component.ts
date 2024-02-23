@@ -38,9 +38,22 @@ export class SidenavComponent implements OnInit{
         this.updateSidenavDisplay();
       }
 
+
+      
+      if (this.router.url.includes('login') || this.router.url.includes('register')) {
+        console.log("epss");
+        
+      }
+
+      else{
+        
+      }
       this.userDetails$ = this.userService.getUserDetails();
-      this.userDetails$.subscribe(user => {
+      this.userDetails$.subscribe(e => {
+        if (e.userRoles.length > 1){
         this.updateSidenavDisplay();
+        
+      }
       });
     });
     

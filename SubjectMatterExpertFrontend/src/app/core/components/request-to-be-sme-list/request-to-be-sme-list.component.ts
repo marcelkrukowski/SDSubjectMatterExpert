@@ -3,7 +3,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { UserDetailsService } from '../../services/user-details.service';
 import { Observable } from 'rxjs';
 import { PendingSmeRequestService } from '../../services/pending-sme-request.service';
-import { RequestToBeSMEList } from './requestToBeSme.model';
+import { RequestToBeSMEList } from './requestToBeSmeList.model';
 import { ApiService } from '../../services/api.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -126,7 +126,7 @@ export class RequestToBeSmeListComponent implements OnInit {
       console.log("SwalResult:", swalResult);
     }).then((result) => {
       this.Save(requestId);
-      this.router.navigate(['/request-to-be-sme']);
+      window.location.reload(); // Reload the page
 
     });
   }
@@ -136,7 +136,7 @@ export class RequestToBeSmeListComponent implements OnInit {
       console.log("SwalResult:", swalResult);
     }).then((result) => {
       this.Reject(requestId);
-      this.router.navigate(['/request-to-be-sme']);
+      window.location.reload(); // Reload the page
 
     });
 
