@@ -63,14 +63,18 @@
   </form>
 
   <div class="col-md-12 mt-5 text-center">
-    <div class="">
-    <button class="btn btn-primary profile-button"  type="button">Cancel</button>
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <button class="btn btn-secondary profile-button" type="button" (click)="cancelChanges()">Cancel</button>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary profile-button" type="button" (click)="saveChanges()">Save</button>
+      </div>
+    </div>
   </div>
-  <div class="">
-    <button class="btn btn-primary profile-button"  type="button" (click)="saveChanges()">Save</button>
-  </div>
-  </div>
-
+  
+  
+  
 </div>
   </div>
 </div>

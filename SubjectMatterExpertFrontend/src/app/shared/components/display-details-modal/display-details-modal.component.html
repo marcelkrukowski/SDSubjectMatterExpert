@@ -8,13 +8,15 @@
                 (click)="closeModal()"></button>
         </div>
         <div class="modal-body">
-            <img [src]="item?.image_car" alt="{{item?.name}}" class="w-75 card-img-top">
+            <!-- <img [src]="item?.image_car" alt="{{item?.name}}" class="w-75 card-img-top"> -->
             <p>First Name: {{item?.firstname}}</p>
             <p>Lastname: {{item?.lastname}}</p>
             <p>Email: {{item?.email}}</p>
             <p>Location: {{item?.location}}</p>
-
-            <p>Price: {{item?.currency}} {{item?.price}}</p>
+            <p>Languages:</p>
+            <ul>
+                <li *ngFor="let area of item.areasOfExpertise">{{ area.expertiseArea }}</li>
+              </ul>
         </div>
     </div>
 </ng-template>

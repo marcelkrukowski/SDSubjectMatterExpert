@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
@@ -5,7 +6,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 @Component({
   selector: 'app-display-details-modal',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './display-details-modal.component.html',
   styleUrl: './display-details-modal.component.scss'
 })

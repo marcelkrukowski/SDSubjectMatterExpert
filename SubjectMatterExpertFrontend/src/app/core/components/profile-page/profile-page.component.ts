@@ -127,6 +127,7 @@ export class ProfilePageComponent implements OnInit {
     
   }
 
+  //after editing
   saveChanges() {
     // Disable editing mode after saving
     this.editMode = false;
@@ -139,36 +140,11 @@ export class ProfilePageComponent implements OnInit {
 console.log("Profile form: "+ this.profileForm.value);
 
     this.apiService.request('editProfile', 'put', this.profileForm?.value).subscribe();
-    // this.apiService.request('editProfile', 'put', this.profileForm?.value).subscribe({
-    //   next: async (result: any) => {
-    //     console.log('Edit profile result: ', result);
-    
-    //     this.firstName = result.firstname;
-    //     this.lastName = result.lastname;
-    //     this.email = result.email;
-    //     this.location = result.location;
-    //     this.languages = result.languages;
-    
-    //     if (result) {
-    //       const { value: redirecturl } = await Swal.fire(
-    //         'Success',
-    //         'Profile details updated successfully.',
-    //         'success'
-    //       );
-    
-    //       // Set local storage to current user details
-    //       // this.storageService.set('SMEuser', result);
-    
-    //       console.log('Changes saved.');
-    //       console.log("redirecturl: ", redirecturl);
-    //     }
-    //   },
-    //   error: (error: any) => {
-    //     // Handle error
-    //     console.error('Error editing profile: ', error);
-    //     // Display error message using Swal.fire if needed
-    //   }
-    // });
+
+  }
+
+  cancelChanges(){
+    this.editMode=false;
   }
 
 
