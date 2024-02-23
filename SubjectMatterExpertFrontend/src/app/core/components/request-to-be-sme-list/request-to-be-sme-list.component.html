@@ -1,16 +1,22 @@
-<!-- Page Container -->
-<div class="page-container">
-  <!-- List Container -->
+
+
+
+
+
+
+<main class="page-container">
   <section class="list-container">
-    <header class="list-header">Pending SME List</header>
+    <h1 class="list-header">SME List</h1>
     <div class="flex-container">
-      <section class="sme-container" *ngFor="let request of pendingSmeRequest$ | async">
-        <article class="sme-card">
-          <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Sam" alt="{{ request.userName }} Avatar"
-            class="sme-avatar">
-          <div class="sme-details">
-            <h1>{{ request.userName }}</h1>
-            <h2>{{ request.email }}</h2>
+      <ng-container *ngIf="(filteredPendingRequest$ | async)?.length; else noResultTemplate">
+        <article class="sme-card" *ngFor="let request of filteredPendingRequest$ | async">
+          
+          <img src="{{request.photo?.uri}}" alt="{{ request.userName }} Avatar" class="request-avatar">
+          
+          
+          <div class="request-details">
+            <h2>{{ request.userName }}</h2>
+            <p>Email: {{ request.email }}</p>
             <p>Requesting to be SME in:</p>
             <ul>
               <li *ngFor="let area of request.areasOfExpertise">{{ area.expertiseArea }}</li>
@@ -19,8 +25,6 @@
             <ul>
               <li *ngFor="let language of request.languages">{{ language.languageName }}</li>
             </ul>
-
-            <button class="btn btn-secondary">View Profile</button>
           </div>
           <div class="sme-action-book">
             <div class="book-container">
@@ -29,18 +33,14 @@
             </div>
           </div>
         </article>
-      </section>
+      </ng-container>
+      <ng-template #noResultTemplate>
+        <div class="no-results">No results</div>
+      </ng-template>
     </div>
-    <!-- Pagination -->
-    <nav class="pagination" *ngIf="isPaginationEnabled">
-      <button (click)="previousPage()" class="btn btn-link">Previous</button>
-      <span>{{ currentPage + 1 }} / {{ totalPages }}</span>
-      <button (click)="nextPage()" class="btn btn-link">Next</button>
-    </nav>
+    <div class="pagination-controls">
+      <button (click)="previousPage()" class="btn btn-primary">Previous</button>
+      <span>Page {{ currentPage.value + 1 }} of {{ totalPages }}</span>
+      <button (click)="nextPage()" class="btn btn-primary">Next</button>
+    </div>
   </section>
-
-
-  
-
-
-</div>
