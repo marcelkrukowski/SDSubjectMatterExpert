@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import {environment} from "../../../environments/environment";
+import {StorageService} from "./storage.service";
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +12,11 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from
 export class RegisterFormService {
   private readonly registrationForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private storageService: StorageService
+  ) {
     this.registrationForm = this.fb.group({
       email: ['', [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@sdworx\.com$/)]],
       password: [
@@ -34,6 +43,27 @@ export class RegisterFormService {
 
   getForm(): FormGroup {
     return this.registrationForm;
+  }
+
+  registerUser(): Observable<any> {
+    console.log("Register clicked");
+    const formData = this.registrationForm.value;
+    const registrationData = {
+      username: formData.email, // Assuming username is the email
+      password: formData.password,
+      email: formData.email,
+      firstname: formData.name,
+      lastname: formData.surname
+    };
+
+    console.table(registrationData);
+    console.log(`api url: ${environment.apiUrl}/api/Account/register`);
+
+    return this.http.post(`${environment.apiUrl}/api/Account/register`, registrationData).pipe(
+      tap((response: any) => {
+        this.storageService.set('token', response.token);
+      })
+    );
   }
 
   private passwordsMatchValidator = (control: FormGroup): { [key: string]: boolean } | null => {

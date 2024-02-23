@@ -2,9 +2,13 @@
   <div class="card">
     <h2>Register new account</h2>
     <form [formGroup]="form">
-      <div class="form-group">
+      <div class="form-group email-group">
         <label>Email:</label>
         <input type="text" formControlName="email" placeholder="Enter your email..."/>
+        <!-- Error message for invalid email -->
+        <div [ngClass]="{'error-displayed': form.get('email')?.touched && form.get('email')?.invalid, 'error': true}">
+          Invalid email.
+        </div>
       </div>
       <div class="form-group">
         <label>Password:</label>
@@ -12,12 +16,13 @@
       </div>
       <div class="form-group">
         <label>Repeat password:</label>
-        <input type="password" formControlName="repeatPassword" placeholder="Enter your password..." />
-        <div [ngClass]="{'error-displayed': form.hasError('passwordsDoNotMatch') && form.get('repeatPassword')?.dirty, 'error': !form.hasError('passwordsDoNotMatch') || !form.get('repeatPassword')?.dirty}">
+        <input type="password" formControlName="repeatPassword" placeholder="Repeat your password..." />
+        <!-- Updated error class application -->
+        <div [ngClass]="{'error-displayed': form.hasError('passwordsDoNotMatch') && form.get('repeatPassword')?.dirty, 'error': true}">
           Passwords do not match.
         </div>
       </div>
-      <button class="btn btn-primary btn-lg" aria-label="Next step button" (click)="nextPage()" [disabled]="!(isEmailValid && isPassValid && isRepeatPassValid && !form.hasError('passwordsDoNotMatch'))">Next</button>
+      <button class="btn btn-primary btn-lg" aria-label="Next step button" (click)="nextPage()" [disabled]="!(isEmailValid && isPassValid && isRepeatPassValid && !form.hasError('passwordsDoNotMatch'))" type="button">Next</button>
     </form>
   </div>
 </div>

@@ -98,13 +98,13 @@ namespace SubjectMatterExpertAPI.Controllers
                 return BadRequest("Invalid file type. Only JPEG, JPG, and PNG are allowed.");
             }
 
-            var result = await _photoService.UploadPhotoAsync(photo);
-
 
             if (user.Photo != null)
             {
-                return BadRequest("User already has a photo. Delete the existing photo before uploading a new one.");
+                await DeletePhoto();
             }
+
+            var result = await _photoService.UploadPhotoAsync(photo);
 
             var photoEntity = new Photo
             {

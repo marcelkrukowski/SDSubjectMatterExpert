@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SubjectMatterExpertAPI.Data;
 using SubjectMatterExpertAPI.DTOs;
+using SubjectMatterExpertAPI.Extensions;
 using SubjectMatterExpertAPI.Interfaces;
 using SubjectMatterExpertAPI.Models;
 using System.Security.Cryptography;
@@ -23,10 +24,19 @@ namespace SubjectMatterExpertAPI.Controllers
             _tokenService = tokenService;
             _mapper = mapper;
         }
-        [HttpPost("register")] // POST: api/account/register
+        [HttpPost("register")] 
         public async Task<ActionResult<UserRegisterResponseDto>> Register(UserRegisterRequestDto registerDto)
         {
-            if (await UserExists(registerDto.UserName)) return BadRequest("Username is taken");
+            if (await UserExists(registerDto.UserName))
+            {
+                return BadRequest("Username is taken");
+            }
+            else if (!registerDto.Email.EndsWith("@sdworx.com", StringComparison.OrdinalIgnoreCase))
+            {
+                return BadRequest("Invalid email domain. Please use an email ending with @sdworx.com");
+            }
+
+
 
             var user = _mapper.Map<User>(registerDto);
 
@@ -42,12 +52,12 @@ namespace SubjectMatterExpertAPI.Controllers
 
             return new UserRegisterResponseDto
             {
-           
+
                 Token = await _tokenService.CreateToken(user)
             };
         }
 
-        [HttpPost("login")] // POST: api/account/login
+        [HttpPost("login")] 
         public async Task<ActionResult<UserLoginResponseDto>> Login(UserLoginRequestDto loginDto)
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == loginDto.Email);
@@ -60,54 +70,41 @@ namespace SubjectMatterExpertAPI.Controllers
 
             return new UserLoginResponseDto
             {
-                
+
                 Token = await _tokenService.CreateToken(user),
-               
+
             };
         }
-      
 
-        //To retrieve user details and update database when needed
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> UpdateUser(int id, UserUpdateDto userUpdateDto)
-        //{
-        //    var user = await _userManager.Users.FirstAsync(x => x.Id == id);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpPut("update-user-details")]
+        public async Task<IActionResult> UpdateUser(UserUpdateDto userUpdateDto)
+        {
+            var user = await _userManager.Users.FirstAsync(x => x.UserName == User.GetUsername());
+          
+            if (user == null)
+            {
+                return NotFound();
+            }
 
-        //    user.Email = userUpdateDto.Email;
-        //    user.Firstname = userUpdateDto.Firstname;
-        //    user.Lastname = userUpdateDto.Lastname;
-           
+            user.Email = userUpdateDto.Email;
+            user.Firstname = userUpdateDto.Firstname;
+            user.Lastname = userUpdateDto.Lastname;
 
-        //    _userManager .Entry(user).State = EntityState.Modified;
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!UserExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            var result = await _userManager.UpdateAsync(user);
 
-        //    return Ok(user);
-        //}
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+
+            return Ok(user);
+        }
 
         private async Task<bool> UserExists(string username)
         {
             return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());
         }
-
 
 
 
