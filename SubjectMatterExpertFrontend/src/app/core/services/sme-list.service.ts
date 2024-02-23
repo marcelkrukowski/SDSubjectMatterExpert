@@ -10,7 +10,7 @@ import {environment} from "../../../environments/environment";
 })
 export class SmeListService {
 
-  private apiUrl = `${environment.apiUrl}/api/Users`;
+  private apiUrl = `${environment.apiUrl}/api/Users/smes`;
 
   constructor(private http: HttpClient) { }
 
