@@ -36,7 +36,7 @@
       <div class="form-group">
         <h1>Edit Personal Details</h1>
         <!-- <img [src]="user.photo?.url || '/assets/graphic-abstract/Illustrations_Man_Laptop.png'" alt="User Avatar" class="avatar"> -->
-        <div class="sd"><app-edit-picture-template></app-edit-picture-template></div>
+        <!-- <div class="sd"><app-edit-picture-template></app-edit-picture-template></div> -->
       
         <label for="editFullName" class="form-label">Edit Full Name </label>
         <input type="text" formControlName="firstName" class="form-control" id="firstName">
@@ -61,6 +61,16 @@
       </div>
     </div>
   </form>
+
+  <div class="col-md-12 mt-5 text-center">
+    <div class="">
+    <button class="btn btn-primary profile-button"  type="button">Cancel</button>
+  </div>
+  <div class="">
+    <button class="btn btn-primary profile-button"  type="button" (click)="saveChanges()">Save</button>
+  </div>
+  </div>
+
 </div>
   </div>
 </div>

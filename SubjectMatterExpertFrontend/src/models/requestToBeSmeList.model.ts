@@ -1,4 +1,5 @@
 export interface RequestToBeSMEList {
+  requestId: number;
   userName: string;
   email: string;
   location: string;

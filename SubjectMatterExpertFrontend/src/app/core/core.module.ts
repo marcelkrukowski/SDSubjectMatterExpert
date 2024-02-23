@@ -19,6 +19,7 @@ import {ForgotPasswordComponent} from "./components/forgot-password/forgot-passw
 import {BrowserModule} from "@angular/platform-browser";
 import { CoreRoutingModule } from './core-routing.module';
 import { EditPictureTemplateComponent } from '../shared/components/edit-picture-template/edit-picture-template.component';
+import { DisplayDetailsModalComponent } from '../shared/components/display-details-modal/display-details-modal.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { EditPictureTemplateComponent } from '../shared/components/edit-picture-
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    EditPictureTemplateComponent
+    EditPictureTemplateComponent,
+    DisplayDetailsModalComponent
   ]
 })
 export class CoreModule { }

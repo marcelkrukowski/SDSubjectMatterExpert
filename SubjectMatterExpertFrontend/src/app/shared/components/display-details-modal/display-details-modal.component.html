@@ -1,0 +1,20 @@
+<button class="btn btn-secondary" (click)="openModal(modalTemplate)">View Details</button>
+
+<ng-template #modalTemplate>
+    <div class="modal-style">
+        <div class="modal-header">
+            <h5 class="modal-title">{{item?.name}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+            <img [src]="item?.image_car" alt="{{item?.name}}" class="w-75 card-img-top">
+            <p>First Name: {{item?.firstname}}</p>
+            <p>Lastname: {{item?.lastname}}</p>
+            <p>Email: {{item?.email}}</p>
+            <p>Location: {{item?.location}}</p>
+
+            <p>Price: {{item?.currency}} {{item?.price}}</p>
+        </div>
+    </div>
+</ng-template>

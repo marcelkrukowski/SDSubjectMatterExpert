@@ -24,6 +24,10 @@ export class ProfilePageComponent implements OnInit {
   //profile form var
   firstName: string = '';
   lastName: string = '';
+  email: string = '';
+  location: string = '';
+  languages: string = '';
+  currentID: number = 0;
 
 
   userDetails$!: Observable<User>;
@@ -96,14 +100,76 @@ export class ProfilePageComponent implements OnInit {
     this.editMode = true;
 
     //add current user details to text boxes
+    console.log("First Name: " + this.firstName);
+
+    this.userDetails$ = this.userService.getUserDetails();
+    this.userDetails$.subscribe(e => {console.log(e.firstname);
+      this.firstName = e.firstname;
+      this.lastName = e.lastname;
+      this.email = e.email;
+      this.location = e.location;
+      this.languages = e.languages;
+      this.currentID = e.id;
+        
+    
+
     this.profileForm?.patchValue({
       firstName: this.firstName,
-      lastName: this.lastName
+      lastName: this.lastName,
+      email: this.email,
+      location: this.location,
+      languages: this.languages
+
+    });
+      
      
     });
     
   }
 
+  saveChanges() {
+    // Disable editing mode after saving
+    this.editMode = false;
+    // this.isSaveButtonVisible = false;
+    // this.isSMEButtonVisible = true;
+
+
+    console.log("This is the current id: " + this.currentID);
+   
+console.log("Profile form: "+ this.profileForm.value);
+
+    this.apiService.request('editProfile', 'put', this.profileForm?.value).subscribe();
+    // this.apiService.request('editProfile', 'put', this.profileForm?.value).subscribe({
+    //   next: async (result: any) => {
+    //     console.log('Edit profile result: ', result);
+    
+    //     this.firstName = result.firstname;
+    //     this.lastName = result.lastname;
+    //     this.email = result.email;
+    //     this.location = result.location;
+    //     this.languages = result.languages;
+    
+    //     if (result) {
+    //       const { value: redirecturl } = await Swal.fire(
+    //         'Success',
+    //         'Profile details updated successfully.',
+    //         'success'
+    //       );
+    
+    //       // Set local storage to current user details
+    //       // this.storageService.set('SMEuser', result);
+    
+    //       console.log('Changes saved.');
+    //       console.log("redirecturl: ", redirecturl);
+    //     }
+    //   },
+    //   error: (error: any) => {
+    //     // Handle error
+    //     console.error('Error editing profile: ', error);
+    //     // Display error message using Swal.fire if needed
+    //   }
+    // });
+  }
 
 
   Submit(): void {

@@ -1,39 +1,48 @@
-
-
-
-
-
-
 <main class="page-container">
   <section class="list-container">
     <h1 class="list-header">SME List</h1>
     <div class="flex-container">
+      <div class="cards">
       <ng-container *ngIf="(filteredPendingRequest$ | async)?.length; else noResultTemplate">
         <article class="sme-card" *ngFor="let request of filteredPendingRequest$ | async">
-          
-          <img src="{{request.photo?.uri}}" alt="{{ request.userName }} Avatar" class="request-avatar">
-          
-          
+
+          <!-- <img src="{{request.photo?.uri}}" alt="{{ request.userName }} Avatar" class="request-avatar"> -->
+          <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Sam" alt="{{ request.userName }} Avatar"
+            class="sme-avatar">
+
+
+              
           <div class="request-details">
-            <h2>{{ request.userName }}</h2>
-            <p>Email: {{ request.email }}</p>
+            <h1> {{request.userName}}</h1>
+
             <p>Requesting to be SME in:</p>
-            <ul>
-              <li *ngFor="let area of request.areasOfExpertise">{{ area.expertiseArea }}</li>
-            </ul>
-            <p>Languages:</p>
-            <ul>
-              <li *ngFor="let language of request.languages">{{ language.languageName }}</li>
-            </ul>
+            <div class="text">
+
+
+              <ul>
+                <li *ngFor="let area of request.areasOfExpertise">{{ area.expertiseArea }}</li>
+              </ul>
+
+              <app-display-details-modal [item]="request"></app-display-details-modal>
+
+
+              <!-- <ng-container *ngFor="let area of request.areasOfExpertise; let last = last">
+                {{ area.expertiseArea }}{{ !last ? ', ' : '' }}
+              </ng-container> -->
+            </div>
           </div>
-          <div class="sme-action-book">
+          
+
+
+          <div class="sme-action-accept-decline">
             <div class="book-container">
-                <button class="btn btn-primary" (click)="Accept(request.requestId)">Accept</button>
-                <button class="btn btn-secondary" (click)="Decline(request.requestId)">Decline</button>
+              <button class="btn btn-primary" (click)="Accept(request.requestId)">Accept</button>
+              <button class="btn btn-secondary" (click)="Decline(request.requestId)">Decline</button>
             </div>
           </div>
         </article>
       </ng-container>
+    </div>
       <ng-template #noResultTemplate>
         <div class="no-results">No results</div>
       </ng-template>

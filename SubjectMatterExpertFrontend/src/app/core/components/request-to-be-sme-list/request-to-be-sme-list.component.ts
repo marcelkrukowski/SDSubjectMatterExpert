@@ -3,7 +3,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { UserDetailsService } from '../../services/user-details.service';
 import { BehaviorSubject, Observable, combineLatest, map, of } from 'rxjs';
 import { PendingSmeRequestService } from '../../services/pending-sme-request.service';
-import { RequestToBeSMEList } from './requestToBeSmeList.model';
+import { RequestToBeSMEList } from '../../../../models/requestToBeSmeList.model';
 import { ApiService } from '../../services/api.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -15,25 +15,13 @@ import { Router } from '@angular/router';
 })
 export class RequestToBeSmeListComponent implements OnInit {
 
-  pendingSmeRequest$: Observable<any> = of([]);
-
-  requestToBesmeList: RequestToBeSMEList[] = [
-    // { name: 'Henish Nobeen', title: 'Associate Engineer', expertise: '.net, angular JS'},
-    // { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS'},
-    // { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS'},
-    // { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS'},
-    // { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS'},
-    // { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS'},
-    // { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS'},
-    // { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS'},
-    // { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS'},
-    // { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS'},
-    // { name: 'Jacek Nowak', title: 'Pro Engineer', expertise: 'angular JS'},
-  ];
+  pendingSmeRequest$: Observable<RequestToBeSMEList[]> = of([]);
 
 
-  paginatedSmeList$: Observable<any[]> = new Observable<any[]>();
-  filteredPendingRequest$: Observable<any[]> = of([]);
+
+
+  paginatedSmeList$: Observable<RequestToBeSMEList[]> = new Observable<RequestToBeSMEList[]>();
+  filteredPendingRequest$: Observable<RequestToBeSMEList[]> = of([]);
 
 
   currentPage = new BehaviorSubject<number>(0);
@@ -46,31 +34,21 @@ export class RequestToBeSmeListComponent implements OnInit {
   sidebarVisible: boolean;
   private readonly smeCardHeight: number = 200;
 
+
   constructor(private apiService: ApiService, private pendingSmeRequestService: PendingSmeRequestService, private router: Router) {
     this.isMobile = window.innerWidth <= 768;
     this.sidebarVisible = !this.isMobile;
   }
 
   ngOnInit() {
-    // this.adjustPageSize();
-    // this.adjustPagination();
 
-    // this.pendingSmeRequest$ = this.pendingSmeRequestService.getPendingSmeRequest();
-    // this.pendingSmeRequest$.subscribe(e => console.log(e));
-    // this.pendingSmeRequest$.subscribe((data: any[]) => {
-    //   if (data && data.length > 0) { // Check if data is not empty
-    //     const requestId = data[0].requestId;
-    //     console.log("Request ID:", requestId);
-    //     // Proceed with further processing using the requestId...
-    //   } else {
-    //     console.log("Pending Sme List is empty");
-    //     // Handle the case where there is no data or data is empty...
-    //   }
-    // });
 
     this.pendingSmeRequest$ = this.pendingSmeRequestService.getPendingSmeRequest();
+    this.pendingSmeRequest$.subscribe(pendingRequests => {
+      console.log("Pending requests:", pendingRequests);
+  });
+    
     this.initializeFilteredSmeList();
-    // this.extractUniqueCountriesAndExpertise();
     this.updatePagination();
 
 
@@ -124,23 +102,7 @@ export class RequestToBeSmeListComponent implements OnInit {
   }
 
 
-  adjustPageSize() {
-    const viewportHeight = window.innerHeight;
-    this.pageSize = this.isMobile ? this.requestToBesmeList.length : Math.floor(viewportHeight / 280); // 280 is item height
-    this.isPaginationEnabled = this.pageSize < this.requestToBesmeList.length;
-  }
 
-  // adjustPagination() {
-  //   this.totalPages = Math.ceil(this.requestToBesmeList.length / this.pageSize);
-  //   this.currentPage = Math.max(0, Math.min(this.currentPage, this.totalPages - 1));
-  //   this.paginate();
-  // }
-
-  // paginate() {
-  //   const startIndex = this.currentPage * this.pageSize;
-  //   const endIndex = startIndex + this.pageSize;
-  //   this.paginatedSmeList = this.requestToBesmeList.slice(startIndex, endIndex);
-  // }
 
   nextPage(): void {
     const nextPage = this.currentPage.value + 1;
@@ -165,6 +127,7 @@ export class RequestToBeSmeListComponent implements OnInit {
 
 
 
+
   toggleSidebar() {
     this.sidebarVisible = !this.sidebarVisible;
   }
@@ -172,17 +135,17 @@ export class RequestToBeSmeListComponent implements OnInit {
 
 
 
-  Save(requestId: any) {
+  Save(requestId: number) {
     console.log("Accepting request with ID:", requestId);
     this.apiService.request('acceptRequestToBeSme', 'post', undefined, requestId).subscribe();
   }
 
-  Reject(requestId: any) {
+  Reject(requestId: number) {
     console.log("Rejecting request with ID:", requestId);
     this.apiService.request('declineRequestToBeSme', 'post', undefined, requestId).subscribe();
   }
 
-  Accept(requestId: any) {
+  Accept(requestId: number) {
     Swal.fire('Success', 'Request accepted successfully', 'success').then(swalResult => {
       console.log("SwalResult:", swalResult);
     }).then((result) => {
@@ -192,7 +155,7 @@ export class RequestToBeSmeListComponent implements OnInit {
     });
   }
 
-  Decline(requestId: any) {
+  Decline(requestId: number) {
     Swal.fire('Success', 'Request declined successfullt', 'success').then(swalResult => {
       console.log("SwalResult:", swalResult);
     }).then((result) => {
