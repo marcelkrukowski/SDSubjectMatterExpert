@@ -20,6 +20,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import { CoreRoutingModule } from './core-routing.module';
 import { EditPictureTemplateComponent } from '../shared/components/edit-picture-template/edit-picture-template.component';
 import { DisplayDetailsModalComponent } from '../shared/components/display-details-modal/display-details-modal.component';
+import { SdworxModalComponent } from '../shared/components/sdworx-modal/sdworx-modal.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { DisplayDetailsModalComponent } from '../shared/components/display-detai
     FormsModule,
     NgbModule,
     EditPictureTemplateComponent,
-    DisplayDetailsModalComponent
+    DisplayDetailsModalComponent,
+    SdworxModalComponent
   ]
 })
 export class CoreModule { }
