@@ -73,6 +73,21 @@ namespace SubjectMatterExpertAPI.Controllers
 
         }
 
+        [HttpGet("username-details")]
+        public async Task<ActionResult<UserDto>> GetUserByUsername(string username)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(username);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var userToReturn = _mapper.Map<UserDto>(user);
+
+            return userToReturn;
+        }
+
 
         [HttpPost("upload-photo")]
         public async Task<ActionResult<PhotoDto>> UploadPhoto(IFormFile photo)
