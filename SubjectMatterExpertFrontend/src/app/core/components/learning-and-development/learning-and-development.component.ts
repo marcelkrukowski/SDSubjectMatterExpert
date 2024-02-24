@@ -22,7 +22,7 @@ export class LearningAndDevelopmentComponent {
   ){}
 
   ngOnInit():void{
-    this.smeBarChart([]);
+    this.smeBarChart();
     this.subjectBarChart();
 
     this.apiService.request('mostContactedAreas', 'get')
