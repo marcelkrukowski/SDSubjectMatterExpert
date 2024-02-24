@@ -73,7 +73,7 @@ namespace SubjectMatterExpertAPI.Controllers
 
         }
 
-        [HttpGet("username-details")]
+        [HttpGet("username-details/{username}")]
         public async Task<ActionResult<UserDto>> GetUserByUsername(string username)
         {
             var user = await _userRepository.GetUserByUsernameAsync(username);

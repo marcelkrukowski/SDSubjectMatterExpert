@@ -43,7 +43,7 @@ export interface Request {
 
 export interface Photo {
   id: number;
-  url: string;
+  uri: string;
 }
 
 export interface role{

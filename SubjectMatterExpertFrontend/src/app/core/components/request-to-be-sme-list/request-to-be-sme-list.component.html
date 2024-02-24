@@ -3,17 +3,19 @@
     <h1 class="list-header">SME List</h1>
     <div class="flex-container">
       <div class="cards">
-      <ng-container *ngIf="(filteredPendingRequest$ | async)?.length; else noResultTemplate">
-        <article class="sme-card" *ngFor="let request of filteredPendingRequest$ | async">
+      <ng-container *ngIf="(pendingRequestsWithUserDetails$ | async)?.length; else noResultTemplate">
+        <article class="sme-card" *ngFor="let request of pendingRequestsWithUserDetails$ | async">
 
           <!-- <img src="{{request.photo?.uri}}" alt="{{ request.userName }} Avatar" class="request-avatar"> -->
-          <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Sam" alt="{{ request.userName }} Avatar"
+          <img src={{request.userDetails.photo?.uri}} alt="{{ request.userName }} Avatar"
             class="sme-avatar">
 
 
               
           <div class="request-details">
             <h1> {{request.userName}}</h1>
+            <!-- <h1> {{request.userDetails | json}}</h1> -->
+            
 
             <p>Requesting to be SME in:</p>
             <div class="text">
@@ -22,7 +24,7 @@
               <ul>
                 <li *ngFor="let area of request.areasOfExpertise">{{ area.expertiseArea }}</li>
               </ul>
-              <app-sdworx-modal [item]="request"></app-sdworx-modal>
+              <app-sdworx-modal [item]="request.userDetails"></app-sdworx-modal>
               <!-- <app-display-details-modal [item]="request"></app-display-details-modal> -->
 
 

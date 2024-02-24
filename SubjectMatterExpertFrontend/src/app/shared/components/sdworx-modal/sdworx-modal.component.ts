@@ -47,9 +47,8 @@ export class SdworxModalComponent implements OnInit{
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
   </div>
   <div class="modal-body">
-  <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Sam" alt="{{ item.userName }} Avatar"
+  <img src={{item?.photo?.uri}} alt="{{ item?.userName }} Avatar"
   class="sme-avatar">
-    <!-- <img [src]="item?.image_car" alt="{{item?.name}}" class="w-75 card-img-top"> -->
     <p>First Name: {{item?.firstname}}</p>
     <p>Lastname: {{item?.lastname}}</p>
     <p>Email: {{item?.email}}</p>
