@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import * as Highcharts from 'highcharts';
+import { ApiService } from '../../services/api.service';
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-learning-and-development',
@@ -11,11 +14,23 @@ export class LearningAndDevelopmentComponent {
   subjectPieChartOptions : any;
   highcharts : typeof Highcharts = Highcharts;
 
-  constructor(){}
+  constructor(
+    private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private apiService: ApiService,
+    private router: Router
+  ){}
 
   ngOnInit():void{
     this.smeBarChart();
     this.subjectBarChart();
+  }
+
+  getMostContactedSme(){
+    this.apiService.request('mostContactedSME', 'get')
+    .subscribe((result) => {
+      console.log("Result: ", result);
+    })
   }
 
   smeBarChart(){
