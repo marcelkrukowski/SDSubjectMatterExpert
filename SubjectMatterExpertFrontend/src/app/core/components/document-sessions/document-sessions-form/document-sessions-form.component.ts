@@ -91,23 +91,40 @@ export class DocumentSessionsFormComponent implements OnInit {
       );
   }
 
-  editSession(){
-    console.log("acbd: ",this.sessionForm?.value)
-     this.apiService.request('editSession', 'put', this.sessionForm?.value).subscribe();
-  //   .subscribe(async (result) => {
-  //     console.log("Edit session: ", result);
-  //     if (result) {
-  //       const { value: redirecturl } = await Swal.fire(
-  //         'Success',
-  //         'Session details updated successfully',
-  //         'success'
-  //       );
-  //       console.log('redirect url: ', redirecturl);
-  //       if (redirecturl) {
-  //         this.router.navigate(['/document-session']);
-  //       }
-  //     }
-  //   })
-  // }
+
+editSession() {
+  console.log("Form value: ", this.sessionForm?.value);
+
+  // Convert colleagues input to an array of objects
+  const colleaguesArray = this.sessionForm?.value.colleagues.split(',').map((fullName: string) => {     
+    const [firstName, lastName] = fullName.trim().split(' ');     
+    return { firstName, lastName };   
+  });
+
+  // Creating the object to send to the backend
+  const formData = {
+    colleagues: colleaguesArray,
+    topic: this.sessionForm?.value.topic,
+    subTopic: this.sessionForm?.value.subTopic,
+    description: this.sessionForm?.value.description,
+  };
+
+  console.log("Form Details: ", formData);
+
+  this.apiService.request('editSession', 'put', formData).subscribe(
+    (result: any) => {
+      console.log("Edit session result: ", result);
+
+      if (result) {
+        Swal.fire(
+          'Success',
+          'You have successfully edited the session!',
+          'success'
+        ).then((swalResult) => {
+          if (swalResult.value) this.router.navigate(['/document-session']);
+        });
+      }
+    },
+  );
 }
 }
