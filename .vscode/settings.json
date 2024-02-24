@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/54f3d8ea-82ef-49c5-9758-5ade20ad6057/resourceGroups/sme-avatars/providers/Microsoft.Web/sites/SDSubjectMatterExpertUI",
+    "appService.deploySubpath": "SubjectMatterExpertFrontend\\dist\\subject-matter-expert-frontend"
+}
