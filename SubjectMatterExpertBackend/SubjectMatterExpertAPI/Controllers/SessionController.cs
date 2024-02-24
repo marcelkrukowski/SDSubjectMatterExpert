@@ -74,7 +74,7 @@ namespace SubjectMatterExpertAPI.Controllers
 
         }
 
-        [HttpPut("update-session")]
+        [HttpPut("update-session/{sessionId}")]
         public async Task<ActionResult<SessionDto>> EditSession(int sessionId, [FromBody] SessionInputDto updatedSessionDto)
         {
             var session = await _sessionRepository.GetSessionByIdAsync(sessionId);

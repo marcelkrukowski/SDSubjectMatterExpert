@@ -101,8 +101,8 @@ editSession() {
     return { firstName, lastName };   
   });
 
-  // Creating the object to send to the backend
   const formData = {
+    // sessionId: this.id,
     colleagues: colleaguesArray,
     topic: this.sessionForm?.value.topic,
     subTopic: this.sessionForm?.value.subTopic,
@@ -110,8 +110,7 @@ editSession() {
   };
 
   console.log("Form Details: ", formData);
-
-  this.apiService.request('editSession', 'put', formData).subscribe(
+  this.apiService.request('editSession', 'put', formData, this.id).subscribe(
     (result: any) => {
       console.log("Edit session result: ", result);
 
