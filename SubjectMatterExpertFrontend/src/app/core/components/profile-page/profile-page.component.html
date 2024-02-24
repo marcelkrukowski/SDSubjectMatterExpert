@@ -21,9 +21,24 @@
       <div class="user-details">
         <p><span>Last Name:</span> {{ user.lastname }}</p>
       </div>
-      <div class="user-details">
-        <p><span>Location:</span> {{ user.location }}</p>
+      <div class="user-details" *ngIf="isSME">
+        <p><span>Country:</span> {{ user.location }}</p>
       </div>
+      <div class="user-details" *ngIf="isSME">
+        <p><span>Languages:</span>
+        <ng-container *ngFor="let language of user.languages; let last = last">
+            {{ language.languageName }}{{ !last ? ', ' : '' }}
+        </ng-container>
+      </p>
+    </div>
+
+      <div class="user-details" *ngIf="isSME">
+        <p><span>Area of expertise:</span>
+        <ng-container *ngFor="let expertise of user.areasOfExpertise; let last = last">
+            {{ expertise.expertiseArea }}{{ !last ? ', ' : '' }}
+        </ng-container>
+      </p>
+    </div>
     </div>
   </div>
 </div>
@@ -51,14 +66,15 @@
         <label for="editEmail" class="form-label">Edit Email</label>
         <input type="text" formControlName="email" class="form-control" id="email">
       </div>
-      <div class="form-group">
+      <div class="form-group"  *ngIf="isSME">
         <label for="editLocation" class="form-label">Edit Location</label>
         <input type="text" formControlName="location" class="form-control" id="location">
       </div>
-      <div class="form-group">
+      <div class="form-group"  *ngIf="isSME">
         <label for="editLanguages" class="form-label">Edit Languages</label>
         <input type="text" formControlName="languages" class="form-control" id="languages">
       </div>
+      
     </div>
   </form>
 
@@ -85,7 +101,7 @@
 
 
 <div class="col-md-12 mt-5 text-center">
-  <button class="btn btn-primary profile-button" type="button" (click)="OpenModel()" *ngIf="!isSME">Apply For
+  <button class="btn btn-primary profile-button" type="button" (click)="OpenModel()" *ngIf="!isSME && !editMode">Apply For
     SME</button>
 </div>
 

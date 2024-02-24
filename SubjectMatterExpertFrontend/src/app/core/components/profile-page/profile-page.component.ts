@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UserDetailsService } from "../../services/user-details.service";
 import { Observable } from "rxjs";
-import { User } from "../../../../models/user.model";
+import { User, languageName } from "../../../../models/user.model";
 import { ApiService } from '../../services/api.service';
 import { SdwdsHeaderProfileComponent } from '@sdworx/sdwds/header-profile';
 
@@ -26,7 +26,7 @@ export class ProfilePageComponent implements OnInit {
   lastName: string = '';
   email: string = '';
   location: string = '';
-  languages: string = '';
+  languages: languageName[] = [];
   currentID: number = 0;
 
 
@@ -34,10 +34,15 @@ export class ProfilePageComponent implements OnInit {
   role: string = '';
   isSME: boolean = true;
   editMode: boolean = false;
-  
+
 
   ngOnInit(): void {
     this.userDetails$ = this.userService.getUserDetails();
+
+    this.userDetails$.subscribe(e => {
+      console.log("User details: ", e)
+    });
+
     this.userDetails$.subscribe(e => {
       if (e.userRoles.length > 1) {
         this.role = e.userRoles[1].role
@@ -95,7 +100,7 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
-  enableEditing(){
+  enableEditing() {
     console.log("Click editing");
     this.editMode = true;
 
@@ -103,28 +108,32 @@ export class ProfilePageComponent implements OnInit {
     console.log("First Name: " + this.firstName);
 
     this.userDetails$ = this.userService.getUserDetails();
-    this.userDetails$.subscribe(e => {console.log(e.firstname);
+    this.userDetails$.subscribe(e => {
+      console.log("User details: ", e);
       this.firstName = e.firstname;
       this.lastName = e.lastname;
       this.email = e.email;
       this.location = e.location;
       this.languages = e.languages;
       this.currentID = e.id;
-        
-    
 
-    this.profileForm?.patchValue({
-      firstName: this.firstName,
-      lastName: this.lastName,
-      email: this.email,
-      location: this.location,
-      languages: this.languages
+      //because languages is an array
+      const languageNames = this.languages.map(language => language.languageName);
+
+
+
+      this.profileForm?.patchValue({
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        location: this.location,
+        languages: languageNames
+
+      });
+
 
     });
-      
-     
-    });
-    
+
   }
 
   //after editing
@@ -136,15 +145,18 @@ export class ProfilePageComponent implements OnInit {
 
 
     console.log("This is the current id: " + this.currentID);
-   
-console.log("Profile form: "+ this.profileForm.value);
+
+    console.log("Profile form: " + this.profileForm.value);
 
     this.apiService.request('editProfile', 'put', this.profileForm?.value).subscribe();
 
+    window.location.reload();
+
+
   }
 
-  cancelChanges(){
-    this.editMode=false;
+  cancelChanges() {
+    this.editMode = false;
   }
 
 
@@ -166,7 +178,7 @@ console.log("Profile form: "+ this.profileForm.value);
   }
 
   submitSMEForm() {
-    Swal.fire('Success','Your request has been sent to your agile coach', 'success').then(swalResult => {
+    Swal.fire('Success', 'Your request has been sent to your agile coach', 'success').then(swalResult => {
       console.log("SwalResult:", swalResult);
     }).then((result) => {
       this.Submit();
