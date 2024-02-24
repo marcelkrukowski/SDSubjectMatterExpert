@@ -22,18 +22,26 @@ export class LearningAndDevelopmentComponent {
   ){}
 
   ngOnInit():void{
-    this.smeBarChart();
+    this.smeBarChart([]);
     this.subjectBarChart();
+
+    this.apiService.request('mostContactedAreas', 'get')
+    .subscribe((result) => {
+      console.log("Most Contacted Areas: ", result);})
   }
 
-  getMostContactedSme(){
-    this.apiService.request('mostContactedSME', 'get')
+  getMostContactedAreas(){
+    this.apiService.request('mostContactedAreas', 'get')
     .subscribe((result) => {
-      console.log("Result: ", result);
+      console.log("Most Contacted Areas: ", result);
     })
   }
 
-  smeBarChart(){
+  smeBarChart(result: {topic:string, count:number}[]){
+
+    const subjects = result.map(entry => entry.topic);
+    const counts = result.map(entry => entry.count);
+
     this.smeBarChartOptions = {
       chart: {
         type: 'bar',
@@ -42,7 +50,8 @@ export class LearningAndDevelopmentComponent {
         text: 'Subjects in which SME has been most contacted!'
       },
       xAxis: {
-        categories: ['Programming', 'Payroll', 'Testing', 'Salesforce', 'SAP']
+        categories : subjects,
+        // categories: ['Programming', 'Payroll', 'Testing', 'Salesforce', 'SAP']
       },
       yAxis: {
         title: {
@@ -53,13 +62,14 @@ export class LearningAndDevelopmentComponent {
       series: [{
         name: 'Number of persons who contacted SME for this subject',
         
-        data: [
-          30,
-          40,
-          20,
-          10,
-          50
-        ]
+        // data: [
+        //   30,
+        //   40,
+        //   20,
+        //   10,
+        //   50
+        // ]
+        data : counts,
       }] as Highcharts.SeriesOptionsType[],
       plotOptions: {
         pie: {
@@ -100,4 +110,13 @@ export class LearningAndDevelopmentComponent {
       }
     }
   }
+
+    getMostContactedSme(){
+    this.apiService.request('mostContactedSME', 'get')
+    .subscribe((result) => {
+      console.log("Most Contacted Sme: ", result);
+    })
+  }
+
+
 }
