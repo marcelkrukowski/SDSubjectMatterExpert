@@ -21,9 +21,10 @@ import { LearningAndDevelopmentComponent } from './components/learning-and-devel
 import { HighchartsChartModule } from 'highcharts-angular';
 import { DocumentSessionsComponent } from './components/document-sessions/document-sessions.component';
 import { DocumentSessionsFormComponent } from './components/document-sessions/document-sessions-form/document-sessions-form.component';
-import { CardListTemplateComponent } from './shared/card-list-template/card-list-template.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { ViewDetailsModalComponent } from '../shared/components/view-details-modal/view-details-modal.component';
+import { EditDocumentSessionsFormComponent } from './components/document-sessions/edit-document-sessions-form/edit-document-sessions-form.component';
+import { SessionListTemplateComponent } from './shared/session-list-template/session-list-template.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ViewDetailsModalComponent } from '../shared/components/view-details-mod
     LearningAndDevelopmentComponent,
     DocumentSessionsComponent,
     DocumentSessionsFormComponent,
-    CardListTemplateComponent
+    EditDocumentSessionsFormComponent,
+    SessionListTemplateComponent
   ],
   exports: [
     SmeListComponent,
@@ -55,7 +57,7 @@ import { ViewDetailsModalComponent } from '../shared/components/view-details-mod
     FormsModule,
     NgbModule,
     HighchartsChartModule,
-    ViewDetailsModalComponent
+    ViewDetailsModalComponent,
   ]
 })
 export class CoreModule { }

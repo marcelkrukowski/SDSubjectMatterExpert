@@ -2,10 +2,10 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'sdw-card-list-template',
-  templateUrl: './card-list-template.component.html',
-  styleUrl: './card-list-template.component.scss'
+  templateUrl: './session-list-template.component.html',
+  styleUrl: './session-list-template.component.scss'
 })
-export class CardListTemplateComponent {
+export class SessionListTemplateComponent {
   @Input() list : any [] = [];
   @Input() entity : string = '';
   storageService: any

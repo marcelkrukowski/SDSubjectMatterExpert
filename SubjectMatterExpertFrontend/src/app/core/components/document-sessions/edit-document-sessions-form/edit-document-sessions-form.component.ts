@@ -8,11 +8,11 @@ import { SessionDetails } from 'src/app/models/session-details';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-document-sessions-form',
-  templateUrl: './document-sessions-form.component.html',
-  styleUrl: './document-sessions-form.component.scss'
+  selector: 'app-edit-document-sessions-form',
+  templateUrl: './edit-document-sessions-form.component.html',
+  styleUrl: './edit-document-sessions-form.component.scss'
 })
-export class DocumentSessionsFormComponent implements OnInit {
+export class EditDocumentSessionsFormComponent {
   sessionForm? : FormGroup;
   id:number=0;
   sessionDetail? : any |SessionDetails;
@@ -56,31 +56,31 @@ export class DocumentSessionsFormComponent implements OnInit {
       });
     }
 
-  saveLog() {
-
-    const Array = this.sessionForm?.value.colleagues.split(',').map((fullName: string) => {     
-      const [firstName, lastName] = fullName.trim().split(' ');     
-      return { firstName, lastName };   
-    });
-
-    console.log('Languages Array:', Array);
-
-    const formData = {
-      colleagues: Array,
-      topic: this.sessionForm?.value.topic,
-      subTopic: this.sessionForm?.value.subTopic,
-      description: this.sessionForm?.value.description,
-      // colleagues: this.sessionForm?.value.colleagues,
-    };
-    console.log("Form Details: ", formData);
-
-
-    this.apiService.request('createSession', 'post', formData).subscribe((result: any) => {
-      console.log("SME form result: ", result);
+    editSession() {
+      console.log("Form value: ", this.sessionForm?.value);
+    
+      const colleaguesArray = this.sessionForm?.value.colleagues.split(',').map((fullName: string) => {     
+        const [firstName, lastName] = fullName.trim().split(' ');     
+        return { firstName, lastName };   
+      });
+    
+      const formData = {
+        // sessionId: this.id,
+        colleagues: colleaguesArray,
+        topic: this.sessionForm?.value.topic,
+        subTopic: this.sessionForm?.value.subTopic,
+        description: this.sessionForm?.value.description,
+      };
+    
+      console.log("Form Details: ", formData);
+      this.apiService.request('editSession', 'put', formData, this.id).subscribe(
+        (result: any) => {
+          console.log("Edit session result: ", result);
+    
           if (result) {
             Swal.fire(
               'Success',
-              'You have successfully added a session!',
+              'You have successfully edited the session!',
               'success'
             ).then((swalResult) => {
               if (swalResult.value) this.router.navigate(['/document-session']);
@@ -88,5 +88,6 @@ export class DocumentSessionsFormComponent implements OnInit {
           }
         },
       );
-  }
+    }
+    
 }

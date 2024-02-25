@@ -14,6 +14,7 @@ import { DocumentSessionsFormComponent } from './components/document-sessions/do
 import { DocumentSessionsComponent } from './components/document-sessions/document-sessions.component';
 
 import { RequestToBeSmeListComponent } from './components/request-to-be-sme-list/request-to-be-sme-list.component';
+import { EditDocumentSessionsFormComponent } from './components/document-sessions/edit-document-sessions-form/edit-document-sessions-form.component';
  
 // TODO: add 404 page & redirect user there if no URL was matched.
 const routes: Routes = [
@@ -29,7 +30,7 @@ const routes: Routes = [
   {path: 'learning-development', component: LearningAndDevelopmentComponent },
   {path: 'session-form', component: DocumentSessionsFormComponent},
   {path: 'document-session', component: DocumentSessionsComponent},
-  {path: 'edit-session/:id', component: DocumentSessionsFormComponent},
+  {path: 'edit-session-form/:id', component: EditDocumentSessionsFormComponent},
   {path: 'request-to-be-sme', component: RequestToBeSmeListComponent},
   {path: '**', redirectTo: '/login', pathMatch: "full" },
 ];

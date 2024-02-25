@@ -36,31 +36,28 @@
         <span *ngIf="!isCollapsed">View SME List </span></a>
     </mat-nav-list>
 
-    <mat-nav-list class="nav-list">
+    <mat-nav-list class="nav-list" *ngIf="userDetails$ | async as user">
       <!-- Request to be SME link -->
-      <a class="list-link" mat-list-item routerLink="/profile">
-        <i class="sidenav-icon icons8-f-done"></i>
-        <span *ngIf="!isCollapsed">Request to be SME</span></a>
+      <a class="list-link" mat-list-item routerLink="/document-session"  *ngIf="hasSMERole(user)" routerLinkActive="link-active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <i class="sidenav-icon icons8-f-regular-document"></i>
+        <span *ngIf="!isCollapsed">Document Session</span>
+      </a>
     </mat-nav-list>
 
-    <mat-nav-list class="nav-list">
+    <mat-nav-list class="nav-list" *ngIf="userDetails$ | async as user">
       <!-- Request to be SME link -->
-      <a class="list-link" mat-list-item routerLink="/document-session">
-        <i class="sidenav-icon icons8-f-done"></i>
-        <span *ngIf="!isCollapsed">Document Session</span></a>
-    </mat-nav-list>
-
-    <mat-nav-list class="nav-list">
-      <!-- Request to be SME link -->
-      <a class="list-link" mat-list-item routerLink="/learning-development">
-        <i class="sidenav-icon icons8-f-done"></i>
+      <a class="list-link" mat-list-item routerLink="/learning-development" *ngIf="hasLDRole(user)" routerLinkActive="link-active"
+      [routerLinkActiveOptions]="{exact: true}">
+        <i class="sidenav-icon icons8-f-business-report"></i>
         <span *ngIf="!isCollapsed">Report</span></a>
       </mat-nav-list>
 
     <mat-nav-list class="nav-list" *ngIf="userDetails$ | async as user">
       <!-- Request to be SME list link -->
-      <a class="list-link" mat-list-item routerLink="/request-to-be-sme" *ngIf="hasAgileCoachRole(user)">
-        <i class="sidenav-icon icons8-f-done"></i>
+      <a class="list-link" mat-list-item routerLink="/request-to-be-sme" *ngIf="hasAgileCoachRole(user)" routerLinkActive="link-active"
+      [routerLinkActiveOptions]="{exact: true}">
+        <i class="sidenav-icon icons8-f-info"></i>
         <span *ngIf="!isCollapsed">Pending SME list</span></a>
     </mat-nav-list>
   </mat-sidenav>
