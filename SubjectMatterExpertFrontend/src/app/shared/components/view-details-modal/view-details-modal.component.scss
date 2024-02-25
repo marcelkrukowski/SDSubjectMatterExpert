@@ -1,0 +1,36 @@
+.modal-style {
+    text-align: center;
+
+  }
+
+  .modal-photo{
+    text-align: center;
+  }
+
+.sme-avatar {
+  /* Center align the avatar image */
+  width: 15rem;
+//   margin-left: 12rem;
+//   margin: 0 1rem;
+  border-radius: 50%;
+//   display: flex;
+  justify-content: center; /* Horizontally center the content */
+  align-items: center; /* Vertically center the content */
+  margin-bottom:50px;
+}
+
+.user-details{
+ font-size: 16px;
+}
+
+.label{
+  font-weight: bold;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 0.6rem;
+}

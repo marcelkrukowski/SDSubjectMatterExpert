@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {CoreModule} from "./core/core.module";
+import { HighchartsChartModule } from 'highcharts-angular';
 import {SidenavComponent} from "./shared/components/sidenav/sidenav.component";
 import {interceptorsProviders} from "./core/interceptor/interceptor";
 import { HeaderProfileComponent } from './shared/components/header-profile-component/header-profile-component.component';

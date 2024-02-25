@@ -1,0 +1,22 @@
+<div class="container mt-4 mb-4">
+    <div class="row g-4 row-cols-1">
+        <div class="col" *ngFor="let item of list">
+            <div class="card card-template col mb-3 h-100" *ngIf="entity == 'sessionDetails'">
+                <div class="card-body">
+                    <p>Session Id: {{item.id}}</p>
+                    <p>Trainees:
+                        <span *ngFor="let trainee of item.colleagues; let last = last">
+                            {{trainee.firstName}} {{trainee.lastName}}{{!last ? ', ' : ''}}
+                        </span>
+                    </p>
+                    <p>Topic: {{item.topic}}</p>
+                    <p>Sub-Topic: {{item.subTopic}}</p>
+                    <p>Description: {{item.description}}</p>
+                    <button class="btn btn-primary float-end" [routerLink]="['/edit-session-form', item.id]">
+                            Edit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

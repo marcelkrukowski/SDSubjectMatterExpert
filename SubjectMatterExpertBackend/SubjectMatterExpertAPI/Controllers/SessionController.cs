@@ -67,14 +67,14 @@ namespace SubjectMatterExpertAPI.Controllers
             {
                 
 
-                return Ok("success");
+                return Ok(new {message="success"});
             }
 
             return BadRequest("Problem creating session");
 
         }
 
-        [HttpPut("update-session")]
+        [HttpPut("update-session/{sessionId}")]
         public async Task<ActionResult<SessionDto>> EditSession(int sessionId, [FromBody] SessionInputDto updatedSessionDto)
         {
             var session = await _sessionRepository.GetSessionByIdAsync(sessionId);
@@ -122,7 +122,7 @@ namespace SubjectMatterExpertAPI.Controllers
 
             if (await _userRepository.SaveAllAsync())
             {
-                return Ok("success");
+                return Ok(new { message = "success" });
             }
 
             return BadRequest("Problem editing session");

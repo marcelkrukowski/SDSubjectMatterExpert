@@ -34,6 +34,7 @@ export class HeaderProfileComponent implements OnInit {
 
   userDetails$!: Observable<User>;
   notification: boolean = false;
+  
 
   ngOnInit(): void {
 
@@ -56,7 +57,7 @@ export class HeaderProfileComponent implements OnInit {
         //get user details, loop throught role to see if user is agile coach
         this.userDetails$.subscribe(e => {
           e.userRoles.forEach(role => {
-            if (role.role === 'agile coach') {
+            if (role.role === 'AgileCoach') {
               // if user is agile coach check if there are pending sme requests
               console.log('User is an agile coach');
               this.checkPendingSmeRequests();
@@ -100,6 +101,8 @@ export class HeaderProfileComponent implements OnInit {
     this.pendingSmeRequestService.getPendingSmeRequest().subscribe((data: any[]) => {
       if (data && data.length > 0) {
         // Trigger a notification to alert the user about pending requests
+        console.log("aaaaaaaa", this.pendingSmeRequestService);
+        
         this.notification = true;
         // You can also navigate the user to a specific page to handle these requests
       }

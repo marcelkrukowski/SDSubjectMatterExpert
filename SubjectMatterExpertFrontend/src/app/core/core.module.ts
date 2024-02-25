@@ -17,9 +17,14 @@ import {ProfilePageComponent} from "./components/profile-page/profile-page.compo
 import { RequestToBeSmeListComponent } from './components/request-to-be-sme-list/request-to-be-sme-list.component';
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {BrowserModule} from "@angular/platform-browser";
+import { LearningAndDevelopmentComponent } from './components/learning-and-development/learning-and-development.component';
+import { HighchartsChartModule } from 'highcharts-angular';
+import { DocumentSessionsComponent } from './components/document-sessions/document-sessions.component';
+import { DocumentSessionsFormComponent } from './components/document-sessions/document-sessions-form/document-sessions-form.component';
 import { CoreRoutingModule } from './core-routing.module';
-import { EditPictureTemplateComponent } from '../shared/components/edit-picture-template/edit-picture-template.component';
-import { DisplayDetailsModalComponent } from '../shared/components/display-details-modal/display-details-modal.component';
+import { ViewDetailsModalComponent } from '../shared/components/view-details-modal/view-details-modal.component';
+import { EditDocumentSessionsFormComponent } from './components/document-sessions/edit-document-sessions-form/edit-document-sessions-form.component';
+import { SessionListTemplateComponent } from './shared/session-list-template/session-list-template.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +39,11 @@ import { DisplayDetailsModalComponent } from '../shared/components/display-detai
     ProfilePageComponent,
     RequestToBeSmeListComponent,
     ForgotPasswordComponent,
+    LearningAndDevelopmentComponent,
+    DocumentSessionsComponent,
+    DocumentSessionsFormComponent,
+    EditDocumentSessionsFormComponent,
+    SessionListTemplateComponent,
   ],
   exports: [
     SmeListComponent,
@@ -46,8 +56,8 @@ import { DisplayDetailsModalComponent } from '../shared/components/display-detai
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    EditPictureTemplateComponent,
-    DisplayDetailsModalComponent
+    HighchartsChartModule,
+    ViewDetailsModalComponent,
   ]
 })
 export class CoreModule { }
