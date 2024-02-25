@@ -1,12 +1,11 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-// import { RequestToBeSMEList } from './sme.model';
-import { UserDetailsService } from '../../services/user-details.service';
-import { BehaviorSubject, Observable, combineLatest, map, of } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, forkJoin, map, of, switchMap } from 'rxjs';
 import { PendingSmeRequestService } from '../../services/pending-sme-request.service';
 import { RequestToBeSMEList } from '../../../../models/requestToBeSmeList.model';
 import { ApiService } from '../../services/api.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { ViewUserRequestDetailsService } from '../../services/view-user-request-details.service';
 
 @Component({
   selector: 'app-request-to-be-sme-list',
@@ -16,12 +15,10 @@ import { Router } from '@angular/router';
 export class RequestToBeSmeListComponent implements OnInit {
 
   pendingSmeRequest$: Observable<RequestToBeSMEList[]> = of([]);
-
-
-
-
   paginatedSmeList$: Observable<RequestToBeSMEList[]> = new Observable<RequestToBeSMEList[]>();
-  filteredPendingRequest$: Observable<RequestToBeSMEList[]> = of([]);
+
+  pendingRequestsWithUserDetails$: Observable<any>= of([]); // Adjust type as per your need
+
 
 
   currentPage = new BehaviorSubject<number>(0);
@@ -29,33 +26,72 @@ export class RequestToBeSmeListComponent implements OnInit {
   totalPages = 0;
   totalItems = 0;
   itemsPerPage = 3;
-  isPaginationEnabled = true;
   isMobile: boolean;
-  sidebarVisible: boolean;
   private readonly smeCardHeight: number = 200;
 
 
-  constructor(private apiService: ApiService, private pendingSmeRequestService: PendingSmeRequestService, private router: Router) {
+  constructor(private apiService: ApiService,
+    private pendingSmeRequestService: PendingSmeRequestService,
+    private router: Router,
+    private viewUserDetailsService: ViewUserRequestDetailsService) {
     this.isMobile = window.innerWidth <= 768;
-    this.sidebarVisible = !this.isMobile;
   }
 
   ngOnInit() {
-
-
     this.pendingSmeRequest$ = this.pendingSmeRequestService.getPendingSmeRequest();
     this.pendingSmeRequest$.subscribe(pendingRequests => {
       console.log("Pending requests:", pendingRequests);
-  });
-    
+
+    });
+
+
+    this.viewUserDetailsService.getUserDetailsByUsername('exampleuser2')
+      .subscribe(user => {
+        console.log("User detailsSSSSSSSSSSS:", user);
+      });
+
+
+      this.pendingRequestsWithUserDetails$ = this.pendingSmeRequest$.pipe(
+        switchMap(pendingRequests => {
+          // Extracting usernames from pendingRequests
+          const usernames = pendingRequests.map(request => request.userName);
+
+          // Mapping each username to the corresponding API call for user details
+          const userDetailObservables = usernames.map(username => {
+            return this.viewUserDetailsService.getUserDetailsByUsername(username);
+          });
+
+          // Combining all user detail observables into one observable using forkJoin
+          return forkJoin(userDetailObservables).pipe(
+            map(userDetails => {
+              // Now userDetails contains details for each user fetched from the API
+              // Associate each user detail with its corresponding pending request
+              return pendingRequests.map((request, index) => ({
+                ...request,
+                userDetails: userDetails[index]
+              }));
+            })
+          );
+        })
+      )
+      this.pendingRequestsWithUserDetails$.subscribe(requestsWithUserDetails => {
+        console.log("Pending requests with user details:", requestsWithUserDetails);
+      });
+
+      
+
     this.initializeFilteredSmeList();
     this.updatePagination();
-
 
   }
 
   initializeFilteredSmeList(): void {
-    this.filteredPendingRequest$ = combineLatest([
+    /*
+    combine latest -> combine multiple observables so that,
+    when pendingsmerequest or current page changes, 
+    it emits a new value
+    */
+    this.pendingSmeRequest$ = combineLatest([    
       this.pendingSmeRequest$,
       this.currentPage.asObservable() // Make currentPage part of the reactive stream
     ]).pipe(
@@ -63,14 +99,14 @@ export class RequestToBeSmeListComponent implements OnInit {
         // Calculate pagination-related values
         this.totalItems = smes.length;
         this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-  
+
         // Check if the current page is out of range
         if (this.currentPage.value > this.totalPages - 1) {
           this.currentPage.next(this.totalPages - 1);
         } else if (this.currentPage.value < 0) {
           this.currentPage.next(0);
         }
-  
+
         // Calculate the slice of items to be displayed based on the current page
         const startIndex = page * this.itemsPerPage;
         const endIndex = startIndex + this.itemsPerPage;
@@ -80,7 +116,7 @@ export class RequestToBeSmeListComponent implements OnInit {
   }
 
   updatePagination(): void {
-    this.filteredPendingRequest$.subscribe(smes => {
+    this.pendingSmeRequest$.subscribe(smes => {
       this.totalItems = smes.length;
       this.calculateItemsPerPage();
       this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
@@ -96,12 +132,10 @@ export class RequestToBeSmeListComponent implements OnInit {
   }
 
   paginateSmeList(): void {
-    this.paginatedSmeList$ = this.filteredPendingRequest$.pipe(
+    this.paginatedSmeList$ = this.pendingSmeRequest$.pipe(
       map(smes => smes.slice(this.currentPage.value * this.itemsPerPage, (this.currentPage.value + 1) * this.itemsPerPage))
     );
   }
-
-
 
 
   nextPage(): void {
@@ -126,18 +160,79 @@ export class RequestToBeSmeListComponent implements OnInit {
 
 
 
+/*
+Functions to accept and decline request,
+ for user to be an SME  by agile coach
+*/
 
-
-  toggleSidebar() {
-    this.sidebarVisible = !this.sidebarVisible;
-  }
-
-
-
-
-  Save(requestId: number) {
+Accept(requestId: number) {
     console.log("Accepting request with ID:", requestId);
-    this.apiService.request('acceptRequestToBeSme', 'post', undefined, requestId).subscribe();
+   
+   this.apiService.request('acceptRequestToBeSme', 'post', undefined, requestId).subscribe((result: any) => {
+      console.log("Profile request result: ", result);
+ 
+      if (result) {
+        Swal.fire(
+          'Success',
+          'Request accepted successfully',
+          'success'
+        ).then((swalResult) => {
+          if (swalResult.value)  window.location.reload();
+        });
+      }
+    }, (error) => {
+      if (error.status === 500) {
+        // Handle 500 Internal Server Error
+        Swal.fire(
+          'Error',
+          'An error occurred. Please try again later',
+          'error'
+        );
+      } else {
+        // Handle other errors
+        Swal.fire(
+          'Error',
+          'An error occurred. Please try again later.',
+          'error'
+        );
+      }
+    }
+    
+    );
+  }
+Decline(requestId: number) {
+    console.log("Rejecting request with ID:", requestId);
+   
+   this.apiService.request('declineRequestToBeSme', 'post', undefined, requestId).subscribe((result: any) => {
+ 
+      if (result) {
+        Swal.fire(
+          'Success',
+          'Request declined successfully',
+          'success'
+        ).then((swalResult) => {
+          if (swalResult.value)  window.location.reload();
+        });
+      }
+    }, (error) => {
+      if (error.status === 500) {
+        // Handle 500 Internal Server Error
+        Swal.fire(
+          'Error',
+          'An error occurred. Please try again later',
+          'error'
+        );
+      } else {
+        // Handle other errors
+        Swal.fire(
+          'Error',
+          'An error occurred. Please try again later.',
+          'error'
+        );
+      }
+    }
+    
+    );
   }
 
   Reject(requestId: number) {
@@ -145,26 +240,29 @@ export class RequestToBeSmeListComponent implements OnInit {
     this.apiService.request('declineRequestToBeSme', 'post', undefined, requestId).subscribe();
   }
 
-  Accept(requestId: number) {
-    Swal.fire('Success', 'Request accepted successfully', 'success').then(swalResult => {
-      console.log("SwalResult:", swalResult);
-    }).then((result) => {
-      this.Save(requestId);
-      window.location.reload(); // Reload the page
+  // Accept(requestId: number) {
+  //   Swal.fire('Success', 'Request accepted successfully', 'success').then(swalResult => {
+  //     console.log("SwalResult:", swalResult);
+  //   }).then((result) => {
+  //     this.Save(requestId);
+  //     window.location.reload(); // Reload the page
 
-    });
-  }
+  //   });
+  // }
 
-  Decline(requestId: number) {
-    Swal.fire('Success', 'Request declined successfullt', 'success').then(swalResult => {
-      console.log("SwalResult:", swalResult);
-    }).then((result) => {
-      this.Reject(requestId);
-      window.location.reload(); // Reload the page
 
-    });
+  
 
-  }
+  // Decline(requestId: number) {
+  //   Swal.fire('Success', 'Request declined successfully', 'success').then(swalResult => {
+  //     console.log("SwalResult:", swalResult);
+  //   }).then((result) => {
+  //     this.Reject(requestId);
+  //     window.location.reload(); // Reload the page
+
+  //   });
+
+  // }
 
 }
 

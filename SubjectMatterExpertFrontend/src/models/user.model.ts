@@ -43,11 +43,19 @@ export interface Request {
 
 export interface Photo {
   id: number;
-  url: string;
+  uri: string;
 }
 
 export interface role{
   role: string;
+}
+
+export interface languageName{
+  languageName: string;
+}
+
+export interface expertiseArea{
+  expertiseArea: string;
 }
 
 export interface User {
@@ -59,9 +67,9 @@ export interface User {
   email: string;
   isSME: boolean;
   inLD: boolean;
-  languages: string;
+  languages: languageName[];
   location: string;
-  areaOfExpertise: string;
+  areasOfExpertise: ExpertiseArea[];
   timeSlots: TimeSlot[];
   sessions: Session[];
   reports: Report[];

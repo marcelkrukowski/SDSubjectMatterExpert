@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UserDetailsService } from "../../services/user-details.service";
 import { Observable } from "rxjs";
-import { User } from "../../../../models/user.model";
+import { User, languageName } from "../../../../models/user.model";
 import { ApiService } from '../../services/api.service';
 import { SdwdsHeaderProfileComponent } from '@sdworx/sdwds/header-profile';
 
@@ -21,12 +21,14 @@ export class ProfilePageComponent implements OnInit {
   profileForm!: FormGroup;
   isModalOpen: boolean = false;
 
+  
+
   //profile form var
   firstName: string = '';
   lastName: string = '';
   email: string = '';
   location: string = '';
-  languages: string = '';
+  languages: languageName[] = [];
   currentID: number = 0;
 
 
@@ -34,10 +36,15 @@ export class ProfilePageComponent implements OnInit {
   role: string = '';
   isSME: boolean = true;
   editMode: boolean = false;
-  
+
 
   ngOnInit(): void {
     this.userDetails$ = this.userService.getUserDetails();
+
+    this.userDetails$.subscribe(e => {
+      console.log("User details: ", e)
+    });
+
     this.userDetails$.subscribe(e => {
       if (e.userRoles.length > 1) {
         this.role = e.userRoles[1].role
@@ -75,6 +82,7 @@ export class ProfilePageComponent implements OnInit {
     private userService: UserDetailsService,
     private apiService: ApiService,
     private formBuilder: FormBuilder,
+    private router: Router
   ) { }
 
 
@@ -95,7 +103,7 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
-  enableEditing(){
+  enableEditing() {
     console.log("Click editing");
     this.editMode = true;
 
@@ -103,28 +111,32 @@ export class ProfilePageComponent implements OnInit {
     console.log("First Name: " + this.firstName);
 
     this.userDetails$ = this.userService.getUserDetails();
-    this.userDetails$.subscribe(e => {console.log(e.firstname);
+    this.userDetails$.subscribe(e => {
+      console.log("User details: ", e);
       this.firstName = e.firstname;
       this.lastName = e.lastname;
       this.email = e.email;
       this.location = e.location;
       this.languages = e.languages;
       this.currentID = e.id;
-        
-    
 
-    this.profileForm?.patchValue({
-      firstName: this.firstName,
-      lastName: this.lastName,
-      email: this.email,
-      location: this.location,
-      languages: this.languages
+      //because languages is an array
+      const languageNames = this.languages.map(language => language.languageName);
+
+
+
+      this.profileForm?.patchValue({
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        location: this.location,
+        languages: languageNames
+
+      });
+
 
     });
-      
-     
-    });
-    
+
   }
 
   //after editing
@@ -136,19 +148,22 @@ export class ProfilePageComponent implements OnInit {
 
 
     console.log("This is the current id: " + this.currentID);
-   
-console.log("Profile form: "+ this.profileForm.value);
+
+    console.log("Profile form: " + this.profileForm.value);
 
     this.apiService.request('editProfile', 'put', this.profileForm?.value).subscribe();
 
+    window.location.reload();
+
+
   }
 
-  cancelChanges(){
-    this.editMode=false;
+  cancelChanges() {
+    this.editMode = false;
   }
 
 
-  Submit(): void {
+  submitSMEForm(): void {
     // Splitting the string values into arrays
     const languagesArray = this.SMEForm?.value.languages.split(',').map((lang: string) => lang.trim());
     const areasOfExpertiseArray = this.SMEForm?.value.areasOfExpertise.split(',').map((area: string) => area.trim());
@@ -161,17 +176,48 @@ console.log("Profile form: "+ this.profileForm.value);
     };
     console.log('SME form: ', formData);
 
-    this.apiService.request('createRequestToBeSme', 'post', formData).subscribe();
-    this.CloseModel();
+    this.apiService.request('createRequestToBeSme', 'post', formData).subscribe((result: any) => {
+      console.log("Profile request result: ", result);
+ 
+      if (result) {
+        Swal.fire(
+          'Success',
+          'Your request has been sent to your agile coach!',
+          'success'
+        ).then((swalResult) => {
+          if (swalResult.value) this.router.navigate(['/profile']);
+        });
+        this.CloseModel();
+      }
+    }, (error) => {
+      if (error.status === 500) {
+        // Handle 500 Internal Server Error
+        Swal.fire(
+          'Error',
+          'You already have an ongoing request, please wait for agile coach to accept or decline before sending another request',
+          'error'
+        );
+        this.CloseModel();
+      } else {
+        // Handle other errors
+        Swal.fire(
+          'Error',
+          'An error occurred. Please try again later.',
+          'error'
+        );
+      }
+    }
+    
+    );
   }
 
-  submitSMEForm() {
-    Swal.fire('Success','Your request has been sent to your agile coach', 'success').then(swalResult => {
-      console.log("SwalResult:", swalResult);
-    }).then((result) => {
-      this.Submit();
-    });
-  }
+
+
+
+
+
+
+  
 }
 
 
