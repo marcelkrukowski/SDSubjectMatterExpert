@@ -87,12 +87,12 @@ namespace SubjectMatterExpertAPI.Controllers
             var isUserInSmeRole = await _userManager.IsInRoleAsync(user, "SME");
             if (!isUserInSmeRole)
             {
-                return BadRequest("AHAHAHAHHAHAHA TEST");
+                return BadRequest("");
             }
 
             if  (user.Sessions.All(s => s.Id != session.Id))
             {
-                return BadRequest("Test 2");
+                return BadRequest("");
             }
 
             session.Topic = updatedSessionDto.Topic;
