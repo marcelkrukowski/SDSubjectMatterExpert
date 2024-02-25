@@ -19,6 +19,9 @@ import {ForgotPasswordComponent} from "./components/forgot-password/forgot-passw
 import {BrowserModule} from "@angular/platform-browser";
 import { LearningAndDevelopmentComponent } from './components/learning-and-development/learning-and-development.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { DocumentSessionsComponent } from './components/document-sessions/document-sessions.component';
+import { DocumentSessionsFormComponent } from './components/document-sessions/document-sessions-form/document-sessions-form.component';
+import { CardListTemplateComponent } from './shared/card-list-template/card-list-template.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { ViewDetailsModalComponent } from '../shared/components/view-details-modal/view-details-modal.component';
 
@@ -35,7 +38,10 @@ import { ViewDetailsModalComponent } from '../shared/components/view-details-mod
     ProfilePageComponent,
     RequestToBeSmeListComponent,
     ForgotPasswordComponent,
-    LearningAndDevelopmentComponent
+    LearningAndDevelopmentComponent,
+    DocumentSessionsComponent,
+    DocumentSessionsFormComponent,
+    CardListTemplateComponent
   ],
   exports: [
     SmeListComponent,

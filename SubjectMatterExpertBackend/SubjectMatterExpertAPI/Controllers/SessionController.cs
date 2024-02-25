@@ -67,7 +67,7 @@ namespace SubjectMatterExpertAPI.Controllers
             {
                 
 
-                return Ok("success");
+                return Ok(new {message="success"});
             }
 
             return BadRequest("Problem creating session");
@@ -87,12 +87,12 @@ namespace SubjectMatterExpertAPI.Controllers
             var isUserInSmeRole = await _userManager.IsInRoleAsync(user, "SME");
             if (!isUserInSmeRole)
             {
-                return BadRequest();
+                return BadRequest("AHAHAHAHHAHAHA TEST");
             }
 
             if  (user.Sessions.All(s => s.Id != session.Id))
             {
-                return BadRequest();
+                return BadRequest("Test 2");
             }
 
             session.Topic = updatedSessionDto.Topic;
@@ -122,7 +122,7 @@ namespace SubjectMatterExpertAPI.Controllers
 
             if (await _userRepository.SaveAllAsync())
             {
-                return Ok("success");
+                return Ok(new { message = "success" });
             }
 
             return BadRequest("Problem editing session");
