@@ -97,7 +97,7 @@ namespace SubjectMatterExpertAPI.Controllers
 
             user.Request = requestEntity;
             user.Location = requestInput.Location;
-            if (await _userRepository.SaveAllAsync()) return Ok();
+            if (await _userRepository.SaveAllAsync()) return Ok(new { message = "success" });
             return BadRequest("Problem creating request");
         }
 
@@ -257,7 +257,7 @@ namespace SubjectMatterExpertAPI.Controllers
 
             await _requestRepository.AcceptRequestAsync(requestId);
 
-            return Ok();
+            return Ok(new { message = "success" });
         }
 
         [HttpPost("decline-request/{requestId}")]
@@ -283,7 +283,7 @@ namespace SubjectMatterExpertAPI.Controllers
 
             await _requestRepository.DeclineRequestAsync(requestId);
 
-            return Ok();
+            return Ok(new { message = "success" });
         }
 
 

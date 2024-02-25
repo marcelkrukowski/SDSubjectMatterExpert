@@ -165,9 +165,74 @@ Functions to accept and decline request,
  for user to be an SME  by agile coach
 */
 
-  Save(requestId: number) {
+Accept(requestId: number) {
     console.log("Accepting request with ID:", requestId);
-    this.apiService.request('acceptRequestToBeSme', 'post', undefined, requestId).subscribe();
+   
+   this.apiService.request('acceptRequestToBeSme', 'post', undefined, requestId).subscribe((result: any) => {
+      console.log("Profile request result: ", result);
+ 
+      if (result) {
+        Swal.fire(
+          'Success',
+          'Request accepted successfully',
+          'success'
+        ).then((swalResult) => {
+          if (swalResult.value)  window.location.reload();
+        });
+      }
+    }, (error) => {
+      if (error.status === 500) {
+        // Handle 500 Internal Server Error
+        Swal.fire(
+          'Error',
+          'An error occurred. Please try again later',
+          'error'
+        );
+      } else {
+        // Handle other errors
+        Swal.fire(
+          'Error',
+          'An error occurred. Please try again later.',
+          'error'
+        );
+      }
+    }
+    
+    );
+  }
+Decline(requestId: number) {
+    console.log("Rejecting request with ID:", requestId);
+   
+   this.apiService.request('declineRequestToBeSme', 'post', undefined, requestId).subscribe((result: any) => {
+ 
+      if (result) {
+        Swal.fire(
+          'Success',
+          'Request declined successfully',
+          'success'
+        ).then((swalResult) => {
+          if (swalResult.value)  window.location.reload();
+        });
+      }
+    }, (error) => {
+      if (error.status === 500) {
+        // Handle 500 Internal Server Error
+        Swal.fire(
+          'Error',
+          'An error occurred. Please try again later',
+          'error'
+        );
+      } else {
+        // Handle other errors
+        Swal.fire(
+          'Error',
+          'An error occurred. Please try again later.',
+          'error'
+        );
+      }
+    }
+    
+    );
   }
 
   Reject(requestId: number) {
@@ -175,26 +240,29 @@ Functions to accept and decline request,
     this.apiService.request('declineRequestToBeSme', 'post', undefined, requestId).subscribe();
   }
 
-  Accept(requestId: number) {
-    Swal.fire('Success', 'Request accepted successfully', 'success').then(swalResult => {
-      console.log("SwalResult:", swalResult);
-    }).then((result) => {
-      this.Save(requestId);
-      window.location.reload(); // Reload the page
+  // Accept(requestId: number) {
+  //   Swal.fire('Success', 'Request accepted successfully', 'success').then(swalResult => {
+  //     console.log("SwalResult:", swalResult);
+  //   }).then((result) => {
+  //     this.Save(requestId);
+  //     window.location.reload(); // Reload the page
 
-    });
-  }
+  //   });
+  // }
 
-  Decline(requestId: number) {
-    Swal.fire('Success', 'Request declined successfullt', 'success').then(swalResult => {
-      console.log("SwalResult:", swalResult);
-    }).then((result) => {
-      this.Reject(requestId);
-      window.location.reload(); // Reload the page
 
-    });
+  
 
-  }
+  // Decline(requestId: number) {
+  //   Swal.fire('Success', 'Request declined successfully', 'success').then(swalResult => {
+  //     console.log("SwalResult:", swalResult);
+  //   }).then((result) => {
+  //     this.Reject(requestId);
+  //     window.location.reload(); // Reload the page
+
+  //   });
+
+  // }
 
 }
 

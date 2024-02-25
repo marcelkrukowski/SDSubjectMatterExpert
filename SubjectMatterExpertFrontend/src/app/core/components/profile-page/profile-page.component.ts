@@ -82,6 +82,7 @@ export class ProfilePageComponent implements OnInit {
     private userService: UserDetailsService,
     private apiService: ApiService,
     private formBuilder: FormBuilder,
+    private router: Router
   ) { }
 
 
@@ -162,7 +163,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
 
-  Submit(): void {
+  submitSMEForm(): void {
     // Splitting the string values into arrays
     const languagesArray = this.SMEForm?.value.languages.split(',').map((lang: string) => lang.trim());
     const areasOfExpertiseArray = this.SMEForm?.value.areasOfExpertise.split(',').map((area: string) => area.trim());
@@ -175,17 +176,48 @@ export class ProfilePageComponent implements OnInit {
     };
     console.log('SME form: ', formData);
 
-    this.apiService.request('createRequestToBeSme', 'post', formData).subscribe();
-    this.CloseModel();
+    this.apiService.request('createRequestToBeSme', 'post', formData).subscribe((result: any) => {
+      console.log("Profile request result: ", result);
+ 
+      if (result) {
+        Swal.fire(
+          'Success',
+          'Your request has been sent to your agile coach!',
+          'success'
+        ).then((swalResult) => {
+          if (swalResult.value) this.router.navigate(['/profile']);
+        });
+        this.CloseModel();
+      }
+    }, (error) => {
+      if (error.status === 500) {
+        // Handle 500 Internal Server Error
+        Swal.fire(
+          'Error',
+          'You already have an ongoing request, please wait for agile coach to accept or decline before sending another request',
+          'error'
+        );
+        this.CloseModel();
+      } else {
+        // Handle other errors
+        Swal.fire(
+          'Error',
+          'An error occurred. Please try again later.',
+          'error'
+        );
+      }
+    }
+    
+    );
   }
 
-  submitSMEForm() {
-    Swal.fire('Success', 'Your request has been sent to your agile coach', 'success').then(swalResult => {
-      console.log("SwalResult:", swalResult);
-    }).then((result) => {
-      this.Submit();
-    });
-  }
+
+
+
+
+
+
+  
 }
 
 
