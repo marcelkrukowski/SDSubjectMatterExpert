@@ -43,7 +43,7 @@ import { SessionListTemplateComponent } from './shared/session-list-template/ses
     DocumentSessionsComponent,
     DocumentSessionsFormComponent,
     EditDocumentSessionsFormComponent,
-    SessionListTemplateComponent
+    SessionListTemplateComponent,
   ],
   exports: [
     SmeListComponent,

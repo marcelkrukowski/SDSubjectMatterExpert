@@ -40,7 +40,6 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     MatListModule,
     MatSidenavModule,
     MatCardModule,
-    HighchartsChartModule,
     HeaderProfileComponent,
     ModalModule.forRoot(),
   ],

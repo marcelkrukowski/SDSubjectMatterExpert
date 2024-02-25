@@ -9,8 +9,8 @@
             <div class="card-body">
                    
                 <div class="mb-3">
-                    <label for="colleagues" class="form-label">Coachees</label>
-                    <input type="text" formControlName="colleagues" class="form-control" id="colleagues"
+                    <label for="colleagues" class="form-label">Trainees</label>
+                    <input type="text" formControlName="colleagues" class="form-control" id="colleagues" placeholder="Please Enter firstname and lastname!"
                         [ngClass]="{'is-invalid': sessionForm.controls['colleagues'].invalid && sessionForm.controls['colleagues'].dirty,
                                      'is-valid': sessionForm.controls['colleagues'].valid && sessionForm.controls['colleagues'].dirty && sessionForm.controls['colleagues'].value}">
                     <span *ngIf="sessionForm.controls['colleagues'].hasError('pattern') && sessionForm.controls['colleagues'].dirty"
@@ -19,7 +19,7 @@
                 
                 <div class="mb-3">
                     <label for="topic" class="form-label">Topic<sup class="text-danger">*</sup></label>
-                    <input type="text" formControlName="topic" class="form-control" id="topic"
+                    <input type="text" formControlName="topic" class="form-control" id="topic" placeholder="Enter only alphabets and no numbers!"
                         [ngClass]="{'is-invalid': (sessionForm.controls['topic'].invalid && sessionForm.controls['topic'].dirty) || sessionForm.controls['topic'].hasError('pattern'),
                                     'is-valid': sessionForm.controls['topic'].valid}">
                     <span *ngIf="sessionForm.controls['topic'].invalid && sessionForm.controls['topic'].dirty && !sessionForm.controls['topic'].hasError('pattern')"
@@ -30,7 +30,7 @@
                 
                 <div class="mb-3">
                     <label for="subTopic" class="form-label">Sub Topic<sup class="text-danger">*</sup></label>
-                    <input type="text" formControlName="subTopic" class="form-control" id="subTopic"
+                    <input type="text" formControlName="subTopic" class="form-control" id="subTopic" placeholder="Enter only alphabets and no numbers!"
                         [ngClass]="{'is-invalid': sessionForm.controls['subTopic'].invalid && sessionForm.controls['subTopic'].dirty,
                                     'is-valid': sessionForm.controls['subTopic'].valid}">
                     <span *ngIf="sessionForm.controls['subTopic'].invalid && sessionForm.controls['subTopic'].dirty && !sessionForm.controls['subTopic'].hasError('pattern') && !sessionForm.controls['subTopic'].hasError('specialCharacters')"
