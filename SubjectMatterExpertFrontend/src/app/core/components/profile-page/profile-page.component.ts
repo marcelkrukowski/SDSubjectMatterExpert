@@ -21,6 +21,8 @@ export class ProfilePageComponent implements OnInit {
   profileForm!: FormGroup;
   isModalOpen: boolean = false;
 
+  
+
   //profile form var
   firstName: string = '';
   lastName: string = '';

@@ -18,7 +18,6 @@ import { RequestToBeSmeListComponent } from './components/request-to-be-sme-list
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {BrowserModule} from "@angular/platform-browser";
 import { CoreRoutingModule } from './core-routing.module';
-import { EditPictureTemplateComponent } from '../shared/components/edit-picture-template/edit-picture-template.component';
 import { ViewDetailsModalComponent } from '../shared/components/view-details-modal/view-details-modal.component';
 
 @NgModule({
@@ -46,7 +45,6 @@ import { ViewDetailsModalComponent } from '../shared/components/view-details-mod
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    EditPictureTemplateComponent,
     ViewDetailsModalComponent
   ]
 })

@@ -53,6 +53,9 @@
         <!-- <img [src]="user.photo?.url || '/assets/graphic-abstract/Illustrations_Man_Laptop.png'" alt="User Avatar" class="avatar"> -->
         <!-- <div class="sd"><app-edit-picture-template></app-edit-picture-template></div> -->
       
+        <img [src]="user.photo?.uri || '/assets/graphic-abstract/Illustrations_Man_Laptop.png'" alt="User Avatar"
+        class="avatar">
+
         <label for="editFullName" class="form-label">Edit Full Name </label>
         <input type="text" formControlName="firstName" class="form-control" id="firstName">
       </div>
@@ -66,14 +69,14 @@
         <label for="editEmail" class="form-label">Edit Email</label>
         <input type="text" formControlName="email" class="form-control" id="email">
       </div>
-      <div class="form-group"  *ngIf="isSME">
+      <!-- <div class="form-group"  *ngIf="isSME">
         <label for="editLocation" class="form-label">Edit Location</label>
-        <input type="text" formControlName="location" class="form-control" id="location">
+        <input type="text" formControlName="location" class="form-control" id="location" >
       </div>
       <div class="form-group"  *ngIf="isSME">
         <label for="editLanguages" class="form-label">Edit Languages</label>
         <input type="text" formControlName="languages" class="form-control" id="languages">
-      </div>
+      </div> -->
       
     </div>
 
