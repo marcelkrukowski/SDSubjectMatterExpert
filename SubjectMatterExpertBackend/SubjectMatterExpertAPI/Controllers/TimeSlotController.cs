@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SubjectMatterExpertAPI.Data;
 using SubjectMatterExpertAPI.DTOs;
+using SubjectMatterExpertAPI.Extensions;
 using SubjectMatterExpertAPI.Interfaces;
 using SubjectMatterExpertAPI.Models;
 
@@ -11,11 +14,15 @@ namespace SubjectMatterExpertAPI.Controllers
     public class TimeSlotController : BaseApiController
     {
         private readonly ITimeSlotRepository _timeSlotRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
 
-        public TimeSlotController(ITimeSlotRepository timeSlotRepository, IMapper mapper)
+        public TimeSlotController(ITimeSlotRepository timeSlotRepository, IUserRepository userRepository, UserManager<User> userManager, IMapper mapper)
         {
             _timeSlotRepository = timeSlotRepository;
+            _userRepository = userRepository;
+            _userManager = userManager;
             _mapper = mapper;
         }
 
@@ -30,6 +37,8 @@ namespace SubjectMatterExpertAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTimeSlotById(int id)
         {
+
+
             var timeSlot = await _timeSlotRepository.GetTimeSlotByIdAsync(id);
             if (timeSlot == null)
                 return NotFound();
@@ -41,10 +50,24 @@ namespace SubjectMatterExpertAPI.Controllers
         [HttpPost("add-timeslot")]
         public async Task<IActionResult> AddTimeSlot([FromBody] TimeSlotRequestDto timeSlotDto)
         {
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var isUserInSmeRole = await _userManager.IsInRoleAsync(user, "SME");
+            if (!isUserInSmeRole)
+            {
+                return BadRequest("Only SME can create timeslots.");
+            }
+
+
             var timeSlot = _mapper.Map<TimeSlot>(timeSlotDto);
+            
 
 
             await _timeSlotRepository.AddTimeSlotAsync(timeSlot);

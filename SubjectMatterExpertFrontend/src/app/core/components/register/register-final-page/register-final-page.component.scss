@@ -1,0 +1,19 @@
+.message-container {
+  background-color: white; /* Set the background to white */
+  border-radius: 12px; /* Rounded corners with a 12px radius */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* A subtle shadow for depth */
+  padding: 3rem; /* Spacing inside the container */
+  text-align: center; /* Center the text */
+  h1, p {
+    margin-bottom: 2rem; /* Space below the heading */
+  }
+}
+
+.background-container {
+  background: #E94E0F url('~src/assets/hero-photos/Hero_Domain_8.jpg') center center/cover no-repeat;
+  padding: 40px; /* Adjust padding as needed for layout */
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

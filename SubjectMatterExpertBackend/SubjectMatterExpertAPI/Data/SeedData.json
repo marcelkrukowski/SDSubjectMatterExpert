@@ -5,25 +5,42 @@
       "UserName": "exampleUser",
       "Firstname": "John",
       "Lastname": "Doe",
-      "Email": "exampleuser1@sdworx.com"
+      "Email": "exampleuser1@sdworx.com",
+      "Photo": {
+        "Filename": "man.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/man.png"
+      }
     },
     {
       "UserName": "exampleUser2",
       "Firstname": "Jane",
       "Lastname": "Brick",
-      "Email": "exampleuser2@sdworx.com"
+      "Email": "exampleuser2@sdworx.com",
+      "Photo": {
+        "Filename": "woman.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/woman.png"
+      }
     },
     {
       "UserName": "exampleUser3",
       "Firstname": "Harry",
       "Lastname": "Larris",
-      "Email": "exampleuser3@sdworx.com"
+      "Email": "exampleuser3@sdworx.com",
+      "Photo": {
+        "Filename": "man2.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/man2.png"
+      }
     },
     {
       "UserName": "exampleUser4",
       "Firstname": "Mia",
       "Lastname": "Larret",
-      "Email": "exampleuser4@sdworx.com"
+      "Email": "exampleuser4@sdworx.com",
+      "Photo": {
+        "Filename": "woman2.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/woman2.png"
+      }
+
     }
   ],
 
@@ -33,6 +50,10 @@
       "Firstname": "Marcel",
       "Lastname": "Krukowski",
       "Email": "marcel.krukowski@sdworx.com",
+      "Photo": {
+        "Filename": "man3.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/man3.png"
+      },
       "Languages": [
         { "LanguageName": "English" },
         { "LanguageName": "Polish" }
@@ -44,29 +65,159 @@
       ],
       "TimeSlots": [
         {
-
+          "AvailableDate": "2024-02-26",
+          "StartTime": "10:30:00",
+          "EndTime": "11:30:00"
+        },
+        {
           "AvailableDate": "2024-02-27",
           "StartTime": "08:00:00",
           "EndTime": "12:00:00"
         },
         {
-
           "AvailableDate": "2024-02-28",
           "StartTime": "08:00:00",
           "EndTime": "12:00:00"
+        },
+        {
+          "AvailableDate": "2024-02-29",
+          "StartTime": "09:00:00",
+          "EndTime": "10:00:00"
         }
       ],
       "Sessions": [
         {
-
-          "Topic": "DOTNET",
-          "SubTopic": "BACKEND",
-          "Description": "Learn how to code first in ef core",
+          "Topic": "WEB DEVELOPMENT",
+          "SubTopic": "FRONTEND",
+          "Description": "Mastering modern frontend development with HTML, CSS, and JavaScript",
           "Colleagues": [
             {
-
-              "FirstName": "ColleagueFirstName",
-              "LastName": "ColleagueLastName"
+              "FirstName": "Emma",
+              "LastName": "Harris"
+            },
+            {
+              "FirstName": "Liam",
+              "LastName": "Matthews"
+            }
+          ]
+        },
+        {
+          "Topic": "NODEJS",
+          "SubTopic": "EXPRESS",
+          "Description": "Building RESTful APIs with Node.js and Express",
+          "Colleagues": [
+            {
+              "FirstName": "Ava",
+              "LastName": "Knight"
+            },
+            {
+              "FirstName": "Mason",
+              "LastName": "Turner"
+            }
+          ]
+        },
+        {
+          "Topic": "CLOUD NATIVE",
+          "SubTopic": "MICROSERVICES",
+          "Description": "Architecting cloud-native microservices with Kubernetes and Istio",
+          "Colleagues": [
+            {
+              "FirstName": "Sophie",
+              "LastName": "Barnes"
+            },
+            {
+              "FirstName": "Logan",
+              "LastName": "Bryant"
+            }
+          ]
+        },
+        {
+          "Topic": "PYTHON",
+          "SubTopic": "AUTOMATION",
+          "Description": "Automating tasks with Python scripts and frameworks",
+          "Colleagues": [
+            {
+              "FirstName": "Chloe",
+              "LastName": "Wells"
+            },
+            {
+              "FirstName": "Ethan",
+              "LastName": "Reed"
+            }
+          ]
+        },
+        {
+          "Topic": "REACT",
+          "SubTopic": "ROUTING",
+          "Description": "Advanced routing techniques in React applications",
+          "Colleagues": [
+            {
+              "FirstName": "Aria",
+              "LastName": "Ferguson"
+            },
+            {
+              "FirstName": "Oliver",
+              "LastName": "Dunn"
+            }
+          ]
+        },
+        {
+          "Topic": "DEVOPS",
+          "SubTopic": "CONTINUOUS INTEGRATION",
+          "Description": "Implementing continuous integration practices for DevOps",
+          "Colleagues": [
+            {
+              "FirstName": "Noah",
+              "LastName": "Gardner"
+            },
+            {
+              "FirstName": "Lily",
+              "LastName": "Cruz"
+            }
+          ]
+        },
+        {
+          "Topic": "DATABASE DESIGN",
+          "SubTopic": "RELATIONAL DATABASES",
+          "Description": "Fundamentals of designing relational databases for efficient data storage",
+          "Colleagues": [
+            {
+              "FirstName": "Lucas",
+              "LastName": "Vaughn"
+            },
+            {
+              "FirstName": "Scarlett",
+              "LastName": "Collins"
+            }
+          ]
+        },
+        {
+          "Topic": "JAVASCRIPT",
+          "SubTopic": "ES6 FEATURES",
+          "Description": "Exploring ES6 features and their impact on modern JavaScript development",
+          "Colleagues": [
+            {
+              "FirstName": "Mia",
+              "LastName": "Dunn"
+            },
+            {
+              "FirstName": "Elijah",
+              "LastName": "Fletcher"
+            }
+          ]
+        },
+        {
+          "Topic": "REACT",
+          "SubTopic": "FORMS AND VALIDATION",
+          "Description": "Effective form handling and validation strategies in React applications",
+          "Colleagues": [
+            {
+              "FirstName": "Ava",
+              "LastName": "Turner"
+            },
+            {
+              "FirstName": "Logan",
+              "LastName": "Gardner"
             }
           ]
         }
@@ -77,6 +228,10 @@
       "Firstname": "Koushal",
       "Lastname": "Oodith",
       "Email": "koushal.oodith@sdworx.com",
+      "Photo": {
+        "Filename": "man5.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/man5.png"
+      },
       "Languages": [
         { "LanguageName": "English" },
         { "LanguageName": "Creol" }
@@ -87,29 +242,94 @@
       ],
       "TimeSlots": [
         {
-
-          "AvailableDate": "2024-02-27",
-          "StartTime": "09:00:00",
-          "EndTime": "13:00:00"
+          "AvailableDate": "2024-02-26",
+          "StartTime": "10:30:00",
+          "EndTime": "11:30:00"
         },
         {
-
+          "AvailableDate": "2024-02-27",
+          "StartTime": "07:00:00",
+          "EndTime": "08:00:00"
+        },
+        {
           "AvailableDate": "2024-02-28",
-          "StartTime": "09:00:00",
+          "StartTime": "12:00:00",
           "EndTime": "13:00:00"
         }
       ],
       "Sessions": [
         {
-
-          "Topic": "ANGULAR",
-          "SubTopic": "GUARDS",
-          "Description": "Learn how to create guard in angular",
+          "Topic": "CLOUD COMPUTING",
+          "SubTopic": "AWS",
+          "Description": "Getting started with Amazon Web Services",
           "Colleagues": [
             {
-
-              "FirstName": "ColleagueFirstName",
-              "LastName": "ColleagueLastName"
+              "FirstName": "Sophie",
+              "LastName": "Clark"
+            },
+            {
+              "FirstName": "Mason",
+              "LastName": "Baker"
+            }
+          ]
+        },
+        {
+          "Topic": "PYTHON",
+          "SubTopic": "WEB DEVELOPMENT",
+          "Description": "Building dynamic web applications with Django",
+          "Colleagues": [
+            {
+              "FirstName": "Aiden",
+              "LastName": "Ward"
+            },
+            {
+              "FirstName": "Chloe",
+              "LastName": "Fisher"
+            }
+          ]
+        },
+        {
+          "Topic": "DOCKER",
+          "SubTopic": "CONTAINERIZATION",
+          "Description": "Understanding containerization with Docker",
+          "Colleagues": [
+            {
+              "FirstName": "Lucas",
+              "LastName": "Perez"
+            },
+            {
+              "FirstName": "Lily",
+              "LastName": "Evans"
+            }
+          ]
+        },
+        {
+          "Topic": "ANGULAR",
+          "SubTopic": "FRONTEND",
+          "Description": "Building modern UIs with Angular",
+          "Colleagues": [
+            {
+              "FirstName": "Noah",
+              "LastName": "Fletcher"
+            },
+            {
+              "FirstName": "Aria",
+              "LastName": "Wells"
+            }
+          ]
+        },
+        {
+          "Topic": "DOCKER",
+          "SubTopic": "MULTI-CONTAINER DEPLOYMENTS",
+          "Description": "Deploying and managing multi-container applications with Docker Compose",
+          "Colleagues": [
+            {
+              "FirstName": "Liam",
+              "LastName": "Baker"
+            },
+            {
+              "FirstName": "Ella",
+              "LastName": "Anderson"
             }
           ]
         }
@@ -120,6 +340,10 @@
       "Firstname": "Filip",
       "Lastname": "Cichowski",
       "Email": "filip.cichowski@sdworx.com",
+      "Photo": {
+        "Filename": "man4.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/man4.png"
+      },
       "Languages": [
         { "LanguageName": "English" },
         { "LanguageName": "Polish" }
@@ -130,29 +354,117 @@
       ],
       "TimeSlots": [
         {
+          "AvailableDate": "2024-02-26",
+          "StartTime": "10:30:00",
+          "EndTime": "11:30:00"
+        },
+        {
 
           "AvailableDate": "2024-02-27",
-          "StartTime": "08:00:00",
-          "EndTime": "14:00:00"
+          "StartTime": "09:00:00",
+          "EndTime": "10:30:00"
         },
         {
 
           "AvailableDate": "2024-02-28",
-          "StartTime": "08:00:00",
-          "EndTime": "14:00:00"
+          "StartTime": "15:00:00",
+          "EndTime": "16:00:00"
+        },
+        {
+
+          "AvailableDate": "2024-02-29",
+          "StartTime": "14:00:00",
+          "EndTime": "15:00:00"
         }
       ],
       "Sessions": [
         {
-
-          "Topic": "ANGULAR",
-          "SubTopic": "FILE STRUCTURE",
-          "Description": "Learn how to structure files in angular",
+          "Topic": "DOTNET",
+          "SubTopic": "BACKEND",
+          "Description": "Learn how to code first in EF Core",
           "Colleagues": [
             {
-
-              "FirstName": "ColleagueFirstName",
-              "LastName": "ColleagueLastName"
+              "FirstName": "John",
+              "LastName": "Doe"
+            },
+            {
+              "FirstName": "Alice",
+              "LastName": "Smith"
+            }
+          ]
+        },
+        {
+          "Topic": "DOTNET",
+          "SubTopic": "SECURITY",
+          "Description": "Exploring security practices in ASP.NET applications",
+          "Colleagues": [
+            {
+              "FirstName": "Michael",
+              "LastName": "Brown"
+            },
+            {
+              "FirstName": "Sophia",
+              "LastName": "Taylor"
+            }
+          ]
+        },
+        {
+          "Topic": "PYTHON",
+          "SubTopic": "DATA SCIENCE",
+          "Description": "Introduction to data analysis with Python",
+          "Colleagues": [
+            {
+              "FirstName": "Oliver",
+              "LastName": "Johnson"
+            },
+            {
+              "FirstName": "Emma",
+              "LastName": "Williams"
+            }
+          ]
+        },
+        {
+          "Topic": "JAVA",
+          "SubTopic": "SPRING",
+          "Description": "Building scalable web applications with Spring Boot",
+          "Colleagues": [
+            {
+              "FirstName": "Daniel",
+              "LastName": "Lee"
+            },
+            {
+              "FirstName": "Ava",
+              "LastName": "Anderson"
+            }
+          ]
+        },
+        {
+          "Topic": "REACT",
+          "SubTopic": "FRONTEND",
+          "Description": "Mastering React for modern UI development",
+          "Colleagues": [
+            {
+              "FirstName": "Logan",
+              "LastName": "Garcia"
+            },
+            {
+              "FirstName": "Ella",
+              "LastName": "Martinez"
+            }
+          ]
+        },
+        {
+          "Topic": "REACT",
+          "SubTopic": "STATEFUL COMPONENTS",
+          "Description": "Deep dive into managing state with stateful components in React",
+          "Colleagues": [
+            {
+              "FirstName": "Aiden",
+              "LastName": "Garcia"
+            },
+            {
+              "FirstName": "Chloe",
+              "LastName": "Williams"
             }
           ]
         }
@@ -163,6 +475,10 @@
       "Firstname": "Henish",
       "Lastname": "Nobeen",
       "Email": "henish.nobeen@sdworx.com",
+      "Photo": {
+        "Filename": "man6.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/man6.png"
+      },
       "Languages": [
         { "LanguageName": "English" },
         { "LanguageName": "Creol" }
@@ -173,29 +489,146 @@
       ],
       "TimeSlots": [
         {
-
+          "AvailableDate": "2024-02-26",
+          "StartTime": "10:30:00",
+          "EndTime": "11:30:00"
+        },
+        {
+          "AvailableDate": "2024-02-27",
+          "StartTime": "08:45:00",
+          "EndTime": "09:45:00"
+        },
+        {
           "AvailableDate": "2024-02-28",
-          "StartTime": "08:00:00",
-          "EndTime": "11:00:00"
+          "StartTime": "10:15:00",
+          "EndTime": "12:15:00"
+        },
+        {
+          "AvailableDate": "2024-02-29",
+          "StartTime": "13:45:00",
+          "EndTime": "16:00:00"
         }
       ],
       "Sessions": [
         {
-
-          "Topic": "ANGULAR",
-          "SubTopic": "BOOTSTRAP",
-          "Description": "Learn how to add bootstrap in angular"
+          "Topic": "MACHINE LEARNING",
+          "SubTopic": "ALGORITHMS",
+          "Description": "Exploring machine learning algorithms and their applications",
+          "Colleagues": [
+            {
+              "FirstName": "Isaac",
+              "LastName": "Murray"
+            },
+            {
+              "FirstName": "Scarlett",
+              "LastName": "Harrison"
+            }
+          ]
+        },
+        {
+          "Topic": "JAVA",
+          "SubTopic": "MICROSERVICES",
+          "Description": "Building scalable microservices with Spring Cloud",
+          "Colleagues": [
+            {
+              "FirstName": "Ethan",
+              "LastName": "Ferguson"
+            },
+            {
+              "FirstName": "Ava",
+              "LastName": "Barnes"
+            }
+          ]
+        },
+        {
+          "Topic": "DATA SCIENCE",
+          "SubTopic": "MACHINE LEARNING",
+          "Description": "Applying machine learning techniques in data science projects",
+          "Colleagues": [
+            {
+              "FirstName": "Mia",
+              "LastName": "Cruz"
+            },
+            {
+              "FirstName": "Liam",
+              "LastName": "Ward"
+            }
+          ]
+        },
+        {
+          "Topic": "DOCKER",
+          "SubTopic": "ORCHESTRATION",
+          "Description": "Container orchestration with Kubernetes",
+          "Colleagues": [
+            {
+              "FirstName": "Amelia",
+              "LastName": "Collins"
+            },
+            {
+              "FirstName": "Elijah",
+              "LastName": "Dunn"
+            }
+          ]
+        },
+        {
+          "Topic": "PYTHON",
+          "SubTopic": "MACHINE LEARNING",
+          "Description": "Hands-on workshop on machine learning using Python libraries",
+          "Colleagues": [
+            {
+              "FirstName": "Sophia",
+              "LastName": "Miller"
+            },
+            {
+              "FirstName": "Jackson",
+              "LastName": "Taylor"
+            }
+          ]
+        },
+        {
+          "Topic": "REACT",
+          "SubTopic": "STATE MANAGEMENT",
+          "Description": "Managing state in React applications with Redux",
+          "Colleagues": [
+            {
+              "FirstName": "Harper",
+              "LastName": "Bryant"
+            },
+            {
+              "FirstName": "Oliver",
+              "LastName": "Fisher"
+            }
+          ]
+        },
+        {
+          "Topic": "DATABASES",
+          "SubTopic": "NOSQL",
+          "Description": "Introduction to NoSQL databases and their advantages",
+          "Colleagues": [
+            {
+              "FirstName": "Evelyn",
+              "LastName": "Gardner"
+            },
+            {
+              "FirstName": "William",
+              "LastName": "Vaughn"
+            }
+          ]
         }
       ]
     }
   ],
   "ldteam": [
-      {
-        "UserName": "exampleld",
-        "Firstname": "Lira",
-        "Lastname": "Minsen",
-        "Email": "exmapleld@sdworx.com"
-      }   
+    {
+      "UserName": "exampleld",
+      "Firstname": "Lira",
+      "Lastname": "Minsen",
+      "Email": "exampleld@sdworx.com",
+      "Photo": {
+        "Filename": "woman3.png",
+        "Uri": "https://smeavatarsstorage.blob.core.windows.net/avatars/woman3.png"
+      }
+    }   
   ]
 }
  

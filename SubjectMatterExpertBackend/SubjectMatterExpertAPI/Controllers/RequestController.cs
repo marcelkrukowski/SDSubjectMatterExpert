@@ -10,6 +10,7 @@ using SubjectMatterExpertAPI.Extensions;
 using SubjectMatterExpertAPI.Interfaces;
 using SubjectMatterExpertAPI.Migrations;
 using SubjectMatterExpertAPI.Models;
+using SubjectMatterExpertAPI.Services;
 
 namespace SubjectMatterExpertAPI.Controllers
 {
@@ -96,7 +97,7 @@ namespace SubjectMatterExpertAPI.Controllers
 
             user.Request = requestEntity;
             user.Location = requestInput.Location;
-            if (await _userRepository.SaveAllAsync()) return Ok("Success");
+            if (await _userRepository.SaveAllAsync()) return Ok(new { message = "success" });
             return BadRequest("Problem creating request");
         }
 
@@ -227,10 +228,6 @@ namespace SubjectMatterExpertAPI.Controllers
                 return NotFound();
             }
 
-            //var pendingRequests = await _agileCoachRepository.GetPendingRequestForUserAsync(managedUsers);
-            //var managedUsersToReturn = _mapper.Map<List<UserDto>>(managedUsers);
-            //var pendingRequestsToReturn = _mapper.Map<List<RequestDto>>(pendingRequests);
-            //return Ok(pendingRequestsToReturn);
             var usersWithPendingRequests = await _requestRepository.GetPendingRequestForUserAsync(managedUsers);
 
             return Ok(usersWithPendingRequests);
@@ -260,7 +257,7 @@ namespace SubjectMatterExpertAPI.Controllers
 
             await _requestRepository.AcceptRequestAsync(requestId);
 
-            return Ok("Request accepted successfully");
+            return Ok(new { message = "success" });
         }
 
         [HttpPost("decline-request/{requestId}")]
@@ -274,8 +271,8 @@ namespace SubjectMatterExpertAPI.Controllers
 
             var request = await _requestRepository.GetRequestByIdAsync(requestId);
 
-            var agileCoachOfUser = _userRepository.GetAgileCoachOfUserAsync(request.UserId);
-            var agileCoach = _agileCoachRepository.GetAgileCoachByUserIdAsync(user.Id);
+            var agileCoachOfUser = await _userRepository.GetAgileCoachOfUserAsync(request.UserId);
+            var agileCoach = await _agileCoachRepository.GetAgileCoachByUserIdAsync(user.Id);
 
             if (agileCoachOfUser.Id != agileCoach.Id)
             {
@@ -286,7 +283,7 @@ namespace SubjectMatterExpertAPI.Controllers
 
             await _requestRepository.DeclineRequestAsync(requestId);
 
-            return Ok("Request declined successfully");
+            return Ok(new { message = "success" });
         }
 
 

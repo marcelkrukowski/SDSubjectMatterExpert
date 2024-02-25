@@ -46,6 +46,8 @@ namespace SubjectMatterExpertAPI.Data
                 .Include(rt => rt.Request)
                 .Include(s => s.Sessions)
                 .Include(p => p.Photo)
+                .Include(l => l.Languages)
+                .Include(aoe => aoe.AreasOfExpertise)
                 .Include(u => u.UserRoles)
                     .ThenInclude(ur => ur.Role)
                 .ToListAsync();
@@ -57,6 +59,8 @@ namespace SubjectMatterExpertAPI.Data
                 .Include(ts => ts.TimeSlots)
                 .Include(s => s.Sessions)
                 .Include(p => p.Photo)
+                .Include(l => l.Languages)
+                .Include(aoe => aoe.AreasOfExpertise)
                 .Include(u => u.UserRoles)  
                     .ThenInclude(ur => ur.Role)
                 .SingleOrDefaultAsync(x => x.UserName == username);

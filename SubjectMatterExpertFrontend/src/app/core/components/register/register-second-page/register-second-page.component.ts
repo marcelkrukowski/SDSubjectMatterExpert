@@ -14,7 +14,9 @@ export class RegisterSecondPageComponent {
     this.form = this.formService.getForm();
   }
 
+  // TODO: handle register failure
   submitForm(): void {
+    this.formService.registerUser().subscribe(r => console.log(r));
     this.router.navigate(['/register-final']);
   }
 }

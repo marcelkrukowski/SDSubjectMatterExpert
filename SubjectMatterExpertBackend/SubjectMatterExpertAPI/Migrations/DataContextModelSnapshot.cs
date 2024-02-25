@@ -126,7 +126,7 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("AgileCoaches", (string)null);
+                    b.ToTable("AgileCoaches");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.AppRole", b =>
@@ -183,7 +183,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AreasOfExpertise", (string)null);
+                    b.ToTable("AreasOfExpertise");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Colleague", b =>
@@ -209,7 +209,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("Colleagues", (string)null);
+                    b.ToTable("Colleagues");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Language", b =>
@@ -236,7 +236,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Languages", (string)null);
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Photo", b =>
@@ -263,29 +263,7 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Photos", (string)null);
-                });
-
-            modelBuilder.Entity("SubjectMatterExpertAPI.Models.Report", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ContactedArea")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Reports", (string)null);
+                    b.ToTable("Photos");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Request", b =>
@@ -308,7 +286,7 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Requests", (string)null);
+                    b.ToTable("Requests");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Session", b =>
@@ -338,7 +316,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Sessions", (string)null);
+                    b.ToTable("Sessions");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.TimeSlot", b =>
@@ -371,7 +349,7 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TimeSlots", (string)null);
+                    b.ToTable("TimeSlots");
                 });
 
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.User", b =>
@@ -390,6 +368,9 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AvatarUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -579,17 +560,6 @@ namespace SubjectMatterExpertAPI.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SubjectMatterExpertAPI.Models.Report", b =>
-                {
-                    b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
-                        .WithMany("Reports")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("SubjectMatterExpertAPI.Models.Request", b =>
                 {
                     b.HasOne("SubjectMatterExpertAPI.Models.User", "User")
@@ -682,8 +652,6 @@ namespace SubjectMatterExpertAPI.Migrations
 
                     b.Navigation("Photo")
                         .IsRequired();
-
-                    b.Navigation("Reports");
 
                     b.Navigation("Request");
 

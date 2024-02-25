@@ -43,7 +43,12 @@ namespace SubjectMatterExpertAPI.Data
                 Email = "agilecoach@sdworx.com",
                 Firstname = "Agile",
                 Lastname = "Coach",
-                Location = "Poland"
+                Location = "Poland",
+                Photo = new Photo
+                {
+                    Filename = "man7.png",
+                    Uri = "https://smeavatarsstorage.blob.core.windows.net/avatars/man7.png"
+                }
             };
 
             await userManager.CreateAsync(agileCoach, "Pa$$w0rd");
@@ -57,8 +62,21 @@ namespace SubjectMatterExpertAPI.Data
             context.AgileCoaches.Add(agileCoachEntity);
             await context.SaveChangesAsync();
 
+            var areaOfExpertiseAgileCoach = new AreaOfExpertise
+            {
+                ExpertiseArea = "Agile Methodology",
+                User = agileCoach,
+            };
 
+            var LanguageAgileCoach = new Language
+            {
+                LanguageName = "English",
+                User = agileCoach
+            };
 
+            context.AreasOfExpertise.Add(areaOfExpertiseAgileCoach);
+            context.Languages.Add(LanguageAgileCoach);
+            await context.SaveChangesAsync();
 
             foreach (var user in users)
             {

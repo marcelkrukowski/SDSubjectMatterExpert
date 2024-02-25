@@ -73,6 +73,21 @@ namespace SubjectMatterExpertAPI.Controllers
 
         }
 
+        [HttpGet("username-details/{username}")]
+        public async Task<ActionResult<UserDto>> GetUserByUsername(string username)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(username);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var userToReturn = _mapper.Map<UserDto>(user);
+
+            return userToReturn;
+        }
+
 
         [HttpPost("upload-photo")]
         public async Task<ActionResult<PhotoDto>> UploadPhoto(IFormFile photo)
@@ -98,13 +113,13 @@ namespace SubjectMatterExpertAPI.Controllers
                 return BadRequest("Invalid file type. Only JPEG, JPG, and PNG are allowed.");
             }
 
-            var result = await _photoService.UploadPhotoAsync(photo);
-
 
             if (user.Photo != null)
             {
-                return BadRequest("User already has a photo. Delete the existing photo before uploading a new one.");
+                await DeletePhoto();
             }
+
+            var result = await _photoService.UploadPhotoAsync(photo);
 
             var photoEntity = new Photo
             {

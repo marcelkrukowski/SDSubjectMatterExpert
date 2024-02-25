@@ -13,7 +13,6 @@ namespace SubjectMatterExpertAPI.Helpers
             CreateMap<UserRegisterRequestDto, User>();
             CreateMap<AgileCoach, AgileCoachDto>();
             CreateMap<Colleague, ColleagueDto>();
-            CreateMap<Report, ReportDto>();
             CreateMap<Request, RequestDto>();
             CreateMap<Session, SessionDto>();
             CreateMap<Session, SessionInputDto>();

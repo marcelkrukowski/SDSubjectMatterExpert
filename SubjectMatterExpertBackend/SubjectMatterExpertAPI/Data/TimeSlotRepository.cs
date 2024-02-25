@@ -36,6 +36,7 @@ namespace SubjectMatterExpertAPI.Data
         public async Task AddTimeSlotAsync(TimeSlot timeSlot)
         {
 
+
            await _context.TimeSlots.AddAsync(timeSlot);
            await _context.SaveChangesAsync();
         }

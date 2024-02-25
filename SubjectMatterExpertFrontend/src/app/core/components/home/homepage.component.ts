@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./homepage.component.scss']
 })
 export class HomepageComponent {
+
   // Array of cards with title, image source, and route
   cards = [
     { title: 'Profile', imageSrc: '/assets/graphic-abstract/contract.png', route: '/profile'},

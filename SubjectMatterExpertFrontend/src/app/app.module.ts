@@ -8,6 +8,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatCardModule} from "@angular/material/card";
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -17,11 +18,13 @@ import {CoreModule} from "./core/core.module";
 import { HighchartsChartModule } from 'highcharts-angular';
 import {SidenavComponent} from "./shared/components/sidenav/sidenav.component";
 import {interceptorsProviders} from "./core/interceptor/interceptor";
+import { HeaderProfileComponent } from './shared/components/header-profile-component/header-profile-component.component';
+import {ModalModule} from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidenavComponent
+    SidenavComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,9 @@ import {interceptorsProviders} from "./core/interceptor/interceptor";
     MatListModule,
     MatSidenavModule,
     MatCardModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    HeaderProfileComponent,
+    ModalModule.forRoot(),
   ],
   providers: [
     provideAnimationsAsync(),

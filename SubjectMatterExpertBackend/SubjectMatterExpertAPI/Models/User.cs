@@ -14,7 +14,6 @@ namespace SubjectMatterExpertAPI.Models
         public List<AreaOfExpertise>? AreasOfExpertise { get; set; } = new List<AreaOfExpertise>();
         public List<TimeSlot>? TimeSlots { get; set; } = new List<TimeSlot>();
         public List<Session>? Sessions { get; set; } = new List<Session>();
-        public List<Report>? Reports { get; set; } = new List<Report>();
         public Request? Request { get; set; }
         public int? AgileCoachId { get; set; }
         public AgileCoach? AgileCoach { get; set; }

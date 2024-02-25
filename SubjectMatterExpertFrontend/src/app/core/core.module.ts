@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CoreRoutingModule } from './core-routing.module';
+// import { CoreRoutingModule } from './core-routing.module';
 import { CoreComponent } from './core.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgSelectModule} from "@ng-select/ng-select";
@@ -14,10 +14,13 @@ import {RegisterFirstPageComponent} from "./components/register/register-first-p
 import {LoginPageComponent} from "./components/login/login-page.component";
 import {HomepageComponent} from "./components/home/homepage.component";
 import {ProfilePageComponent} from "./components/profile-page/profile-page.component";
+import { RequestToBeSmeListComponent } from './components/request-to-be-sme-list/request-to-be-sme-list.component';
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {BrowserModule} from "@angular/platform-browser";
 import { LearningAndDevelopmentComponent } from './components/learning-and-development/learning-and-development.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { CoreRoutingModule } from './core-routing.module';
+import { ViewDetailsModalComponent } from '../shared/components/view-details-modal/view-details-modal.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
     LoginPageComponent,
     HomepageComponent,
     ProfilePageComponent,
+    RequestToBeSmeListComponent,
     ForgotPasswordComponent,
     LearningAndDevelopmentComponent
   ],
@@ -44,7 +48,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    ViewDetailsModalComponent
   ]
 })
 export class CoreModule { }

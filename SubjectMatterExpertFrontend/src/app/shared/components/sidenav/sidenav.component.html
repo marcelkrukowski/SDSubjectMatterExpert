@@ -38,21 +38,37 @@
 
     <mat-nav-list class="nav-list">
       <!-- Request to be SME link -->
-      <a class="list-link" mat-list-item routerLink="/" routerLinkActive="link-active"
-      [routerLinkActiveOptions]="{exact: true}">
+      <a class="list-link" mat-list-item routerLink="/profile">
         <i class="sidenav-icon icons8-f-done"></i>
         <span *ngIf="!isCollapsed">Request to be SME</span></a>
+    </mat-nav-list>
+  
+
+    <mat-nav-list class="nav-list" *ngIf="userDetails$ | async as user">
+      <!-- Request to be SME list link -->
+      <a class="list-link" mat-list-item routerLink="/request-to-be-sme" *ngIf="hasAgileCoachRole(user)">
+        <i class="sidenav-icon icons8-f-done"></i>
+        <span *ngIf="!isCollapsed">Pending SME list</span></a>
     </mat-nav-list>
   </mat-sidenav>
 
  <!-- Sidenav Content -->
   <mat-sidenav-content class="content">
     <!-- Toolbar with menu toggle button and welcome message -->
-    <mat-toolbar>
+    <mat-toolbar class="sidenav-content">
       <button class="menu-btn" (click)="toggleSidenav()" mat-icon-button>
         <mat-icon>menu</mat-icon>
       </button>
       <span class="welcome-msg">Welcome!</span>
+
+       <!-- logout button-->
+       <div class="left-most">
+        <!-- <button class="btn btn-primary" (click)="logout()">
+            <i class="fa fa-sign-in me-2"></i>
+            Logout
+        </button> -->
+        <sdwds-docs-header-profile></sdwds-docs-header-profile>
+    </div>
     </mat-toolbar>
     <div>
       <router-outlet></router-outlet>

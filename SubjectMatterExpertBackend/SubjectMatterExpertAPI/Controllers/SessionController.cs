@@ -152,6 +152,13 @@ namespace SubjectMatterExpertAPI.Controllers
         [HttpGet("most-contacted-smes")]
         public async Task<ActionResult<List<MostContactedSMEDto>>> GetMostContactedSMEs()
         {
+
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            var isUserInLDTeam = await _userManager.IsInRoleAsync(user, "L&D");
+            if (!isUserInLDTeam)
+            {
+                return BadRequest();
+            }
             var topUsers = await _sessionRepository.GetMostContactedSMEsAsync();
 
             if (topUsers == null || !topUsers.Any())
@@ -165,6 +172,12 @@ namespace SubjectMatterExpertAPI.Controllers
         [HttpGet("most-contacted-areas")]
         public async Task<ActionResult<List<MostContactedAreaDto>>> GetMostContactedAreas()
         {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            var isUserInLDTeam = await _userManager.IsInRoleAsync(user, "L&D");
+            if (!isUserInLDTeam)
+            {
+                return BadRequest();
+            }
             var mostContactedAreas = await _sessionRepository.GetMostContactedAreasAsync();
 
             if (!mostContactedAreas.Any())
