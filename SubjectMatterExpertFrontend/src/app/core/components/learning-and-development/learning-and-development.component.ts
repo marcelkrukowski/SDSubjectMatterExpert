@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { ApiService } from '../../services/api.service';
-import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-learning-and-development',
@@ -13,34 +11,54 @@ export class LearningAndDevelopmentComponent {
   smeBarChartOptions : any;
   subjectPieChartOptions : any;
   highcharts : typeof Highcharts = Highcharts;
+  smeAreas : SMEAreas[]=[];
+  SMEContacted: SMEContacted[]=[];
+  subjects : string[]=[];
+  subjectCounts : number[]=[];
+  areaCounts: number[]=[];
+  username : string[]=[];
+  CombinedData : CombinedData[]=[];
 
   constructor(
-    private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute,
     private apiService: ApiService,
-    private router: Router
   ){}
 
   ngOnInit():void{
-    this.smeBarChart();
-    this.subjectBarChart();
 
-    this.apiService.request('mostContactedAreas', 'get')
-    .subscribe((result) => {
-      console.log("Most Contacted Areas: ", result);})
+  
+    this.getMostContactedAreas();
+    this.getMostContactedSme();
+
   }
 
   getMostContactedAreas(){
     this.apiService.request('mostContactedAreas', 'get')
-    .subscribe((result) => {
+    .subscribe((result: {topic:string, count:number}[] | any) => {
       console.log("Most Contacted Areas: ", result);
+      this.smeAreas=result;
+      this.subjects = this.smeAreas.map(entry => entry.topic);
+      this.subjectCounts = this.smeAreas.map(entry => entry.count);
+      console.log("Subjects: ", this.subjects);
+      console.log("Counts: ", this.subjectCounts);
+  
+      this.smeBarChart(); 
+    });
+  }
+  getMostContactedSme(){
+    this.apiService.request('mostContactedSME', 'get')
+    .subscribe((result: {userName:string, count:number}[] | any) => {
+      console.log("Most Contacted Sme: ", result);
+      this.SMEContacted=result;
+      this.username = this.SMEContacted.map(entry => entry.userName);
+      this.areaCounts = this.SMEContacted.map(entry => entry.count);
+      console.log("Username: ", this.username);
+      console.log("Counts: ", this.areaCounts);
+
+      this.subjectBarChart();
     })
   }
 
-  smeBarChart(result: {topic:string, count:number}[]){
-
-    const subjects = result.map(entry => entry.topic);
-    const counts = result.map(entry => entry.count);
+  smeBarChart(){
 
     this.smeBarChartOptions = {
       chart: {
@@ -50,8 +68,11 @@ export class LearningAndDevelopmentComponent {
         text: 'Subjects in which SME has been most contacted!'
       },
       xAxis: {
-        categories : subjects,
-        // categories: ['Programming', 'Payroll', 'Testing', 'Salesforce', 'SAP']
+        categories : this.subjects,
+        
+      },
+      credits:{
+        enabled : false,
       },
       yAxis: {
         title: {
@@ -62,14 +83,7 @@ export class LearningAndDevelopmentComponent {
       series: [{
         name: 'Number of persons who contacted SME for this subject',
         
-        // data: [
-        //   30,
-        //   40,
-        //   20,
-        //   10,
-        //   50
-        // ]
-        data : counts,
+        data : this.subjectCounts,
       }] as Highcharts.SeriesOptionsType[],
       plotOptions: {
         pie: {
@@ -81,24 +95,33 @@ export class LearningAndDevelopmentComponent {
       }
     }
   }
+
 
   subjectBarChart(){
     this.subjectPieChartOptions = {
       chart: {
-        type: 'line',
+        type: 'bar',
       },
       title: {
         text: 'Most Contacted SME'
       },
+      xAxis: {
+        categories : this.username,
+        
+      },
+      credits:{
+        enabled : false,
+      },
+      yAxis: {
+        title: {
+          text: 'Subjects'
+        }
+      },
+      colors: ['#e94e0f'],
       series: [{
-        name: 'Number of person who contacted the SME',
-        data: [
-          { name: 'Henish', y: 30, color: '#e94e0f' },
-          { name: 'Marcel', y: 40, color: '#870b58' },
-          { name: 'Filip', y: 20, color: '#e4003a' },
-          { name: 'Dhananjay', y: 10, color: '#f8ad07' },
-          { name: 'Koushal', y: 5, color: '#aabbcc' },
-        ]
+        name: 'Number of persons who contacted SME for this subject',
+        
+        data: this.areaCounts,
       }] as Highcharts.SeriesOptionsType[],
       plotOptions: {
         pie: {
@@ -110,13 +133,51 @@ export class LearningAndDevelopmentComponent {
       }
     }
   }
+  exportCsv(): void {
+    let csv = 'Most Contacted Subjects,Username,Count of Subjects\n';
 
-    getMostContactedSme(){
-    this.apiService.request('mostContactedSME', 'get')
-    .subscribe((result) => {
-      console.log("Most Contacted Sme: ", result);
-    })
+    for (let i = 0; i < this.subjects.length; i++) {
+        csv += `${this.subjects[i]},${this.subjectCounts[i]}\n`;
+    }
+
+    // Create download link
+    let hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'data.csv';
+    hiddenElement.click();
+}
+
+associateTopicsWithUsernames() {
+  const combinedData: CombinedData[] = [];
+
+  for (let i = 0; i < this.SMEContacted.length; i++) {
+    const sme = this.SMEContacted[i];
+    const area = this.smeAreas[i];
+
+    combinedData.push({
+      topic: area.topic,
+      smeUserName: sme.userName,
+      count: area.count,
+    });
   }
 
+  console.log("Combined Data:", combinedData);
+}
+}
 
+export interface SMEAreas{
+  topic: string;
+  count: number;
+}
+
+export interface SMEContacted{
+  userName: string;
+  count: number;
+}
+
+export interface CombinedData {
+  topic: string;
+  smeUserName: string;
+  count: number;
 }
