@@ -52,6 +52,10 @@ export class ProfilePageComponent implements OnInit {
         if (this.role === 'SME') {
           this.isSME = true;
         }
+        else{
+          this.isSME = false;
+        }
+        
       }
       else {
         this.isSME = false;
