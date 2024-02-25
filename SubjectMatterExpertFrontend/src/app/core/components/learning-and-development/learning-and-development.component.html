@@ -1,0 +1,14 @@
+<h2 class="page-title">Charts</h2>
+<div class="chart-container">
+    <div class="smeChart">
+        <highcharts-chart [Highcharts]="highcharts" [options]="smeBarChartOptions"
+            style="display: block;"></highcharts-chart>
+    </div>
+
+    <div class="subjectChart">
+        <highcharts-chart [Highcharts]="highcharts" [options]="subjectBarChart2Options"
+            style="display: block;"></highcharts-chart>
+    </div>
+
+    <button class="btn-generate" (click)="exportCsv()">Generate Report</button>
+</div>

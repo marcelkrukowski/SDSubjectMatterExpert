@@ -17,8 +17,14 @@ import {ProfilePageComponent} from "./components/profile-page/profile-page.compo
 import { RequestToBeSmeListComponent } from './components/request-to-be-sme-list/request-to-be-sme-list.component';
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {BrowserModule} from "@angular/platform-browser";
+import { LearningAndDevelopmentComponent } from './components/learning-and-development/learning-and-development.component';
+import { HighchartsChartModule } from 'highcharts-angular';
+import { DocumentSessionsComponent } from './components/document-sessions/document-sessions.component';
+import { DocumentSessionsFormComponent } from './components/document-sessions/document-sessions-form/document-sessions-form.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { ViewDetailsModalComponent } from '../shared/components/view-details-modal/view-details-modal.component';
+import { EditDocumentSessionsFormComponent } from './components/document-sessions/edit-document-sessions-form/edit-document-sessions-form.component';
+import { SessionListTemplateComponent } from './shared/session-list-template/session-list-template.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +39,11 @@ import { ViewDetailsModalComponent } from '../shared/components/view-details-mod
     ProfilePageComponent,
     RequestToBeSmeListComponent,
     ForgotPasswordComponent,
+    LearningAndDevelopmentComponent,
+    DocumentSessionsComponent,
+    DocumentSessionsFormComponent,
+    EditDocumentSessionsFormComponent,
+    SessionListTemplateComponent,
   ],
   exports: [
     SmeListComponent,
@@ -45,7 +56,8 @@ import { ViewDetailsModalComponent } from '../shared/components/view-details-mod
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    ViewDetailsModalComponent
+    HighchartsChartModule,
+    ViewDetailsModalComponent,
   ]
 })
 export class CoreModule { }

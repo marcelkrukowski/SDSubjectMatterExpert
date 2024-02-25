@@ -1,0 +1,58 @@
+<div class="container my-5">
+    <div class="card">
+        <form *ngIf="sessionForm" [formGroup]="sessionForm">
+            <div class="card-header">
+                <i  class="icons8-o-details"></i>
+                Log Details
+            </div>
+    
+            <div class="card-body">
+                   
+                <div class="mb-3">
+                    <label for="colleagues" class="form-label">Trainees</label>
+                    <input type="text" formControlName="colleagues" class="form-control" id="colleagues" placeholder="Please Enter firstname and lastname!"
+                        [ngClass]="{'is-invalid': sessionForm.controls['colleagues'].invalid && sessionForm.controls['colleagues'].dirty,
+                                     'is-valid': sessionForm.controls['colleagues'].valid && sessionForm.controls['colleagues'].dirty && sessionForm.controls['colleagues'].value}">
+                    <span *ngIf="sessionForm.controls['colleagues'].hasError('pattern') && sessionForm.controls['colleagues'].dirty"
+                          class="text-danger">Only alphabets are allowed!</span>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="topic" class="form-label">Topic<sup class="text-danger">*</sup></label>
+                    <input type="text" formControlName="topic" class="form-control" id="topic" placeholder="Enter only alphabets and no numbers!"
+                        [ngClass]="{'is-invalid': (sessionForm.controls['topic'].invalid && sessionForm.controls['topic'].dirty) || sessionForm.controls['topic'].hasError('pattern'),
+                                    'is-valid': sessionForm.controls['topic'].valid}">
+                    <span *ngIf="sessionForm.controls['topic'].invalid && sessionForm.controls['topic'].dirty && !sessionForm.controls['topic'].hasError('pattern')"
+                        class="text-danger">Topic is required!</span>
+                    <span *ngIf="sessionForm.controls['topic'].hasError('pattern') && sessionForm.controls['topic'].dirty && !sessionForm.controls['topic'].hasError('specialCharacters')"
+                        class="text-danger">Invalid Format</span>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="subTopic" class="form-label">Sub Topic<sup class="text-danger">*</sup></label>
+                    <input type="text" formControlName="subTopic" class="form-control" id="subTopic" placeholder="Enter only alphabets and no numbers!"
+                        [ngClass]="{'is-invalid': sessionForm.controls['subTopic'].invalid && sessionForm.controls['subTopic'].dirty,
+                                    'is-valid': sessionForm.controls['subTopic'].valid}">
+                    <span *ngIf="sessionForm.controls['subTopic'].invalid && sessionForm.controls['subTopic'].dirty && !sessionForm.controls['subTopic'].hasError('pattern') && !sessionForm.controls['subTopic'].hasError('specialCharacters')"
+                        class="text-danger">Sub Topic is required!</span>
+                    <span *ngIf="sessionForm.controls['subTopic'].hasError('pattern') && sessionForm.controls['subTopic'].dirty && !sessionForm.controls['subTopic'].hasError('specialCharacters')"
+                        class="text-danger">Invalid Format</span>
+                </div>                
+                
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description<sup class="text-danger">*</sup></label>
+                    <textarea formControlName="description" class="form-control" id="description" placeholder="..." [ngClass]="{'is-invalid': sessionForm.controls['description'].invalid && sessionForm.controls['description'].dirty,
+                    'is-valid': sessionForm.controls['description'].valid}"></textarea>
+                    <span *ngIf="sessionForm.controls['description'].invalid && sessionForm.controls['description'].dirty"
+                        class="text-danger">Description is required!</span>
+                </div>
+    
+                <div class="mb-3 text-center">
+                    <button class="btn-primary" [disabled]="sessionForm.invalid" (click)="saveLog()">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+.page-title {
+    padding: 2rem;
+}
+
+.chart-container {
+    display: block;
+}
+
+.smeChart{
+    width: 100%;
+    height: 500px;
+    box-sizing: border-box;
+    margin-left: 1%;
+    margin-right: 2%;
+}
+
+.subjectChart {
+    width: 100%;
+    height: 500px;
+    box-sizing: border-box;
+    margin-right: 1%;
+}
+
+@media (min-width: 768px) {
+    .smeChart,
+    .subjectChart {
+        width: 48%;
+        float: left;
+        margin-right: 2%;
+    }
+
+    .subjectChart {
+        margin-right: 0;
+    }
+}
+
+.btn-generate{
+    float: right;
+    margin-right: 10px;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 5px 10px;
+    background-color: #ed703d;
+    color: white;
+    border: none;
+}
+
+.btn-generate:hover{
+    background-color: #f1916a;
+}
+
+@media (max-width: 767px) {
+    .btn-generate {
+        float: none;
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        margin-left: 20px;
+    }
+}
+
+@media (min-width: 1500px) {
+    .btn-generate{
+        float: right;
+        margin-right: 10px;
+        margin-top: 13rem;
+        border-radius: 10px;
+        font-size: 18px;
+        padding: 5px 10px;
+        background-color: #ed703d;
+        color: white;
+        border: none;
+    }
+}

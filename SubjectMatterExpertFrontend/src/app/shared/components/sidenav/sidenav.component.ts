@@ -15,6 +15,7 @@ export class SidenavComponent implements OnInit{
 
   isAgileCoach: boolean = true;
 
+
   isCollapsed: boolean = false;
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
@@ -88,9 +89,21 @@ export class SidenavComponent implements OnInit{
 
   hasAgileCoachRole(user: any): boolean {
     const userRoles = user.userRoles;
- 
-    // Check if the "AgileCoach" role is present in the array
+    // console.log("helloooo: ", userRoles && userRoles.some((role: { role: string }) => role.role === 'AgileCoach'));
     return userRoles && userRoles.some((role: { role: string }) => role.role === 'AgileCoach');
+
+  }
+
+  hasSMERole(user: any): boolean {
+    const userRoles = user.userRoles;
+    // console.log("Heloooooo: ", userRoles && userRoles.some((role: { role: string }) => role.role === 'SME'));
+    return userRoles && userRoles.some((role: { role: string }) => role.role === 'SME');
+  }
+
+  hasLDRole(user: any): boolean {
+    const userRoles = user.userRoles;
+    // console.log("Heloooooo: ", userRoles && userRoles.some((role: { role: string }) => role.role === 'L&D'));
+    return userRoles && userRoles.some((role: { role: string }) => role.role === 'L&D');
   }
 
 }

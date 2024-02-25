@@ -13,6 +13,11 @@ export class ApiService {
     login : `${environment.apiUrl}/api/Account/login`,
     profile : `${environment.apiUrl}/api/Users`,
     currentProfile : (id : number) => `${environment.apiUrl}/api/Users/${id}`,
+    createSession : `${environment.apiUrl}/api/Session/create-session`,
+    sessionList : `${environment.apiUrl}/api/Session/user-sessions-details`,
+    editSession : (sessionId : number) => `${environment.apiUrl}/api/Session/update-session/${sessionId}`,
+    mostContactedSME : `${environment.apiUrl}/api/Session/most-contacted-smes`,
+    mostContactedAreas : `${environment.apiUrl}/api/Session/most-contacted-areas`,
     editProfile : `${environment.apiUrl}/api/Account/update-user-details`,
     createRequestToBeSme : `${environment.apiUrl}/api/Request/create-request`,
     viewUserRequestDetails : (username : string) => `${environment.apiUrl}/api/Users/username-details/${username}`,
@@ -28,4 +33,4 @@ export class ApiService {
   }
 }
 
-export type endpointType = 'login' |'profile' | 'currentProfile' | 'editProfile' |  'createRequestToBeSme' | 'pendingRequestToBeSme' | 'viewUserRequestDetails' |'acceptRequestToBeSme' | 'declineRequestToBeSme';
+export type endpointType = 'login' |'profile' | 'currentProfile' | 'editProfile' | 'createSession' | 'sessionList' | 'editSession' | 'mostContactedSME' | 'mostContactedAreas' | 'createRequestToBeSme' | 'pendingRequestToBeSme' | 'acceptRequestToBeSme' | 'declineRequestToBeSme' | 'viewUserRequestDetails' ;
