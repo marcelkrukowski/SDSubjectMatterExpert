@@ -1,5 +1,13 @@
 <div class="profile-container" *ngIf="(userDetails$ | async) as user">
   <div *ngIf="!editMode">
+    <div class="spinner-container" >
+      <div class="spinner shake" *ngIf="isLoading">
+        <div class="dot-primary"></div>
+        <div class="dot-accent"></div>
+        <div class="dot-red-brand"></div>
+        <div class="dot-yellow-brand"></div>
+      </div>
+    </div>
     <div class="profile-heading">
 
       <h1>Personal Details</h1>

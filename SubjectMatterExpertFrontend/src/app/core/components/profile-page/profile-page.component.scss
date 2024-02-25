@@ -42,10 +42,6 @@
   color: #7f8594;
 }
 
-
-
-
-
 //Style modal
 .custom-modal-dialog {
 max-width: 600px; 
@@ -99,22 +95,16 @@ input {
   border: 1px solid black;
   border-radius: 0.5rem;
   box-sizing: border-box;
-  // box-shadow: 8px 6px 17px -11px rgba(66, 68, 90, 1);
 }
 
 .card-container {
   display: flex;
   justify-content: center;
-  // align-items: center;
-  
-
 
   .card {
-      // background-color: #ffffff;
       border: 1px solid #e94e0f;
       border-radius: 2rem;
       padding: 2rem 2rem 1rem 2rem;
-      // box-shadow: 8px 8px 30px -1px rgba(66, 68, 90, 1);
       text-align: center;
       min-width: 50vw;
   }

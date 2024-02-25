@@ -3,63 +3,43 @@
     <h1 class="list-header">SME List</h1>
     <div class="flex-container">
       <div class="cards">
-      <ng-container *ngIf="(pendingRequestsWithUserDetails$ | async)?.length; else noResultTemplate">
-        <article class="sme-card" *ngFor="let request of pendingRequestsWithUserDetails$ | async">
+        <ng-container *ngIf="(pendingRequestsWithUserDetails$ | async)?.length; else noResultTemplate">
+          <article class="sme-card" *ngFor="let request of pendingRequestsWithUserDetails$ | async">
+            <img src={{request.userDetails.photo?.uri}} alt="{{ request.userName }} Avatar" class="sme-avatar">
 
-          <!-- <img src="{{request.photo?.uri}}" alt="{{ request.userName }} Avatar" class="request-avatar"> -->
-          <img src={{request.userDetails.photo?.uri}} alt="{{ request.userName }} Avatar"
-            class="sme-avatar">
-
-
-              
-          <div class="request-details">
-            <h1> {{request.firstname}} {{request.lastname}}</h1>
-            <!-- <h1> {{request.userDetails | json}}</h1> -->
-            <div class="alert alert-lighter alert-danger">
-              <div class="alert-icon-functional"></div>
-              <div class="alert-content">
-                <div class="h6 alert-heading"><b>Requesting to be SME in:</b></div>
-                <div class="text">
-
-
-                  <ul>
-                    <li *ngFor="let area of request.areasOfExpertise">{{ area.expertiseArea }}</li>
-                  </ul>              </div>
+            <div class="request-details">
+              <h1> {{request.firstname}} {{request.lastname}}</h1>
+              <div class="alert alert-lighter alert-danger">
+                <div class="alert-icon-functional"></div>
+                <div class="alert-content">
+                  <div class="h6 alert-heading"><b>Requesting to be SME in:</b></div>
+                  <div class="text">
+                    <ul>
+                      <li *ngFor="let area of request.areasOfExpertise">{{ area.expertiseArea }}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            
-            
+            <div class="sme-action-accept-decline">
+              <div class="book-container">
+                <app-sdworx-modal [item]="request.userDetails"></app-sdworx-modal>
 
-              
-
-              
-              <!-- <app-display-details-modal [item]="request"></app-display-details-modal> -->
-
-
-              <!-- <ng-container *ngFor="let area of request.areasOfExpertise; let last = last">
-                {{ area.expertiseArea }}{{ !last ? ', ' : '' }}
-              </ng-container> -->
+              </div>
             </div>
-          </div>
-          
-          <div class="sme-action-accept-decline">
-            <div class="book-container">
-          <app-sdworx-modal [item]="request.userDetails"></app-sdworx-modal>
-          
-            </div>
-          </div>
 
-          <div class="sme-action-accept-decline">
-            <div class="book-container">
-             
+            <div class="sme-action-accept-decline">
+              <div class="book-container">
 
-              <button class="btn btn-primary" (click)="Accept(request.requestId)">Accept</button>
-              <button class="btn btn-secondary" (click)="Decline(request.requestId)">Decline</button>
+
+                <button class="btn btn-primary" (click)="Accept(request.requestId)">Accept</button>
+                <button class="btn btn-secondary" (click)="Decline(request.requestId)">Decline</button>
+              </div>
             </div>
-          </div>
-        </article>
-      </ng-container>
-    </div>
+          </article>
+        </ng-container>
+      </div>
       <ng-template #noResultTemplate>
         <div class="no-results">No results</div>
       </ng-template>
