@@ -19,8 +19,7 @@ import {ForgotPasswordComponent} from "./components/forgot-password/forgot-passw
 import {BrowserModule} from "@angular/platform-browser";
 import { CoreRoutingModule } from './core-routing.module';
 import { EditPictureTemplateComponent } from '../shared/components/edit-picture-template/edit-picture-template.component';
-import { DisplayDetailsModalComponent } from '../shared/components/display-details-modal/display-details-modal.component';
-import { SdworxModalComponent } from '../shared/components/sdworx-modal/sdworx-modal.component';
+import { ViewDetailsModalComponent } from '../shared/components/view-details-modal/view-details-modal.component';
 
 @NgModule({
   declarations: [
@@ -48,8 +47,7 @@ import { SdworxModalComponent } from '../shared/components/sdworx-modal/sdworx-m
     FormsModule,
     NgbModule,
     EditPictureTemplateComponent,
-    DisplayDetailsModalComponent,
-    SdworxModalComponent
+    ViewDetailsModalComponent
   ]
 })
 export class CoreModule { }

@@ -100,6 +100,8 @@ export class HeaderProfileComponent implements OnInit {
     this.pendingSmeRequestService.getPendingSmeRequest().subscribe((data: any[]) => {
       if (data && data.length > 0) {
         // Trigger a notification to alert the user about pending requests
+        console.log("aaaaaaaa", this.pendingSmeRequestService);
+        
         this.notification = true;
         // You can also navigate the user to a specific page to handle these requests
       }

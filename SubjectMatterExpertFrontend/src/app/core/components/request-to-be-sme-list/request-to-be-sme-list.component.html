@@ -13,18 +13,26 @@
 
               
           <div class="request-details">
-            <h1> {{request.userName}}</h1>
+            <h1> {{request.firstname}} {{request.lastname}}</h1>
             <!-- <h1> {{request.userDetails | json}}</h1> -->
+            <div class="alert alert-lighter alert-danger">
+              <div class="alert-icon-functional"></div>
+              <div class="alert-content">
+                <div class="h6 alert-heading"><b>Requesting to be SME in:</b></div>
+                <div class="text">
+
+
+                  <ul>
+                    <li *ngFor="let area of request.areasOfExpertise">{{ area.expertiseArea }}</li>
+                  </ul>              </div>
+            </div>
+
+            
             
 
-            <p>Requesting to be SME in:</p>
-            <div class="text">
+              
 
-
-              <ul>
-                <li *ngFor="let area of request.areasOfExpertise">{{ area.expertiseArea }}</li>
-              </ul>
-              <app-sdworx-modal [item]="request.userDetails"></app-sdworx-modal>
+              
               <!-- <app-display-details-modal [item]="request"></app-display-details-modal> -->
 
 
@@ -34,10 +42,17 @@
             </div>
           </div>
           
-
+          <div class="sme-action-accept-decline">
+            <div class="book-container">
+          <app-sdworx-modal [item]="request.userDetails"></app-sdworx-modal>
+          
+            </div>
+          </div>
 
           <div class="sme-action-accept-decline">
             <div class="book-container">
+             
+
               <button class="btn btn-primary" (click)="Accept(request.requestId)">Accept</button>
               <button class="btn btn-secondary" (click)="Decline(request.requestId)">Decline</button>
             </div>

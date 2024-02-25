@@ -19,7 +19,6 @@ import {SidenavComponent} from "./shared/components/sidenav/sidenav.component";
 import {interceptorsProviders} from "./core/interceptor/interceptor";
 import { HeaderProfileComponent } from './shared/components/header-profile-component/header-profile-component.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
-import { SdworxModalComponent } from './shared/components/sdworx-modal/sdworx-modal.component';
 
 @NgModule({
   declarations: [
