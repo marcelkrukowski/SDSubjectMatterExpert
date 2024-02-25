@@ -74,7 +74,7 @@ namespace SubjectMatterExpertAPI.Controllers
 
         }
 
-        [HttpPut("update-session")]
+        [HttpPut("update-session/{sessionId}")]
         public async Task<ActionResult<SessionDto>> EditSession(int sessionId, [FromBody] SessionInputDto updatedSessionDto)
         {
             var session = await _sessionRepository.GetSessionByIdAsync(sessionId);
@@ -87,12 +87,12 @@ namespace SubjectMatterExpertAPI.Controllers
             var isUserInSmeRole = await _userManager.IsInRoleAsync(user, "SME");
             if (!isUserInSmeRole)
             {
-                return BadRequest("AHAHAHAHHAHAHA TEST");
+                return BadRequest("");
             }
 
             if  (user.Sessions.All(s => s.Id != session.Id))
             {
-                return BadRequest("Test 2");
+                return BadRequest("");
             }
 
             session.Topic = updatedSessionDto.Topic;

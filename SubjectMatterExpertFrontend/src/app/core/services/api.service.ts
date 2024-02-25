@@ -15,7 +15,7 @@ export class ApiService {
     currentProfile : (id : number) => `${environment.apiUrl}/api/Users/${id}`,
     createSession : `${environment.apiUrl}/api/Session/create-session`,
     sessionList : `${environment.apiUrl}/api/Session/user-sessions-details`,
-    editSession : `${environment.apiUrl}/api/Session/update-session`,
+    editSession : (sessionId : number) => `${environment.apiUrl}/api/Session/update-session/${sessionId}`,
     mostContactedSME : `${environment.apiUrl}/api/Session/most-contacted-smes`,
     mostContactedAreas : `${environment.apiUrl}/api/Session/most-contacted-areas`,
     editProfile : `${environment.apiUrl}/api/Account/update-user-details`,
