@@ -140,5 +140,10 @@ export class SmeListComponent implements OnInit {
     // Instead of calling updatePagination, we emit the current page to recalculate the items per page
     this.currentPage.next(this.currentPage.value);
   }
+
+  openTeamsMeeting() {
+    const teamsMeetingLink = `msteams:/l/meeting/new?`;
+    window.location.href = teamsMeetingLink;
+}
 }
 

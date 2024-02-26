@@ -29,7 +29,7 @@
 // }
 
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 // Import necessary for ng-bootstrap
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
@@ -44,11 +44,11 @@ export class SmeBookMeetingComponent {
 
   constructor(private fb: FormBuilder, private calendar: NgbCalendar) {
     this.meetingForm = this.fb.group({
-      title: [''],
-      attendees: [''],
+      title: ['', Validators.required],
+      attendees: ['', Validators.required],
       date: [''], // This will be updated via the datepicker
-      startTime: ['08:00'],
-      endTime: ['08:00'],
+      startTime: [''],
+      endTime: [''],
       location: [''],
       onlineMeeting: [false],
       description: ['']
@@ -77,7 +77,7 @@ export class SmeBookMeetingComponent {
 
     const attendeesArray = (formData.attendees as string).split(',').map((email: string) => email.trim());
 
-    const teamsMeetingLink = `msteams:/l/meeting/new?subject=${formData.title}&attendees=${formData.attendees}&location=${formData.location}&description=${formData.description}`;
+    const teamsMeetingLink = `msteams:/l/meeting/new?subject=${formData.title}&attendees=${formData.attendees}&location=${formData.location}&description=${formData.description}&startTime=${formData.startTime}&endTime=${formData.endTime}&date=${formData.date}`;
     window.location.href = teamsMeetingLink;
     
   }
