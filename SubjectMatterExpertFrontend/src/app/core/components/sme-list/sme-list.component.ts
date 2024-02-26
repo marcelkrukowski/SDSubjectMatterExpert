@@ -46,7 +46,7 @@ export class SmeListComponent implements OnInit {
       map(([smes, country, expertise, searchQuery, page]) => {
         const filtered = smes.filter(sme =>
           (!country || sme.location === country) &&
-          (!expertise || sme.areaOfExpertise?.some(exp => exp.expertiseArea?.toLowerCase().includes(expertise.toLowerCase()))) &&
+          (!expertise || sme.areasOfExpertise?.some(exp => exp.expertiseArea?.toLowerCase().includes(expertise.toLowerCase()))) &&
           (!searchQuery || sme.userName?.toLowerCase().includes(searchQuery.toLowerCase()))
         );
 
@@ -75,7 +75,7 @@ export class SmeListComponent implements OnInit {
 
       smes.forEach(sme => {
         if (sme.location) countrySet.add(sme.location);
-        sme.areaOfExpertise?.forEach(expertise => {
+        sme.areasOfExpertise?.forEach(expertise => {
           if (expertise.expertiseArea) expertiseSet.add(expertise.expertiseArea);
         });
       });

@@ -12,8 +12,13 @@
         <article class="sme-card" *ngFor="let sme of filteredSmeList$ | async">
           <img src="{{sme.photo?.uri}}" alt="{{ sme.userName }} Avatar" class="sme-avatar">
           <div class="sme-details">
-            <h2>{{ sme.userName }}</h2>
-            <p>Expertise: {{ sme.areaOfExpertise }}</p>
+            <h2>{{ sme.firstname }} {{sme.lastname}} </h2>
+            <p><span class="label">Expert in:</span>
+              <ng-container *ngFor="let exp of sme.areasOfExpertise; let last = last">
+                {{ exp.expertiseArea }}{{ !last ? ', ' : '' }}
+              </ng-container>
+            </p>
+
             <p>Country: {{ sme.location }}</p>
             <button class="btn btn-secondary">View Profile</button>
           </div>
