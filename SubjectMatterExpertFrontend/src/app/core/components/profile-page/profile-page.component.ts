@@ -19,6 +19,7 @@ export class ProfilePageComponent implements OnInit {
   SMEForm?: FormGroup;
   profileForm!: FormGroup;
   isModalOpen: boolean = false;
+  public isEmailValid? = false;
 
   public isLoading = false;
 
@@ -76,12 +77,23 @@ export class ProfilePageComponent implements OnInit {
     })
 
     this.profileForm = this.formBuilder.group({
-      firstName: [''],
-      lastName: [''],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       location: [''],
       languages: [''],
     })
+
+    this.profileForm.valueChanges.subscribe(() => {
+      this.updateValidity();
+    });
+
+    
+
+  }
+
+  updateValidity(): void {
+    this.isEmailValid = this.profileForm.get('email')?.valid;
 
   }
 
