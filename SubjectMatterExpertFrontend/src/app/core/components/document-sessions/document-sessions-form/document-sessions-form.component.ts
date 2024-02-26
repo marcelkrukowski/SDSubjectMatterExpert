@@ -56,37 +56,37 @@ export class DocumentSessionsFormComponent implements OnInit {
       });
     }
 
-  saveLog() {
-
-    const Array = this.sessionForm?.value.colleagues.split(',').map((fullName: string) => {     
-      const [firstName, lastName] = fullName.trim().split(' ');     
-      return { firstName, lastName };   
-    });
-
-    console.log('Languages Array:', Array);
-
-    const formData = {
-      colleagues: Array,
-      topic: this.sessionForm?.value.topic,
-      subTopic: this.sessionForm?.value.subTopic,
-      description: this.sessionForm?.value.description,
-      // colleagues: this.sessionForm?.value.colleagues,
-    };
-    console.log("Form Details: ", formData);
-
-
-    this.apiService.request('createSession', 'post', formData).subscribe((result: any) => {
-      console.log("SME form result: ", result);
-          if (result) {
-            Swal.fire(
-              'Success',
-              'You have successfully added a session!',
-              'success'
-            ).then((swalResult) => {
-              if (swalResult.value) this.router.navigate(['/document-session']);
-            });
-          }
-        },
-      );
-  }
+    saveLog() {
+      // Splitting and mapping colleagues only if it is provided
+      const colleaguesArray = this.sessionForm?.value.colleagues
+        ? this.sessionForm?.value.colleagues.split(',').map((fullName: string) => {
+            const [firstName, lastName] = fullName.trim().split(' ');
+            return { firstName, lastName };
+          })
+        : [{ firstName: 'Anonymous', lastName: 'Anonymous' }];
+    
+      console.log('Languages Array:', colleaguesArray);
+    
+      const formData = {
+        colleagues: colleaguesArray,
+        topic: this.sessionForm?.value.topic,
+        subTopic: this.sessionForm?.value.subTopic,
+        description: this.sessionForm?.value.description,
+      };
+    
+      console.log("Form Details: ", formData);
+    
+      this.apiService.request('createSession', 'post', formData).subscribe((result: any) => {
+        console.log("SME form result: ", result);
+        if (result) {
+          Swal.fire(
+            'Success',
+            'You have successfully added a session!',
+            'success'
+          ).then((swalResult) => {
+            if (swalResult.value) this.router.navigate(['/document-session']);
+          });
+        }
+      });
+    }
 }

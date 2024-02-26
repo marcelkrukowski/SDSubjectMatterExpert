@@ -9,15 +9,6 @@
             <div class="card-body">
                    
                 <div class="mb-3">
-                    <label for="colleagues" class="form-label">Trainees</label>
-                    <input type="text" formControlName="colleagues" class="form-control" id="colleagues"
-                        [ngClass]="{'is-invalid': sessionForm.controls['colleagues'].invalid && sessionForm.controls['colleagues'].dirty,
-                                     'is-valid': sessionForm.controls['colleagues'].valid && sessionForm.controls['colleagues'].dirty && sessionForm.controls['colleagues'].value}">
-                    <span *ngIf="sessionForm.controls['colleagues'].hasError('pattern') && sessionForm.controls['colleagues'].dirty"
-                          class="text-danger">Only alphabets are allowed!</span>
-                </div>
-                
-                <div class="mb-3">
                     <label for="topic" class="form-label">Topic<sup class="text-danger">*</sup></label>
                     <input type="text" formControlName="topic" class="form-control" id="topic"
                         [ngClass]="{'is-invalid': (sessionForm.controls['topic'].invalid && sessionForm.controls['topic'].dirty) || sessionForm.controls['topic'].hasError('pattern'),

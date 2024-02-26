@@ -18,7 +18,7 @@
 <!--      <input formControlName="date" placeholder="Date" type="date">-->
 <!--    </div>-->
     <div class="form-group">
-      <label>Start Time</label>
+      <label>Date</label>
       <div class="input-group">
 
         <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker" (dateSelect)="onDateSelect($event)" />
@@ -35,23 +35,6 @@
       <label>End Time</label>
       <input formControlName="endTime" type="time">
     </div>
-  </div>
-
-  <div class="location-wrapper">
-    <div class="location">
-      <label>Add Location</label>
-      <input formControlName="location" placeholder="Add Location" type="text">
-    </div>
-
-    <div class="location-checkbox">
-      <input type="checkbox" formControlName="onlineMeeting" id="isOnline" />
-      <label for="isOnline">Online meeting</label>
-    </div>
-  </div>
-
-  <div>
-    <label>Description</label>
-    <textarea formControlName="description" placeholder="Description"></textarea>
   </div>
 
   <div class="button-container">
