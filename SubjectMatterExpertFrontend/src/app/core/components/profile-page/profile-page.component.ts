@@ -7,7 +7,6 @@ import { UserDetailsService } from "../../services/user-details.service";
 import { Observable } from "rxjs";
 import { User, languageName } from "../../../../models/user.model";
 import { ApiService } from '../../services/api.service';
-import { SdwdsHeaderProfileComponent } from '@sdworx/sdwds/header-profile';
 
 
 @Component({
@@ -20,10 +19,10 @@ export class ProfilePageComponent implements OnInit {
   SMEForm?: FormGroup;
   profileForm!: FormGroup;
   isModalOpen: boolean = false;
+  public isEmailValid? = false;
 
-  
+  public isLoading = false;
 
-  //profile form var
   firstName: string = '';
   lastName: string = '';
   email: string = '';
@@ -39,26 +38,31 @@ export class ProfilePageComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
     this.userDetails$ = this.userService.getUserDetails();
 
-    this.userDetails$.subscribe(e => {
-      console.log("User details: ", e)
-    });
-
+    this.isLoading = true;
+    if(this.isLoading===true){
+      console.log("ss");
+      
+    }
     this.userDetails$.subscribe(e => {
       if (e.userRoles.length > 1) {
-        this.role = e.userRoles[1].role
+        this.role = e.userRoles[1].role   //could have looped though the array to find the user role instead
         console.log(this.role);
         if (this.role === 'SME') {
           this.isSME = true;
+          this.isLoading = false;
         }
         else{
           this.isSME = false;
+          this.isLoading = false;
         }
         
       }
       else {
         this.isSME = false;
+        this.isLoading = false;
       }
 
 
@@ -73,12 +77,23 @@ export class ProfilePageComponent implements OnInit {
     })
 
     this.profileForm = this.formBuilder.group({
-      firstName: [''],
-      lastName: [''],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       location: [''],
       languages: [''],
     })
+
+    this.profileForm.valueChanges.subscribe(() => {
+      this.updateValidity();
+    });
+
+    
+
+  }
+
+  updateValidity(): void {
+    this.isEmailValid = this.profileForm.get('email')?.valid;
 
   }
 
@@ -126,9 +141,6 @@ export class ProfilePageComponent implements OnInit {
 
       //because languages is an array
       const languageNames = this.languages.map(language => language.languageName);
-
-
-
       this.profileForm?.patchValue({
         firstName: this.firstName,
         lastName: this.lastName,
@@ -147,19 +159,8 @@ export class ProfilePageComponent implements OnInit {
   saveChanges() {
     // Disable editing mode after saving
     this.editMode = false;
-    // this.isSaveButtonVisible = false;
-    // this.isSMEButtonVisible = true;
-
-
-    console.log("This is the current id: " + this.currentID);
-
-    console.log("Profile form: " + this.profileForm.value);
-
     this.apiService.request('editProfile', 'put', this.profileForm?.value).subscribe();
-
     window.location.reload();
-
-
   }
 
   cancelChanges() {
@@ -210,18 +211,8 @@ export class ProfilePageComponent implements OnInit {
           'error'
         );
       }
-    }
-    
-    );
+    });
   }
-
-
-
-
-
-
-
-  
 }
 
 

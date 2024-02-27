@@ -51,7 +51,7 @@ export interface SME {
   email?: string;
   languages?: Language[];
   location: string;
-  areaOfExpertise: AreaOfExpertise[];
+  areasOfExpertise: { expertiseArea: string }[];
   timeSlots?: TimeSlot[];
   sessions?: Session[];
   request?: Request;

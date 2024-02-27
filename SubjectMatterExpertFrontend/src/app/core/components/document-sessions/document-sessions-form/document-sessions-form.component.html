@@ -48,7 +48,7 @@
                 </div>
     
                 <div class="mb-3 text-center">
-                    <button class="btn-primary" [disabled]="sessionForm.invalid" (click)="saveLog()">
+                    <button class="btn-primary" [disabled]="sessionForm.get('topic')!.invalid || sessionForm.get('subTopic')!.invalid || sessionForm.get('description')!.invalid" (click)="saveLog()">
                         Save
                     </button>
                 </div>
