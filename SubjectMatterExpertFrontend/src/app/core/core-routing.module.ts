@@ -19,11 +19,11 @@ import { EditDocumentSessionsFormComponent } from './components/document-session
 // TODO: add 404 page & redirect user there if no URL was matched.
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent },
-  {path: 'home', component: HomepageComponent },
+  // {path: 'home', component: HomepageComponent },
+  {path: 'sme-list', component: SmeListComponent},
   {path: 'register', component: RegisterFirstPageComponent },
   {path: 'register-second', component: RegisterSecondPageComponent},
   {path: 'register-final', component: RegisterFinalPageComponent},
-  {path: 'sme-list', component: SmeListComponent},
   {path: 'sme-book-meeting', component: SmeBookMeetingComponent},
   {path: 'profile', component: ProfilePageComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},

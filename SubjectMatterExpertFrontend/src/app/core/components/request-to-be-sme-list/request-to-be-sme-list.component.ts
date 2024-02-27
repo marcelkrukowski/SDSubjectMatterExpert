@@ -44,13 +44,6 @@ export class RequestToBeSmeListComponent implements OnInit {
 
     });
 
-
-    this.viewUserDetailsService.getUserDetailsByUsername('exampleuser2')
-      .subscribe(user => {
-        console.log("User detailsSSSSSSSSSSS:", user);
-      });
-
-
       this.pendingRequestsWithUserDetails$ = this.pendingSmeRequest$.pipe(
         switchMap(pendingRequests => {
           // Extracting usernames from pendingRequests
@@ -239,31 +232,6 @@ Decline(requestId: number) {
     console.log("Rejecting request with ID:", requestId);
     this.apiService.request('declineRequestToBeSme', 'post', undefined, requestId).subscribe();
   }
-
-  // Accept(requestId: number) {
-  //   Swal.fire('Success', 'Request accepted successfully', 'success').then(swalResult => {
-  //     console.log("SwalResult:", swalResult);
-  //   }).then((result) => {
-  //     this.Save(requestId);
-  //     window.location.reload(); // Reload the page
-
-  //   });
-  // }
-
-
-  
-
-  // Decline(requestId: number) {
-  //   Swal.fire('Success', 'Request declined successfully', 'success').then(swalResult => {
-  //     console.log("SwalResult:", swalResult);
-  //   }).then((result) => {
-  //     this.Reject(requestId);
-  //     window.location.reload(); // Reload the page
-
-  //   });
-
-  // }
-
 }
 
 

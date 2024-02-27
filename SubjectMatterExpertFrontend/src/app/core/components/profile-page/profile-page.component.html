@@ -1,5 +1,13 @@
 <div class="profile-container" *ngIf="(userDetails$ | async) as user">
   <div *ngIf="!editMode">
+    <div class="spinner-container" >
+      <div class="spinner shake" *ngIf="isLoading">
+        <div class="dot-primary"></div>
+        <div class="dot-accent"></div>
+        <div class="dot-red-brand"></div>
+        <div class="dot-yellow-brand"></div>
+      </div>
+    </div>
     <div class="profile-heading">
 
       <h1>Personal Details</h1>
@@ -56,18 +64,24 @@
         <img [src]="user.photo?.uri || '/assets/graphic-abstract/Illustrations_Man_Laptop.png'" alt="User Avatar"
         class="avatar">
 
-        <label for="editFullName" class="form-label">Edit Full Name </label>
+        <label for="editFullName" class="form-label">Edit First Name </label>
         <input type="text" formControlName="firstName" class="form-control" id="firstName">
+        <div *ngIf="profileForm.get('firstName')?.invalid && (profileForm.get('firstName')?.dirty || profileForm.get('firstName')?.touched)"
+           class="text-danger">First name is required.</div>
       </div>
 
       <div class="form-group">
         <label for="editLastName" class="form-label">Edit Last Name</label>
         <input type="text" formControlName="lastName" class="form-control" id="lastName">
+        <div *ngIf="profileForm.get('lastName')?.invalid && (profileForm.get('lastName')?.dirty || profileForm.get('lastName')?.touched)"
+           class="text-danger">Last name is required.</div>
       </div>
 
       <div class="form-group">
         <label for="editEmail" class="form-label">Edit Email</label>
         <input type="text" formControlName="email" class="form-control" id="email">
+        <div *ngIf="profileForm.get('email')?.invalid && (profileForm.get('email')?.dirty || profileForm.get('email')?.touched)"
+        class="text-danger">Invalid email.</div>
       </div>
       <!-- <div class="form-group"  *ngIf="isSME">
         <label for="editLocation" class="form-label">Edit Location</label>
@@ -88,7 +102,7 @@
         <button class="btn btn-secondary profile-button" type="button" (click)="cancelChanges()">Cancel</button>
       </div>
       <div class="col-auto">
-        <button class="btn btn-primary profile-button" type="button" (click)="saveChanges()">Save</button>
+        <button class="btn btn-primary profile-button" type="button" [disabled]="profileForm.invalid" (click)="saveChanges()">Save</button>
       </div>
     </div>
   </div>
@@ -117,13 +131,10 @@
     <div class="modal-content custom-modal-content card card-body">
       <form *ngIf="SMEForm" [formGroup]="SMEForm">
         <div class="form-group row mt-4">
-          <div class="col-md-6">
-          </div>
+          <div class="col-md-6"></div>
           <div class="col-md-6">
             <h6 class="modal-title">SME Profile Registration Form</h6>
-            <div class="text-black-50">Please fill this form to register as an SME. Your Agile Coach will be notified to
-              approve or decline your
-              request.</div>
+            <div class="text-black-50">Please fill this form to register as an SME. Your Agile Coach will be notified to approve or decline your request.</div>
           </div>
         </div>
         <!-- Area of expertise -->
@@ -133,6 +144,8 @@
           </div>
           <div class="col-md-6">
             <input type="text" formControlName="areasOfExpertise" class="form-control" id="areasOfExpertise">
+            <div *ngIf="SMEForm.get('areasOfExpertise')?.invalid && (SMEForm.get('areasOfExpertise')?.dirty || SMEForm.get('areasOfExpertise')?.touched)"
+                 class="text-danger">Areas of expertise are required.</div>
           </div>
         </div>
         <!-- Location -->
@@ -142,6 +155,8 @@
           </div>
           <div class="col-md-6">
             <input type="text" formControlName="location" class="form-control" id="location">
+            <div *ngIf="SMEForm.get('location')?.invalid && (SMEForm.get('location')?.dirty || SMEForm.get('location')?.touched)"
+                 class="text-danger">Location is required.</div>
           </div>
         </div>
         <!-- Languages -->
@@ -151,6 +166,8 @@
           </div>
           <div class="col-md-6">
             <input type="text" formControlName="languages" class="form-control" id="languages">
+            <div *ngIf="SMEForm.get('languages')?.invalid && (SMEForm.get('languages')?.dirty || SMEForm.get('languages')?.touched)"
+                 class="text-danger">Languages are required.</div>
           </div>
         </div>
 
@@ -166,7 +183,7 @@
                   data-bs-dismiss="modal">Cancel</button>
               </div>
               <div class="col-md-6 form-group">
-                <button type="button" class="btn btn-primary" (click)="submitSMEForm()">Submit</button>
+                <button type="button" class="btn btn-primary" [disabled]="SMEForm.invalid" (click)="submitSMEForm()">Submit</button>
               </div>
             </div>
           </div>

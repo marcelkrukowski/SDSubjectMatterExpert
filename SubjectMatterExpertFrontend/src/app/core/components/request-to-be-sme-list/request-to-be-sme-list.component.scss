@@ -60,11 +60,6 @@ body {
   }
 }
 
-// .pagination {
-//   text-align: right;
-//   font-size: 14px;
-// }
-
 .sme-card {
   border-radius: 15px;
   //border: 1px solid gray;
@@ -82,22 +77,6 @@ body {
   border-radius: 50%;
 }
 
-// h1 {
-//   font-size: 1.8rem;
-//   font-weight: 800;
-// }
-
-// h2 {
-//   font-size: 1rem;
-//   font-weight: 500;
-//   margin-bottom: 1rem;
-// }
-
-// .book-container {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-// }
 
 @media (max-width: 480px) {
   .sme-avatar {
@@ -111,38 +90,8 @@ body {
   h2 {
     font-size: 0.9rem;
   }
-
-  // .cards{
-  //   width: 80%;
-  //   margin-left: 8rem;
-  // }
 }
 
-// .pagination {
-//   display: flex;
-//   align-items: center;
-// }
-
-// .flex-container {
-//   flex-grow: 1;
-// }
-
-// .page-container {
-//   display: flex;
-// }
-
-// .options-container {
-//   min-width: 15vw;
-//   padding: 2rem;
-//   & label {
-//     font-weight: 500;
-//     color: #555D71;
-//     margin-bottom: 1rem;
-//   }
-//   & ng-select {
-//     margin-bottom: 1rem;
-//   }
-// }
 
 @media (max-width: 768px) {
 
@@ -186,24 +135,6 @@ body {
   .mobile-header {
     display: flex;
   }
-
-  // .options-container {
-  //   //visibility: hidden;
-  //   opacity: 0;
-  //   transform: translateY(-20px);
-  //   transition: visibility 0s linear 0.5s, opacity 0.5s ease, transform 0.5s ease;
-  //   position: absolute;
-  //   background: white;
-  //   width: 100vw;
-  //   box-shadow: 8px 8px 24px 0 rgba(66, 68, 90, 1);
-
-  //   &.visible {
-  //     visibility: visible;
-  //     opacity: 1;
-  //     transform: translateY(0);
-  //     transition-delay: 0s;
-  //   }
-  // }
 
   .page-container {
     flex-direction: column;

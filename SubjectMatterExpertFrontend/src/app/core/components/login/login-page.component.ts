@@ -32,7 +32,7 @@ export class LoginPageComponent {
           this.serviceStorageService.set('token', result.token)
           console.log(result.token);
           this.isLoading = false;
-          this.router.navigate(['/home']);
+          this.router.navigate(['/sme-list']);
         },
         error: (error: any) => {
           this.isLoading = false;

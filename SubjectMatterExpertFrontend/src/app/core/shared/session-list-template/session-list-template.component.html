@@ -5,13 +5,16 @@
                 <div class="card-body">
                     <p>Session Id: {{item.id}}</p>
                     <p>Trainees:
-                        <span *ngFor="let trainee of item.colleagues; let last = last">
-                            {{trainee.firstName}} {{trainee.lastName}}{{!last ? ', ' : ''}}
-                        </span>
+                        <span *ngFor="let uniqueName of getUniqueTraineeNames(item.colleagues); let last = last">
+                            {{uniqueName}}{{!last ? ', ' : ''}}
+                          </span>
                     </p>
                     <p>Topic: {{item.topic}}</p>
                     <p>Sub-Topic: {{item.subTopic}}</p>
                     <p>Description: {{item.description}}</p>
+                    <button class="btn btn-primary float-start" (click)="exportCsv(item.id)">
+                        Download
+                    </button>
                     <button class="btn btn-primary float-end" [routerLink]="['/edit-session-form', item.id]">
                             Edit
                     </button>
